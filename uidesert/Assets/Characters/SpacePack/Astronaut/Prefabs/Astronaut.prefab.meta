@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 05a74a5dbba233f4a9683ab6cd414e54
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 77402
+  packageName: Rigged Astronaut
+  packageVersion: 4.0
+  assetPath: Assets/Scenes/SpacePack/Astronaut/Prefabs/Astronaut.prefab
+  uploadId: 692720

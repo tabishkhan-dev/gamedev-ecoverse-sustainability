@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2841646c5e6718e4ab005a044996833a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 77402
+  packageName: Rigged Astronaut
+  packageVersion: 4.0
+  assetPath: Assets/Scenes/SpacePack/Astronaut/Materials/SpaceHDRI_02.mat
+  uploadId: 692720

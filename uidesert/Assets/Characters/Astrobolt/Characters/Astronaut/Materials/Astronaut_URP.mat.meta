@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f3153e75f5ae9064e94142ba6f56461e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 223222
+  packageName: Astronaut 3D Character
+  packageVersion: 1.0
+  assetPath: Assets/Zindeaxx/Characters/Astronaut/Materials/Astronaut_URP.mat
+  uploadId: 560595
