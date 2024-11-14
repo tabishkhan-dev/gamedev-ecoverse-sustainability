@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 187d92aebe4f8c54dbc146c245707ea6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 77402
+  packageName: Rigged Astronaut
+  packageVersion: 4.0
+  assetPath: Assets/Scenes/SpacePack/Astronaut/DemoScene/Astronaut/Main Camera Profile.asset
+  uploadId: 692720

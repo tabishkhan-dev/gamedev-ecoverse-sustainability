@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b3c6e9bbb5f3c6544a3bd8fb1b8beb1e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 223222
+  packageName: Astronaut 3D Character
+  packageVersion: 1.0
+  assetPath: Assets/Zindeaxx/Characters/Astronaut/Prefabs/AstronautPrefab.prefab
+  uploadId: 560595
