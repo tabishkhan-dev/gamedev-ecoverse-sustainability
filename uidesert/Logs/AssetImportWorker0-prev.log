@@ -1,29 +1,29 @@
 Using pre-set license
 Built from '6000.0/staging' branch; Version is '6000.0.26f1 (ccb7c73d2c02) revision 13416391'; Using compiler version '193933523'; Build Type 'Release'
-OS: 'Windows 11  (10.0.22631) 64bit CoreSingleLanguage' Language: 'en' Physical Memory: 16051 MB
+OS: 'Windows 11  (10.0.22631) 64bit CoreSingleLanguage' Language: 'en' Physical Memory: 15726 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
 
 COMMAND LINE ARGUMENTS:
-C:\Program Files\Unity\Hub\Editor\6000.0.26f1\Editor\Unity.exe
+C:\Program Files\Unity\Hub\Editor\6000.0.26f1-x86_64\Editor\Unity.exe
 -adb2
 -batchMode
 -noUpm
 -name
 AssetImportWorker0
 -projectPath
-C:/Users/khant/group05/uidesert
+C:/Users/Aindrila/group05/uidesert
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-57558
+62523
 -job-worker-count
-7
+5
 -background-job-worker-count
 8
 -asset-garbage-collectors
 1
-Successfully changed project path to: C:/Users/khant/group05/uidesert
-C:/Users/khant/group05/uidesert
+Successfully changed project path to: C:/Users/Aindrila/group05/uidesert
+C:/Users/Aindrila/group05/uidesert
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
     "memorysetup-bucket-allocator-granularity=16"
     "memorysetup-bucket-allocator-bucket-count=8"
@@ -59,13 +59,13 @@ C:/Users/khant/group05/uidesert
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [38560]  Target information:
+Player connection [15032]  Target information:
 
-Player connection [38560]  * "[IP] 192.168.1.2 [Port] 0 [Flags] 2 [Guid] 3209589534 [EditorId] 3209589534 [Version] 1048832 [Id] WindowsEditor(7,Tabish) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [15032]  * "[IP] 10.48.210.193 [Port] 0 [Flags] 2 [Guid] 2034882687 [EditorId] 2034882687 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-HG2AV7D) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [38560] Host joined multi-casting on [225.0.0.222:54997]...
-Player connection [38560] Host joined alternative multi-casting on [225.0.0.222:34997]...
-JobSystem: Creating JobQueue using job-worker-count value 7
+Player connection [15032] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [15032] Host joined alternative multi-casting on [225.0.0.222:34997]...
+JobSystem: Creating JobQueue using job-worker-count value 5
 [Physics::Module] Initialized fallback backend.
 [Physics::Module] Id: 0xdecafbad
 Library Redirect Path: Library/
@@ -75,60 +75,60 @@ Library Redirect Path: Library/
 [Physics::Module] SDK Version: 4.1.2
 [Physics::Module] Integration Version: 1.0.0
 [Physics::Module] Threading Mode: Multi-Threaded
-Refreshing native plugins compatible for Editor in 2.73 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 3.49 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 6000.0.26f1 (ccb7c73d2c02)
-[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.0.26f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Users/khant/group05/uidesert/Assets
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.0.26f1-x86_64/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/Aindrila/group05/uidesert/Assets
 GfxDevice: creating device client; kGfxThreadingModeNonThreaded
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
-    Renderer: NVIDIA GeForce RTX 3050 Ti Laptop GPU (ID=0x25a0)
-    Vendor:   NVIDIA
-    VRAM:     3962 MB
-    Driver:   32.0.15.5613
+    Renderer: AMD Radeon (TM) Graphics (ID=0x15e7)
+    Vendor:   ATI
+    VRAM:     7863 MB
+    Driver:   31.0.21912.3005
 Initialize mono
-Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.0.26f1/Editor/Data/Managed'
-Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.0.26f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
-Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.0.26f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56700
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.0.26f1-x86_64/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.0.26f1-x86_64/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.0.26f1-x86_64/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56352
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
-Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.0.26f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.006524 seconds.
-- Loaded All Assemblies, in  0.637 seconds
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.0.26f1-x86_64/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.005530 seconds.
+- Loaded All Assemblies, in  0.506 seconds
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.625 seconds
-Domain Reload Profiling: 1257ms
-	BeginReloadAssembly (240ms)
+- Finished resetting the current domain, in  0.583 seconds
+Domain Reload Profiling: 1085ms
+	BeginReloadAssembly (193ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (1ms)
-	RebuildCommonClasses (61ms)
-	RebuildNativeTypeToScriptingClass (24ms)
-	initialDomainReloadingComplete (82ms)
-	LoadAllAssembliesAndSetupDomain (224ms)
-		LoadAssemblies (237ms)
+	RebuildCommonClasses (45ms)
+	RebuildNativeTypeToScriptingClass (13ms)
+	initialDomainReloadingComplete (67ms)
+	LoadAllAssembliesAndSetupDomain (184ms)
+		LoadAssemblies (188ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (219ms)
-			TypeCache.Refresh (217ms)
-				TypeCache.ScanAssembly (191ms)
+		AnalyzeDomain (181ms)
+			TypeCache.Refresh (179ms)
+				TypeCache.ScanAssembly (163ms)
 			BuildScriptInfoCaches (0ms)
 			ResolveRequiredComponents (1ms)
-	FinalizeReload (626ms)
+	FinalizeReload (584ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (568ms)
+		SetupLoadedEditorAssemblies (519ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (55ms)
-			SetLoadedEditorAssemblies (10ms)
-			BeforeProcessingInitializeOnLoad (11ms)
-			ProcessInitializeOnLoadAttributes (389ms)
-			ProcessInitializeOnLoadMethodAttributes (101ms)
-			AfterProcessingInitializeOnLoad (3ms)
+			InitializePlatformSupportModulesInManaged (40ms)
+			SetLoadedEditorAssemblies (7ms)
+			BeforeProcessingInitializeOnLoad (9ms)
+			ProcessInitializeOnLoadAttributes (314ms)
+			ProcessInitializeOnLoadMethodAttributes (134ms)
+			AfterProcessingInitializeOnLoad (15ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (0ms)
@@ -136,139 +136,179 @@ Domain Reload Profiling: 1257ms
 Worker process is ready to serve import requests
 Import Worker Mode flag is 0x00
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  1.509 seconds
-Refreshing native plugins compatible for Editor in 0.91 ms, found 3 plugins.
+- Loaded All Assemblies, in  1.411 seconds
+Refreshing native plugins compatible for Editor in 1.60 ms, found 3 plugins.
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.336 seconds
-Domain Reload Profiling: 2838ms
-	BeginReloadAssembly (532ms)
+- Finished resetting the current domain, in  1.330 seconds
+Domain Reload Profiling: 2734ms
+	BeginReloadAssembly (567ms)
 		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (6ms)
+		DisableScriptedObjects (8ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (44ms)
+		CreateAndSetChildDomain (45ms)
 	RebuildCommonClasses (57ms)
-	RebuildNativeTypeToScriptingClass (16ms)
-	initialDomainReloadingComplete (50ms)
-	LoadAllAssembliesAndSetupDomain (846ms)
-		LoadAssemblies (630ms)
+	RebuildNativeTypeToScriptingClass (14ms)
+	initialDomainReloadingComplete (63ms)
+	LoadAllAssembliesAndSetupDomain (702ms)
+		LoadAssemblies (585ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (351ms)
-			TypeCache.Refresh (241ms)
-				TypeCache.ScanAssembly (215ms)
-			BuildScriptInfoCaches (88ms)
-			ResolveRequiredComponents (20ms)
-	FinalizeReload (1336ms)
+		AnalyzeDomain (303ms)
+			TypeCache.Refresh (214ms)
+				TypeCache.ScanAssembly (193ms)
+			BuildScriptInfoCaches (74ms)
+			ResolveRequiredComponents (13ms)
+	FinalizeReload (1331ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (931ms)
+		SetupLoadedEditorAssemblies (1018ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (3ms)
-			SetLoadedEditorAssemblies (7ms)
-			BeforeProcessingInitializeOnLoad (103ms)
-			ProcessInitializeOnLoadAttributes (668ms)
-			ProcessInitializeOnLoadMethodAttributes (138ms)
-			AfterProcessingInitializeOnLoad (12ms)
+			SetLoadedEditorAssemblies (8ms)
+			BeforeProcessingInitializeOnLoad (220ms)
+			ProcessInitializeOnLoadAttributes (674ms)
+			ProcessInitializeOnLoadMethodAttributes (99ms)
+			AfterProcessingInitializeOnLoad (14ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (12ms)
+		AwakeInstancesAfterBackupRestoration (7ms)
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
-Refreshing native plugins compatible for Editor in 1.23 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 1.80 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 198 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 5899 unused Assets / (4.1 MB). Loaded Objects now: 6693.
-Memory consumption went from 198.5 MB to 194.4 MB.
-Total: 12.305100 ms (FindLiveObjects: 0.949700 ms CreateObjectMapping: 0.821900 ms MarkObjects: 7.713000 ms  DeleteObjects: 2.818300 ms)
+Unloading 199 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 5904 unused Assets / (4.7 MB). Loaded Objects now: 6700.
+Memory consumption went from 195.0 MB to 190.3 MB.
+Total: 13.190200 ms (FindLiveObjects: 1.088900 ms CreateObjectMapping: 1.317800 ms MarkObjects: 6.897100 ms  DeleteObjects: 3.884800 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 14929.303327 seconds.
-  path: Assets/InputSystem_Actions.inputactions
-  artifactKey: Guid(052faaac586de48259a63d0c4782560b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/InputSystem_Actions.inputactions using Guid(052faaac586de48259a63d0c4782560b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '5e3f70f0364ded6a0e35bba7f5564b43') in 0.0394447 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 20
+  Time since last request: 65418.248515 seconds.
+  path: Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/Animations/HumanM@Run01_Forward.fbx
+  artifactKey: Guid(5b9f2116e8d5baa44800f37488936054) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/Animations/HumanM@Run01_Forward.fbx using Guid(5b9f2116e8d5baa44800f37488936054) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'b619afacfecd3494e7451591aebc2cba') in 0.0507585 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 113
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000028 seconds.
-  path: Assets/desertskybox.mat
-  artifactKey: Guid(f20a631256ef109869df7e6d08a75682) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/desertskybox.mat using Guid(f20a631256ef109869df7e6d08a75682) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'a5571c61c5fd7d933622205a341bb646') in 0.8007902 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+  Time since last request: 228.027872 seconds.
+  path: Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/_DemoScene/AnimatorControllers/PlayableCharacterDummy02.overrideController
+  artifactKey: Guid(1821e5d6b0dd856428da7fa42f77ed24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/_DemoScene/AnimatorControllers/PlayableCharacterDummy02.overrideController using Guid(1821e5d6b0dd856428da7fa42f77ed24) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'bec2cbe44b4756a5dd5ec7e077a150f3') in 0.0336895 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 126
 
 ========================================================================
 Received Import Request.
-  Time since last request: 13879.284295 seconds.
-  path: Assets/Settings/Mobile_Renderer.asset
-  artifactKey: Guid(65bc7dbf4170f435aa868c779acfb082) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Settings/Mobile_Renderer.asset using Guid(65bc7dbf4170f435aa868c779acfb082) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'c89e408a71ab98678fb4e8d664924bb0') in 0.2951004 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+  Time since last request: 118.962776 seconds.
+  path: Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/Animations/Male/Movement/HumanM@Fall01.fbx
+  artifactKey: Guid(d4f295b55050f1c4eb379ec3b6065e52) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/Animations/Male/Movement/HumanM@Fall01.fbx using Guid(d4f295b55050f1c4eb379ec3b6065e52) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '20f25eabbbd4674ed5d03940dcd2be91') in 0.0054415 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 113
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.002801 seconds.
-  path: Assets/Settings/PC_RPAsset.asset
-  artifactKey: Guid(4b83569d67af61e458304325a23e5dfd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Settings/PC_RPAsset.asset using Guid(4b83569d67af61e458304325a23e5dfd) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '91af3463924372b8f3f2f4939a1f1e03') in 0.0038417 seconds
+  Time since last request: 0.000026 seconds.
+  path: Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/Animations/Male/Movement/HumanM@Jump01 [RM].fbx
+  artifactKey: Guid(b0464a78fb8d2f34ca8c7b09bf4f08c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/Animations/Male/Movement/HumanM@Jump01 [RM].fbx using Guid(b0464a78fb8d2f34ca8c7b09bf4f08c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '43658a39e3644bdde5ccaa4866ff0302') in 0.0065236 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 113
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.954594 seconds.
+  path: Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/Models/BasicMotions_DummyModel_F.fbx
+  artifactKey: Guid(56ca56168a6cb9b45924e7b4cb4c9cb4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/Models/BasicMotions_DummyModel_F.fbx using Guid(56ca56168a6cb9b45924e7b4cb4c9cb4) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '0a7d97442c3df6af16fbe085af10ed67') in 0.590526 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 124
+
+========================================================================
+Received Import Request.
+  Time since last request: 46.774005 seconds.
+  path: Assets/Characters/Astrobolt/Characters/Astronaut
+  artifactKey: Guid(8b1aa94aea8e51442bffa24d434f16ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/Astrobolt/Characters/Astronaut using Guid(8b1aa94aea8e51442bffa24d434f16ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '6c0554cebce204d132c774847fc13482') in 0.0011773 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000046 seconds.
-  path: Assets/Settings/Mobile_RPAsset.asset
-  artifactKey: Guid(5e6cbd92db86f4b18aec3ed561671858) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Settings/Mobile_RPAsset.asset using Guid(5e6cbd92db86f4b18aec3ed561671858) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '48422a85c2c122c07104640ff3264d51') in 0.031001 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
-
-========================================================================
-Received Import Request.
-  Time since last request: 32.855550 seconds.
-  path: Assets/Scenes/SpacePack/Astronaut/Posed.fbx
-  artifactKey: Guid(4fb9690a80a0bbe40adfc6364de9d3e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/SpacePack/Astronaut/Posed.fbx using Guid(4fb9690a80a0bbe40adfc6364de9d3e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '8a57e708503009afd6981791a4cf728a') in 10.0162945 seconds
+  Time since last request: 15.538615 seconds.
+  path: Assets/astroboltanimator.controller
+  artifactKey: Guid(aacb82f3154c32e4cbdda6c715e20a9d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/astroboltanimator.controller using Guid(aacb82f3154c32e4cbdda6c715e20a9d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'a3fb0720ba3854313c417a65d863717e') in 0.0042391 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 15
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000104 seconds.
-  path: Assets/Scenes/SpacePack/Astronaut/Textures/Astronaut_M.png
-  artifactKey: Guid(6ce3b84e93fa56844a263ac416b72b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/SpacePack/Astronaut/Textures/Astronaut_M.png using Guid(6ce3b84e93fa56844a263ac416b72b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '6a061213745059552ad7ae11c9ce4ade') in 0.1337252 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+  Time since last request: 210.822278 seconds.
+  path: Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/Animations/Male/Movement/Sprint/HumanM@Sprint01_Forward.fbx
+  artifactKey: Guid(357a014fc50a6ae4aa9ea8347010fb60) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/Animations/Male/Movement/Sprint/HumanM@Sprint01_Forward.fbx using Guid(357a014fc50a6ae4aa9ea8347010fb60) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '821aa4268d195859590b0c29dbb71f6d') in 0.0038797 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 113
 
 ========================================================================
 Received Import Request.
-  Time since last request: 51.634374 seconds.
-  path: Assets/Characters/SpacePack/Astronaut/DemoScene/Astronaut/Point Light Profile.asset
-  artifactKey: Guid(445bf8f1ca18d4f47bf45dadab04f3a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Characters/SpacePack/Astronaut/DemoScene/Astronaut/Point Light Profile.asset using Guid(445bf8f1ca18d4f47bf45dadab04f3a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '785ef669d4e713eac4c77e27c5e26062') in 0.0045911 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+  Time since last request: 561.777754 seconds.
+  path: Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/Animations/Male/Movement/Run/HumanM@Run01_BackwardLeft.fbx
+  artifactKey: Guid(5725d37141b42f141bd02865887607b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/Animations/Male/Movement/Run/HumanM@Run01_BackwardLeft.fbx using Guid(5725d37141b42f141bd02865887607b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '7534303f88f9801b889bf1bdeb08cd1f') in 0.0060415 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 113
 
 ========================================================================
 Received Import Request.
-  Time since last request: 59.043478 seconds.
-  path: Assets/Characters/SpacePack/Astronaut/Materials/SpaceHDRI_02.mat
-  artifactKey: Guid(2841646c5e6718e4ab005a044996833a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Characters/SpacePack/Astronaut/Materials/SpaceHDRI_02.mat using Guid(2841646c5e6718e4ab005a044996833a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '11e0af95df42e2814546a931386cf26d') in 0.2317001 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+  Time since last request: 0.000040 seconds.
+  path: Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/Animations/Male/Movement/Run/HumanM@Run01_Right.fbx
+  artifactKey: Guid(bf1ae9d142e46c44f9f84cb41f729eab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/Animations/Male/Movement/Run/HumanM@Run01_Right.fbx using Guid(bf1ae9d142e46c44f9f84cb41f729eab) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'f92885df493c97ffe6334fe823fc53a6') in 0.0074329 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 113
 
 ========================================================================
-Received Import Request.
-  Time since last request: 0.000039 seconds.
-  path: Assets/Characters/SpacePack/Astronaut/Materials/SpaceHDRI_05.mat
-  artifactKey: Guid(3161053fbbf0e0042a27050787434c9e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Characters/SpacePack/Astronaut/Materials/SpaceHDRI_05.mat using Guid(3161053fbbf0e0042a27050787434c9e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '350609ae346f89cc5e80a6c6085ac1f0') in 0.0673831 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+Received Prepare
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  1.102 seconds
+Refreshing native plugins compatible for Editor in 1.32 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.269 seconds
+Domain Reload Profiling: 2368ms
+	BeginReloadAssembly (336ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (34ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (106ms)
+	RebuildCommonClasses (40ms)
+	RebuildNativeTypeToScriptingClass (13ms)
+	initialDomainReloadingComplete (36ms)
+	LoadAllAssembliesAndSetupDomain (674ms)
+		LoadAssemblies (535ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (274ms)
+			TypeCache.Refresh (7ms)
+				TypeCache.ScanAssembly (0ms)
+			BuildScriptInfoCaches (245ms)
+			ResolveRequiredComponents (18ms)
+	FinalizeReload (1269ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (925ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (3ms)
+			SetLoadedEditorAssemblies (8ms)
+			BeforeProcessingInitializeOnLoad (246ms)
+			ProcessInitializeOnLoadAttributes (583ms)
+			ProcessInitializeOnLoadMethodAttributes (72ms)
+			AfterProcessingInitializeOnLoad (13ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (18ms)
+Refreshing native plugins compatible for Editor in 1.32 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 23 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 5902 unused Assets / (4.9 MB). Loaded Objects now: 6751.
+Memory consumption went from 193.9 MB to 189.0 MB.
+Total: 11.496000 ms (FindLiveObjects: 0.787900 ms CreateObjectMapping: 1.526700 ms MarkObjects: 5.983000 ms  DeleteObjects: 3.197600 ms)
 
-========================================================================
-Received Import Request.
-  Time since last request: 7.399791 seconds.
-  path: Assets/Characters/SpacePack/Astronaut/Textures/SpaceHDRI_02.png
-  artifactKey: Guid(1e85f642487d6d94997c9d96888154d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Characters/SpacePack/Astronaut/Textures/SpaceHDRI_02.png using Guid(1e85f642487d6d94997c9d96888154d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '778ab8e380676a9e1c5c00ebe44d8e49') in 0.1470114 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
+Prepare: number of updated asset objects reloaded= 0
 Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
 AssetImportWorker is now disconnected from the server
 Process exiting
