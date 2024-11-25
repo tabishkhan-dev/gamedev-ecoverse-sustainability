@@ -70,6 +70,7 @@
     <Compile Include="Assets\astronaut_controller.cs" />
     <Compile Include="Assets\Characters\Astrobolt\Characters\Astronaut\Model\Basic Motions\_DemoScene\Scripts\BasicMotionsAnimatorParameterRemover.cs" />
     <Compile Include="Assets\Characters\Astrobolt\Characters\Astronaut\Model\Basic Motions\_DemoScene\Scripts\BasicMotionsCharacterController.cs" />
+    <Compile Include="Assets\4_Type_Rocks\rocks_obstacle.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Characters\Astrobolt\Characters\Astronaut\Model\Basic Motions\_DemoScene\Scripts\BasicMotionsCamera.cs" />
   </ItemGroup>
