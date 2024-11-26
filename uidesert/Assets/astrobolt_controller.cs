@@ -18,21 +18,28 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Initialize movement speed to 0 (Idle)
-        float currentSpeed = 0f;
+        Vector3 moveDirection = Vector3.zero;
+
+        // Get horizontal input (for strafing left/right)
+        float horizontalInput = Input.GetAxis("Horizontal"); // -1 for left, 1 for right
 
         // Check for sprinting input (e.g., Left Shift key)
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            currentSpeed = sprintSpeed; // Set speed to sprint speed
+            moveDirection += Vector3.forward; // Add forward movement
+            moveDirection += Vector3.right * horizontalInput; // Add horizontal movement (left/right)
+            
+            // Normalize the direction to maintain consistent speed
+            moveDirection = moveDirection.normalized * sprintSpeed * Time.deltaTime;
+
+            // Apply movement and trigger sprint animation
+            transform.Translate(moveDirection, Space.World);
             animator.SetBool("isSprinting", true); // Trigger sprint animation
         }
         else
         {
             animator.SetBool("isSprinting", false); // Remain idle
         }
-
-        // Move the character forward at the determined speed
-        transform.Translate(Vector3.forward * currentSpeed * Time.deltaTime);
 
         // Trigger the Jump animation and apply jump force when the spacebar is pressed
         if (Input.GetButtonDown("Jump") && isGrounded)
@@ -52,4 +59,3 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
-
