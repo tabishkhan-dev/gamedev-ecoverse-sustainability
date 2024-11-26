@@ -1,8 +1,9 @@
 using UnityEngine;
 
+
 public class astronaut_controller : MonoBehaviour
 {
-    private Animator animator;
+   private Animator animator;
 
     void Start()
     {
@@ -26,5 +27,3 @@ public class astronaut_controller : MonoBehaviour
         }
     }
 }
-
-
