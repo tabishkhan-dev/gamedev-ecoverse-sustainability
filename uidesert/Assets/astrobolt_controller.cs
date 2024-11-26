@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float sprintSpeed = 10f; // Speed when sprinting
+    public float sprintSpeed = 1500f; // Speed when sprinting
     public float jumpForce = 7f;   // Jumping force
     private bool isGrounded = true; // Check if the player is on the ground
 
