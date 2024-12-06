@@ -438,6 +438,11 @@
 "Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/_DemoScene/Scripts/BasicMotionsAnimatorStateChanger.cs"
 "Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/_DemoScene/Scripts/BasicMotionsCamera.cs"
 "Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/_DemoScene/Scripts/BasicMotionsCharacterController.cs"
+"Assets/Characters/SpacePack/Scripts/AudioManager.cs"
+"Assets/Characters/SpacePack/Scripts/Autoscroll.cs"
+"Assets/Characters/SpacePack/Scripts/ExitGame.cs"
+"Assets/Characters/SpacePack/Scripts/GameMenuManager.cs"
+"Assets/Characters/SpacePack/Scripts/GamePlayManager.cs"
 -langversion:9.0
 /deterministic
 /optimize+
