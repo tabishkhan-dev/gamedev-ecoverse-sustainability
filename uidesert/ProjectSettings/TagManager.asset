@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - Ground
-  - solarpanel
+  - SolarPanel
   layers:
   - Default
   - TransparentFX
