@@ -5968,7 +5968,7 @@ Transform:
   m_GameObject: {fileID: 253745167}
   serializedVersion: 2
   m_LocalRotation: {x: 0.1447834, y: 0.09554405, z: -0.014047561, w: 0.9847395}
-  m_LocalPosition: {x: 656.31494, y: 15.3, z: -45.196278}
+  m_LocalPosition: {x: 656.31494, y: 14.6, z: -45.096275}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6269,7 +6269,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.14478344, y: 0.09554406, z: -0.01404757, w: 0.9847395}
-  m_LocalPosition: {x: 656.31494, y: 15.3, z: -45.196278}
+  m_LocalPosition: {x: 656.31494, y: 14.6, z: -45.096275}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12770,13 +12770,13 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: b1d81172552bd1a46a8aef00f1783a6d, type: 3}
   m_Resource: {fileID: 8300000, guid: b1d81172552bd1a46a8aef00f1783a6d, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.007
+  m_Volume: 0.566
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 220
+  Priority: 196
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -54277,11 +54277,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7034902746207181413, guid: b3c6e9bbb5f3c6544a3bd8fb1b8beb1e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.3
+      value: -0.4
       objectReference: {fileID: 0}
     - target: {fileID: 7034902746207181413, guid: b3c6e9bbb5f3c6544a3bd8fb1b8beb1e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -20.5
+      value: -20.4
       objectReference: {fileID: 0}
     - target: {fileID: 7034902746207181413, guid: b3c6e9bbb5f3c6544a3bd8fb1b8beb1e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -54338,9 +54338,6 @@ PrefabInstance:
       addedObject: {fileID: 1671586242}
     - targetCorrespondingSourceObject: {fileID: 7704302624302498015, guid: b3c6e9bbb5f3c6544a3bd8fb1b8beb1e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1671586246}
-    - targetCorrespondingSourceObject: {fileID: 7704302624302498015, guid: b3c6e9bbb5f3c6544a3bd8fb1b8beb1e, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1671586247}
     - targetCorrespondingSourceObject: {fileID: 7704302624302498015, guid: b3c6e9bbb5f3c6544a3bd8fb1b8beb1e, type: 3}
       insertIndex: -1
@@ -54358,8 +54355,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b34de2cd50f03fa44a86194e8f2c01af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprintSpeed: 20
-  jumpForce: 10
+  moveSpeed: 7
+  sprintSpeed: 22
+  jumpForce: 20
+  rotationAngle: 30
 --- !u!136 &1671586242
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -54406,7 +54405,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 2
@@ -54415,22 +54414,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7034902746207181413, guid: b3c6e9bbb5f3c6544a3bd8fb1b8beb1e, type: 3}
   m_PrefabInstance: {fileID: 1671586237}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1671586246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1508201049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc7c0672af5b3c14286f39a7bae10b9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 100
-  healthBarFill: {fileID: 169280430}
-  damageFromRock: 5
 --- !u!114 &1671586247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54438,7 +54421,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508201049}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7ae39b7c1477a641a61d21d4d148ab1, type: 3}
   m_Name: 
