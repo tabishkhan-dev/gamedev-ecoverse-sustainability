@@ -372,6 +372,7 @@
 -r:"Library/PackageCache/com.unity.nuget.mono-cecil/Mono.Cecil.dll"
 -r:"Library/PackageCache/com.unity.visualscripting/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/PPv2URPConverters.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aE.dag/Unity.2D.Sprite.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.AI.Navigation.Editor.ConversionSystem.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.AI.Navigation.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.AI.Navigation.ref.dll"
@@ -427,11 +428,11 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/6000.0.26f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"C:/Program Files/Unity/Hub/Editor/6000.0.26f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 -analyzer:"C:/Program Files/Unity/Hub/Editor/6000.0.26f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
-"Assets/4_Type_Rocks/HealthManager.cs"
 "Assets/4_Type_Rocks/RockCollide.cs"
 "Assets/4_Type_Rocks/RockFragment.cs"
 "Assets/4_Type_Rocks/RockRolling.cs"
 "Assets/4_Type_Rocks/rocks_obstacle.cs"
+"Assets/4_Type_Rocks/solarpanelCollection.cs"
 "Assets/astrobolt_controller.cs"
 "Assets/astronaut_controller.cs"
 "Assets/Characters/Astrobolt/Characters/Astronaut/Model/Basic Motions/_DemoScene/Scripts/BasicMotionsAnimatorParameterRemover.cs"
@@ -443,6 +444,7 @@
 "Assets/Characters/SpacePack/Scripts/ExitGame.cs"
 "Assets/Characters/SpacePack/Scripts/GameMenuManager.cs"
 "Assets/Characters/SpacePack/Scripts/GamePlayManager.cs"
+"Assets/healthbar/healthmaneger.cs"
 -langversion:9.0
 /deterministic
 /optimize+
