@@ -103,3 +103,59 @@ der
 uidesert/Build/
 uidesert/Library/
 uidesert/Temp/
+
+# Unity specific folders inside uidesert
+uidesert/[Ll]ibrary/
+uidesert/[Tt]emp/
+uidesert/[Ll]ogs/
+uidesert/[Uu]serSettings/
+uidesert/[Mm]emoryCaptures/
+
+# Ignore Unity build folders
+uidesert/[Bb]uild/
+uidesert/[Oo]bj/
+uidesert/Cache/
+
+# Visual Studio and Rider project files
+uidesert/.vscode/
+uidesert/.idea/
+*.csproj
+*.sln
+*.suo
+*.userprefs
+*.user
+*.unityproj
+*.pidb
+*.booproj
+*.VC.db
+*.VC.opendb
+
+# Crash, debug, and temp files
+uidesert/*.log
+uidesert/*.stacktrace
+uidesert/*.crash
+
+# Compiled files
+uidesert/*.dll
+uidesert/*.exe
+uidesert/*.so
+uidesert/*.dylib
+uidesert/*.a
+uidesert/*.lib
+uidesert/*.apk
+uidesert/*.jar
+
+# Unity auto-generated files
+uidesert/LightmapSnapshot.asset
+uidesert/LightingData.asset
+
+# Ignore Packed builds
+uidesert/Builds/
+
+# Ignore asset metadata files
+*.meta
+
+# Ignore system and cache files
+.DS_Store
+Thumbs.db
+uidesert/Cache/
