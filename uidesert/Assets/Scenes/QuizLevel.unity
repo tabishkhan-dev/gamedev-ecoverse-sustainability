@@ -178,8 +178,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 65bace962371652429a40b23502045fb, type: 2}
-  m_sharedMaterial: {fileID: -59799412763009949, guid: 65bace962371652429a40b23502045fb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 35ee85037006a694f95ac7420c90be7f, type: 2}
+  m_sharedMaterial: {fileID: -5795120798176582953, guid: 35ee85037006a694f95ac7420c90be7f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -373,7 +373,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 41d7758dbbdcafa408dc05b08a4bb0c1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6d726c8a2252a774cb38712abf90836d, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -571,8 +571,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: NewText
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c76471b7e76c83d4bbabbb516578182c, type: 2}
-  m_sharedMaterial: {fileID: 4402653566833849117, guid: c76471b7e76c83d4bbabbb516578182c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 470763a169075e44fb40d2790bb776d5, type: 2}
+  m_sharedMaterial: {fileID: -59799412763009949, guid: 470763a169075e44fb40d2790bb776d5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -705,7 +705,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cfc112d7eb22c5f4182ec8b91be2eed4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f776f327fd65f8b4e922569d5ca58557, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -780,7 +780,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a1ec2bf35272bc44d9e29fc11ffaa972, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 888b033729f45b84487a80a0b679ac71, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1014,8 +1014,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 93aeb4d5aa52927459c130c9e98a3771, type: 2}
-  m_sharedMaterial: {fileID: -8622681421323746214, guid: 93aeb4d5aa52927459c130c9e98a3771, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f2630bd21bf1f074e9d115f70da6021c, type: 2}
+  m_sharedMaterial: {fileID: 4078584160341762578, guid: f2630bd21bf1f074e9d115f70da6021c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1780,10 +1780,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1496629988}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d9db2149c9380a47b18e2bb02f71b7e, type: 3}
+  m_Script: {fileID: 11500000, guid: f811d07efa9fe0b48b59503f6e3b9c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quizData: {fileID: 11400000, guid: 7fcf7347cfad07a468ab5e3db3928f08, type: 2}
+  quizData: {fileID: 11400000, guid: 6f2b51a617839154fbd43af0db61bfeb, type: 2}
   questionText: {fileID: 63101966}
   answerInput: {fileID: 1270532090}
   feedbackText: {fileID: 2046099937}
@@ -1795,9 +1795,9 @@ MonoBehaviour:
   wrongSymbol: {fileID: 623287274}
   submitButtonText: {fileID: 1461644433}
   proceedButtonText: {fileID: 1572197460}
-  quizBackgroundMusic: {fileID: 8300000, guid: 048bacc2c927a734d8015a723a821eda, type: 3}
-  correctAnswerSound: {fileID: 8300000, guid: 4aec3c4587ae1024bab05c68f325c8ce, type: 3}
-  wrongAnswerSound: {fileID: 8300000, guid: 547d5746947aabb4a89fa3d79cb48c29, type: 3}
+  quizBackgroundMusic: {fileID: 8300000, guid: 0e3007ced5b5fb642be11609c4b35942, type: 3}
+  correctAnswerSound: {fileID: 8300000, guid: e0ef03a94f1412547a269e66d052a20e, type: 3}
+  wrongAnswerSound: {fileID: 8300000, guid: 17541371e84c86b47918cd134e2a9cf8, type: 3}
   nextGameSceneName: SampleScene
 --- !u!4 &1496629990
 Transform:
