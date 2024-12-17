@@ -153,7 +153,7 @@ uidesert/LightingData.asset
 uidesert/Builds/
 
 # Ignore asset metadata files
-*.meta
+# *.meta
 
 # Ignore system and cache files
 .DS_Store
