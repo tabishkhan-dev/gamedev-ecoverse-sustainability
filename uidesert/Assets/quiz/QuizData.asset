@@ -9,46 +9,47 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09a2351a6d408234d9fa97bfe0f7e7f3, type: 3}
+  m_Script: {fileID: 11500000, guid: e5402cb3d24496644a9a4e3321da9340, type: 3}
   m_Name: QuizData
   m_EditorClassIdentifier: 
   questions:
   - questionText: "\U0001F6E9\uFE0F\u2615 \U0001F333\U0001F333\\nWhat should we do?"
     correctAnswers:
     - plant trees
-  - questionText: "REDUCE \U0001F697\U0001F9B4 \U0001F463\\nWhat is this about?"
+  - questionText: "REDUCE \U0001F697\U0001F9B4  \U0001F463\\nWhat is this about?"
     correctAnswers:
     - carbon footprint
-  - questionText: "RE \U0001F6B2   \u2795\u2705 \\nGuess me?"
-    correctAnswers:
-    - recycle plastic
-  - questionText: "\U0001F6B0\U0001F6BF  L I F E \\n Guess the quote?"
-    correctAnswers:
-    - water is life
-  - questionText: "RNWTRAIRAE VTSGEHRIAN \U0001F327\uFE0F\U0001F33F   \\n Unscramble
-      this"
-    correctAnswers:
-    - rainwater harvesting
-  - questionText: <size=116>Waste</size><size=80>Waste</size><size=40>Waste</size><size=25>Waste</size>
+  - questionText: <size=180>Waste</size> <size=100>Waste</size> <size=60>Waste</size>
+      <size=30>Waste</size>
     correctAnswers:
     - reduce waste
     - waste reduction
-  - questionText: "\U0001F914  \U0001F49A \U0001F3AC \U0001F49A \\n guess the quote?"
+  - questionText: "\U0001F914  \U0001F49A \U0001F3AC \U0001F49Aguess the quote?"
     correctAnswers:
     - think green act green
   - questionText: "\"I\u2019m clean and green, a planet\u2019s dream,  \\n I work
-      with the sun, wind, and stream.  What am I?\""
+      with the sun, wind, and stream\". What am I?     "
     correctAnswers:
     - renewable energy
-  - questionText: "I don\u2019t drink gas, I don\u2019t need a snack,  \\n Just plug
-      me in, and I\u2019m back on track.  What am I? "
+  - questionText: "\"I don\u2019t drink gas, I don\u2019t need a snack,  \\n Just
+      plug me in, and I\u2019m back on track. \"What am I? "
     correctAnswers:
     - EV
     - electric car
     - electric vehicle
-  - questionText: "PTCRETO ILFEWDLI \U0001FAAC\U0001F981\\nUnscramble this"
+  - questionText: "\u2B07   \U0001F4A7 \u2796 \\n what should one do?"
+    correctAnswers:
+    - save water
+  - questionText: "\U0001F6B0\U0001F6BF L I F E \\n guess the quote?"
+    correctAnswers:
+    - water is life
+  - questionText: "\U0001F6B2\u21A9  \u2795\u2705 \\n guess me?"
+    correctAnswers:
+    - recycle plastic
+  - questionText: "RNWTRAIRAE VTSGEHRIAN \U0001F327\uFE0F\U0001F33F\\nUnscramble
+      this"
+    correctAnswers:
+    - rainwater harvesting
+  - questionText: "PTCRETO ILFEWDLI \U0001FAAC\U0001F981 \\nUnscramble this"
     correctAnswers:
     - protect wildlife
-  - questionText: " NERGE DULIIGBN \U0001F7E2\U0001F306\\nUnscramble this"
-    correctAnswers:
-    - green building
