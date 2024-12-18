@@ -16,7 +16,7 @@ MonoBehaviour:
   - questionText: "\U0001F6E9\uFE0F\u2615 \U0001F333\U0001F333\\nWhat should we do?"
     correctAnswers:
     - plant trees
-  - questionText: "REDUCE \U0001F697\U0001F9B4  \U0001F463\\nWhat is this about?"
+  - questionText: "REDUCE \U0001F697\U0001F9B4 \U0001F463\\nWhat is this about?"
     correctAnswers:
     - carbon footprint
   - questionText: <size=180>Waste</size> <size=100>Waste</size> <size=60>Waste</size>
@@ -24,20 +24,20 @@ MonoBehaviour:
     correctAnswers:
     - reduce waste
     - waste reduction
-  - questionText: "\U0001F914  \U0001F49A \U0001F3AC \U0001F49Aguess the quote?"
+  - questionText: "\U0001F914\U0001F49A\U0001F3AC\U0001F49A \\nguess the quote?"
     correctAnswers:
     - think green act green
-  - questionText: "\"I\u2019m clean and green, a planet\u2019s dream,  \\n I work
-      with the sun, wind, and stream\". What am I?     "
+  - questionText: "<size=60>\"I\u2019m clean and green, \\n a planet\u2019s dream,\\n
+      I work with the sun, wind, \\nand stream\". What am I?</size>"
     correctAnswers:
     - renewable energy
-  - questionText: "\"I don\u2019t drink gas, I don\u2019t need a snack,  \\n Just
-      plug me in, and I\u2019m back on track. \"What am I? "
+  - questionText: "<size=60>\"I don\u2019t drink gas, \\nI don\u2019t need a snack,
+      \\n Just plug me in, and \\n I\u2019m back on track.\"What am I? </size>"
     correctAnswers:
     - EV
     - electric car
     - electric vehicle
-  - questionText: "\u2B07   \U0001F4A7 \u2796 \\n what should one do?"
+  - questionText: "\u2B07\U0001F4A7\\n what should one do?"
     correctAnswers:
     - save water
   - questionText: "\U0001F6B0\U0001F6BF L I F E \\n guess the quote?"
@@ -50,6 +50,6 @@ MonoBehaviour:
       this"
     correctAnswers:
     - rainwater harvesting
-  - questionText: "PTCRETO ILFEWDLI \U0001FAAC\U0001F981 \\nUnscramble this"
+  - questionText: "PTCRETO ILFEWDLI\U0001FAAC\U0001F981 \\nUnscramble this"
     correctAnswers:
     - protect wildlife
