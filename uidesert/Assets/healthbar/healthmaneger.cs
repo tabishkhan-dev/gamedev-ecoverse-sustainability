@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video; // Import Video namespace
 
 public class HealthManager : MonoBehaviour
 {
@@ -8,8 +9,10 @@ public class HealthManager : MonoBehaviour
     public Image healthBarFill;
     public int damageFromRock = 20; // Amount of damage taken per collision
     public AudioClip playerHitSound; // "Aah" sound clip
+    public AudioClip gameOverSound; // Sound to play on Game Over
 
-    private AudioSource audioSource; // Audio source for playing the "aah" sound
+    private AudioSource audioSource; // Audio source for playing sounds
+    private bool isGameOver = false; // To ensure Game Over logic is executed once
 
     void Start()
     {
@@ -23,15 +26,15 @@ public class HealthManager : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
         }
 
-        audioSource.playOnAwake = false; // Prevent the sound from playing on spawn
+        audioSource.playOnAwake = false; // Prevent sound from playing on spawn
         audioSource.spatialBlend = 0f;   // Set to 2D sound
-        audioSource.volume = 1f;        // Ensure the volume is not muted
-
-        
+        audioSource.volume = 1f;        // Ensure volume is not muted
     }
 
     public void TakeDamage(int damageAmount)
     {
+        if (isGameOver) return; // Stop processing if the game is already over
+
         currentHealth -= damageAmount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHealthBar();
@@ -63,8 +66,139 @@ public class HealthManager : MonoBehaviour
 
     void Die()
     {
+        if (isGameOver) return; // Ensure this logic runs only once
+        isGameOver = true;
+
         Debug.Log("Player Died!");
-        // Add death handling logic here
+
+        // Stop all background activities
+        StopAllBackgroundActivities();
+
+        // Play the Game Over sound
+        if (gameOverSound != null)
+        {
+            audioSource.PlayOneShot(gameOverSound);
+        }
+
+        // Display the Game Over video
+        PlayGameOverVideo();
+
+        // Additional logic like restarting or returning to the menu can be added here
+    }
+
+    void PlayGameOverVideo()
+    {
+        Debug.Log("Initializing Game Over video...");
+    
+        // Create a new GameObject for the VideoPlayer
+        GameObject videoPlayerObject = new GameObject("GameOverVideoPlayer");
+    
+        // Add a VideoPlayer component to the GameObject
+        VideoPlayer videoPlayer = videoPlayerObject.AddComponent<VideoPlayer>();
+    
+        // Set the video path (ensure the video is in the StreamingAssets folder)
+        string videoPath = Application.streamingAssetsPath + "/Game Over.mp4";
+        Debug.Log("Video path: " + videoPath);
+        videoPlayer.url = videoPath;
+    
+        // Create a Render Texture for the video
+        RenderTexture renderTexture = new RenderTexture(Screen.width, Screen.height, 0);
+        renderTexture.Create();
+    
+        // Assign the Render Texture to the VideoPlayer
+        videoPlayer.targetTexture = renderTexture;
+    
+        // Create a new UI Image to display the Render Texture
+        GameObject rawImageObject = new GameObject("GameOverRawImage");
+        UnityEngine.UI.RawImage rawImage = rawImageObject.AddComponent<UnityEngine.UI.RawImage>();
+    
+        // Set the Render Texture as the source for the RawImage
+        rawImage.texture = renderTexture;
+    
+        // Attach the RawImage to a Canvas for full-screen display
+        Canvas canvas = Object.FindFirstObjectByType<Canvas>();
+        if (canvas == null)
+        {
+            // Create a Canvas if one doesn't exist
+            GameObject canvasObject = new GameObject("GameOverCanvas");
+            canvas = canvasObject.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvasObject.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            canvasObject.AddComponent<GraphicRaycaster>();
+        }
+    
+        rawImageObject.transform.SetParent(canvas.transform, false);
+        rawImage.rectTransform.anchorMin = Vector2.zero; // Bottom-left corner
+        rawImage.rectTransform.anchorMax = Vector2.one;  // Top-right corner
+        rawImage.rectTransform.offsetMin = Vector2.zero; // No offset
+        rawImage.rectTransform.offsetMax = Vector2.zero; // No offset
+    
+        // Configure VideoPlayer
+        videoPlayer.aspectRatio = VideoAspectRatio.Stretch;
+        videoPlayer.isLooping = false;
+    
+        // Attach event listeners for debugging
+        videoPlayer.prepareCompleted += (vp) =>
+        {
+            Debug.Log("Game Over video prepared, starting playback...");
+            vp.Play();
+        };
+    
+        videoPlayer.errorReceived += (vp, msg) =>
+        {
+            Debug.LogError("VideoPlayer Error: " + msg);
+        };
+    
+        videoPlayer.loopPointReached += (vp) =>
+        {
+            Debug.Log("Game Over video finished playing.");
+        };
+    
+        // Prepare the video
+        videoPlayer.Prepare();
+    }
+
+
+    
+    void StopAllBackgroundActivities()
+    {
+        // Stop all sounds
+        var allAudioSources = Object.FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
+        foreach (var source in allAudioSources)
+        {
+            source.Stop();
+        }
+    
+        // Disable all rock interactions
+        var rocks = Object.FindObjectsByType<RockCollisionHandler>(FindObjectsSortMode.None);
+        foreach (var rock in rocks)
+        {
+            rock.enabled = false; // Disable collision handling on rocks
+        }
+    
+        // Stop all rigidbody-based physics (e.g., rocks falling)
+        var allRigidbodies = Object.FindObjectsByType<Rigidbody>(FindObjectsSortMode.None);
+        foreach (var rb in allRigidbodies)
+        {
+            rb.isKinematic = true; // Disable physics simulation
+        }
+    
+        // Disable all animations
+        var allAnimators = Object.FindObjectsByType<Animator>(FindObjectsSortMode.None);
+        foreach (var animator in allAnimators)
+        {
+            animator.enabled = false; // Pause animations
+        }
+    
+        // Disable player movement (if applicable)
+        var playerMovement = Object.FindFirstObjectByType<astronaut_controller>();
+        if (playerMovement != null)
+        {
+            playerMovement.enabled = false;
+        }
+    
+        // Optionally freeze any other scripts or game mechanics
+        Debug.Log("All background activities have been stopped.");
     }
 
     void OnCollisionEnter(Collision collision)
@@ -76,4 +210,3 @@ public class HealthManager : MonoBehaviour
         }
     }
 }
-
