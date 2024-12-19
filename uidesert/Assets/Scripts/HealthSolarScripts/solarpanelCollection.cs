@@ -18,7 +18,7 @@ public class SolarPanelCollector : MonoBehaviour
     public AudioClip levelCompletionSound; // Sound for level completion
 
     private AudioSource audioSource;
-    private Collider panelToCollect = null; // Tracks the panel to collect
+    //private Collider panelToCollect = null; // Tracks the panel to collect
     private float currentFuel = 0f; // Tracks current fuel level
     public GameObject alignmentTask; // Task object for solar panel alignment
 
