@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 using TMPro; // For TextMeshPro support
+using System.Collections; // Required for IEnumerator
 
 public class SolarPanelCollector : MonoBehaviour
 {
@@ -24,13 +25,16 @@ public class SolarPanelCollector : MonoBehaviour
     private bool videoPlaying = false; // To track if the video is playing
 
     private VideoPlayer videoPlayer; // VideoPlayer for level completion
-    private GameObject videoCanvas; // Canvas for displaying video
+    //private GameObject videoCanvas; // Canvas for displaying video
 
     void Start()
     {
         // Initialize UI and fuel bar
         fuelMeter.fillAmount = 0f;
         alignmentTask.SetActive(false);
+
+        // Update the collection message UI
+        UpdateCollectionMessage();
 
         // Setup AudioSource
         audioSource = GetComponent<AudioSource>();
@@ -42,12 +46,6 @@ public class SolarPanelCollector : MonoBehaviour
 
     void Update()
     {
-        // Check for player input to collect a panel
-        if (panelToCollect != null && Input.GetKeyDown(KeyCode.E))
-        {
-            CollectSolarPanel(panelToCollect);
-        }
-
         // If video is playing and player presses Enter, load the next scene
         if (videoPlaying && Input.GetKeyDown(KeyCode.Return))
         {
@@ -59,15 +57,7 @@ public class SolarPanelCollector : MonoBehaviour
     {
         if (other.CompareTag("SolarPanel"))
         {
-            panelToCollect = other;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("SolarPanel"))
-        {
-            panelToCollect = null;
+            CollectSolarPanel(other);
         }
     }
 
@@ -75,12 +65,14 @@ public class SolarPanelCollector : MonoBehaviour
     {
         collectedPanels++; // Increment the collected panels count
 
+        // Update the UI to reflect the current count
+        UpdateCollectionMessage();
+
         // Play collection sound
         if (collectionSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(collectionSound);
         }
-
 
         // Update fuel bar
         currentFuel += fuelIncreasePerPanel;
@@ -89,10 +81,10 @@ public class SolarPanelCollector : MonoBehaviour
         // Destroy collected panel
         Destroy(panel.gameObject);
 
-        // If 2 panels collected, play level completion video
-        if (collectedPanels == 2 && !videoPlaying)
+        // If 4 panels collected, play level completion video with a 1-second delay
+        if (collectedPanels == 4 && !videoPlaying)
         {
-            Playlevel1Video();
+            StartCoroutine(PlayLevel1VideoWithDelay());
         }
 
         // If all panels are collected
@@ -102,18 +94,29 @@ public class SolarPanelCollector : MonoBehaviour
         }
     }
 
+    private void UpdateCollectionMessage()
+    {
+        collectionMessage.text = $"{collectedPanels} of 8 solar panels";
+    }
+
     private void UpdateFuelMeter(float fuelValue)
     {
         fuelMeter.fillAmount = Mathf.Clamp01(fuelValue);
     }
 
-        void Playlevel1Video()
+    private IEnumerator PlayLevel1VideoWithDelay()
+    {
+        yield return new WaitForSeconds(1f); // Wait for 1 second
+        Playlevel1Video();
+    }
+
+    void Playlevel1Video()
     {
         Debug.Log("Initializing level1 video...");
         videoPlaying = true;
+
         // Stop all background sounds and animations
         StopAllBackgroundActivities();
-        
 
         // Play level completion sound
         if (levelCompletionSound != null)
@@ -122,73 +125,72 @@ public class SolarPanelCollector : MonoBehaviour
             audioSource.clip = levelCompletionSound;
             audioSource.Play();
         }
-    
+
         // Create a new GameObject for the VideoPlayer
         GameObject videoPlayerObject = new GameObject("levelcompletedvideo");
-        // Add a VideoPlayer component to the GameObject
         VideoPlayer videoPlayer = videoPlayerObject.AddComponent<VideoPlayer>();
-    
+
         // Set the video path (ensure the video is in the StreamingAssets folder)
         string videoPath = Application.streamingAssetsPath + "/Level 1.mp4";
         Debug.Log("Video path: " + videoPath);
         videoPlayer.url = videoPath;
-    
+
         // Create a Render Texture for the video
         RenderTexture renderTexture = new RenderTexture(Screen.width, Screen.height, 0);
         renderTexture.Create();
-    
+
         // Assign the Render Texture to the VideoPlayer
         videoPlayer.targetTexture = renderTexture;
-    
+
         // Create a new UI Image to display the Render Texture
         GameObject rawImageObject = new GameObject("GameOverRawImage");
         UnityEngine.UI.RawImage rawImage = rawImageObject.AddComponent<UnityEngine.UI.RawImage>();
-    
+
         // Set the Render Texture as the source for the RawImage
         rawImage.texture = renderTexture;
-    
+
         // Attach the RawImage to a Canvas for full-screen display
         Canvas canvas = Object.FindFirstObjectByType<Canvas>();
         if (canvas == null)
         {
-            // Create a Canvas if one doesn't exist
             GameObject canvasObject = new GameObject("GameOverCanvas");
             canvas = canvasObject.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             canvasObject.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             canvasObject.AddComponent<GraphicRaycaster>();
         }
-    
+
         rawImageObject.transform.SetParent(canvas.transform, false);
-        rawImage.rectTransform.anchorMin = Vector2.zero; // Bottom-left corner
-        rawImage.rectTransform.anchorMax = Vector2.one;  // Top-right corner
-        rawImage.rectTransform.offsetMin = Vector2.zero; // No offset
-        rawImage.rectTransform.offsetMax = Vector2.zero; // No offset
-    
+        rawImage.rectTransform.anchorMin = Vector2.zero;
+        rawImage.rectTransform.anchorMax = Vector2.one;
+        rawImage.rectTransform.offsetMin = Vector2.zero;
+        rawImage.rectTransform.offsetMax = Vector2.zero;
+
         // Configure VideoPlayer
         videoPlayer.aspectRatio = VideoAspectRatio.Stretch;
         videoPlayer.isLooping = false;
-    
-        // Attach event listeners for debugging
+
+        // Attach event listeners
         videoPlayer.prepareCompleted += (vp) =>
         {
             Debug.Log("Game Over video prepared, starting playback...");
             vp.Play();
         };
-    
+
         videoPlayer.errorReceived += (vp, msg) =>
         {
             Debug.LogError("VideoPlayer Error: " + msg);
         };
-    
+
         videoPlayer.loopPointReached += (vp) =>
         {
             Debug.Log("Game Over video finished playing.");
         };
-    
+
         // Prepare the video
         videoPlayer.Prepare();
     }
+
     void StopAllBackgroundActivities()
     {
         // Stop all sounds
@@ -197,36 +199,35 @@ public class SolarPanelCollector : MonoBehaviour
         {
             source.Stop();
         }
-    
+
         // Disable all rock interactions
         var rocks = Object.FindObjectsByType<RockCollisionHandler>(FindObjectsSortMode.None);
         foreach (var rock in rocks)
         {
-            rock.enabled = false; // Disable collision handling on rocks
+            rock.enabled = false;
         }
-    
-        // Stop all rigidbody-based physics (e.g., rocks falling)
+
+        // Stop all rigidbody-based physics
         var allRigidbodies = Object.FindObjectsByType<Rigidbody>(FindObjectsSortMode.None);
         foreach (var rb in allRigidbodies)
         {
-            rb.isKinematic = true; // Disable physics simulation
+            rb.isKinematic = true;
         }
-    
+
         // Disable all animations
         var allAnimators = Object.FindObjectsByType<Animator>(FindObjectsSortMode.None);
         foreach (var animator in allAnimators)
         {
-            animator.enabled = false; // Pause animations
+            animator.enabled = false;
         }
-    
-        // Disable player movement (if applicable)
+
+        // Disable player movement
         var playerMovement = Object.FindFirstObjectByType<astronaut_controller>();
         if (playerMovement != null)
         {
             playerMovement.enabled = false;
         }
-    
-        // Optionally freeze any other scripts or game mechanics
+
         Debug.Log("All background activities have been stopped.");
     }
 
@@ -243,4 +244,3 @@ public class SolarPanelCollector : MonoBehaviour
         SceneManager.LoadScene("QuizLevel"); // Replace with the correct scene name
     }
 }
-

@@ -8,9 +8,9 @@ public class QuizData : ScriptableObject
     public class Question
     {
         public string questionText; // The question text
-        public List<string> correctAnswers; // List of acceptable answers // The correct answer
+        public List<string> correctAnswers; // List of acceptable answers
+        public string hint; // List of hints for the question
     }
 
     public Question[] questions; // Array of questions
 }
-
