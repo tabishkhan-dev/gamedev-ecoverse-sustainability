@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 863db58e972b23a4090b04f322b0d60c
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 249968
+  packageName: Astronaut Avatar
+  packageVersion: 1.0
+  assetPath: Assets/ASTRONAUT_AVATAR/Prefabs/Ground.prefab
+  uploadId: 595684

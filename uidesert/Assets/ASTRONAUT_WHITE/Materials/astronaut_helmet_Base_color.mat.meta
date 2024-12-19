@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c983554f470bc0642bd4c4497edeaf0d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 249968
+  packageName: Astronaut Avatar
+  packageVersion: 1.0
+  assetPath: Assets/ASTRONAUT_AVATAR/Materials/astronaut_helmet_Base_color.mat
+  uploadId: 595684
