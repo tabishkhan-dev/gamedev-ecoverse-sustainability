@@ -22,6 +22,9 @@ public class QuizManager : MonoBehaviour
     public TMP_Text submitButtonText;
     public TMP_Text proceedButtonText;
 
+    public Button hintButton;  // The button that triggers hint display
+    public TMP_Text hintText;  // Text element to display the hint
+
     // Audio Elements
     public AudioClip quizBackgroundMusic; // Background music for the quiz
     public AudioClip correctAnswerSound;  // Sound effect for correct answers
@@ -29,7 +32,7 @@ public class QuizManager : MonoBehaviour
 
     private List<QuizData.Question> randomizedQuestions;
     private int currentQuestionIndex = 0;
-    private float timePerQuestion = 15f;
+    private float timePerQuestion = 20f;
     private float timeRemaining;
     private bool isTimerRunning = false;
     private int shields = 0;
@@ -44,7 +47,6 @@ public class QuizManager : MonoBehaviour
         proceedButton.onClick.AddListener(LoadNextGameScene);
 
         // Set initial button text
-        // Set button text
         if (submitButtonText != null)
             submitButtonText.text = "Submit";
     
@@ -53,8 +55,13 @@ public class QuizManager : MonoBehaviour
 
         proceedButton.gameObject.SetActive(false);  // Hide proceed button initially
 
+        // Setup audio
         audioSource = gameObject.AddComponent<AudioSource>();
         PlayBackgroundMusic();
+
+        // Setup hint button
+        if (hintButton != null)
+            hintButton.onClick.AddListener(ShowHint);
     }
 
     void InitializeQuiz()
@@ -88,10 +95,12 @@ public class QuizManager : MonoBehaviour
         if (currentQuestionIndex < randomizedQuestions.Count)
         {
             questionText.text = randomizedQuestions[currentQuestionIndex].questionText;
-            questionText.rectTransform.sizeDelta = new Vector2(0, questionText.rectTransform.sizeDelta.y); // Stretch across width
             feedbackText.text = "";
             answerInput.text = "";
     
+            // Hide hint text at the start
+            hintText.text = "";
+
             // Restart the timer
             timeRemaining = timePerQuestion;
             isTimerRunning = true;
@@ -102,7 +111,6 @@ public class QuizManager : MonoBehaviour
             QuizComplete();
         }
     }
-
 
     IEnumerator UpdateTimer()
     {
@@ -167,7 +175,6 @@ public class QuizManager : MonoBehaviour
         currentQuestionIndex++;
         Invoke(nameof(DisplayQuestion), 2); // Delay before moving to the next question
     }
-
 
     void ShowSymbol(Image symbol)
     {
@@ -235,4 +242,22 @@ public class QuizManager : MonoBehaviour
             audioSource.PlayOneShot(wrongAnswerSound);
         }
     }
-} 
+
+    // New method for showing the hint
+    void ShowHint()
+    {
+        if (currentQuestionIndex < randomizedQuestions.Count)
+        {
+            string hint = randomizedQuestions[currentQuestionIndex].hint;  // Get the hint for the current question
+            
+            if (!string.IsNullOrEmpty(hint))
+            {
+                hintText.text = hint;  // Display the hint text
+            }
+            else
+            {
+                hintText.text = "No hint available.";  // Default text if no hint is available
+            }
+        }
+    }
+}
