@@ -55248,7 +55248,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   healthBarFill: {fileID: 169280430}
-  damageFromRock: 8
+  damageFromRock: 9
   playerHitSound: {fileID: 8300000, guid: 889013dd16cb7414e90425c3e12e0427, type: 3}
   gameOverSound: {fileID: 8300000, guid: 923868333293581479b08fe5a7570e95, type: 3}
 --- !u!1 &1676401604
