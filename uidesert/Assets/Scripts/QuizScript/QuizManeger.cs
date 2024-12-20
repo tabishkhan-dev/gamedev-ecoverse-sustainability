@@ -213,6 +213,8 @@ public class QuizManager : MonoBehaviour
 
     void LoadNextGameScene()
     {
+        PlayerPrefs.SetInt("ShieldCount", shields); // Save the shield count
+        PlayerPrefs.Save(); // Ensure the data is written to disk
         SceneManager.LoadScene(nextGameSceneName);  // Load the next game scene
     }
 
