@@ -32,7 +32,7 @@ public class QuizManager : MonoBehaviour
 
     private List<QuizData.Question> randomizedQuestions;
     private int currentQuestionIndex = 0;
-    private float timePerQuestion = 20f;
+    private float timePerQuestion = 30f;
     private float timeRemaining;
     private bool isTimerRunning = false;
     private int shields = 0;
