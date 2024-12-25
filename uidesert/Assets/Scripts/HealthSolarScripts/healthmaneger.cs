@@ -56,6 +56,19 @@ public class HealthManager : MonoBehaviour
         }
     }
 
+    public void AddHealth(int healthAmount)
+    {
+        if (isGameOver) return; // Prevent health addition after game over
+
+        currentHealth += healthAmount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Ensure health doesn't exceed max
+
+        UpdateHealthBar(); // Refresh health UI
+
+        //Debug.Log("Health increased! Current health: " + currentHealth);
+    }
+
+
     void UpdateHealthBar()
     {
         if (healthBarFill != null)
