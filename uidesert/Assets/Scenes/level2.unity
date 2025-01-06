@@ -2680,9 +2680,6 @@ PrefabInstance:
       addedObject: {fileID: 1518614630}
     - targetCorrespondingSourceObject: {fileID: 7704302624302498015, guid: b3c6e9bbb5f3c6544a3bd8fb1b8beb1e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1518614631}
-    - targetCorrespondingSourceObject: {fileID: 7704302624302498015, guid: b3c6e9bbb5f3c6544a3bd8fb1b8beb1e, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1518614632}
     - targetCorrespondingSourceObject: {fileID: 7704302624302498015, guid: b3c6e9bbb5f3c6544a3bd8fb1b8beb1e, type: 3}
       insertIndex: -1
@@ -2693,6 +2690,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7704302624302498015, guid: b3c6e9bbb5f3c6544a3bd8fb1b8beb1e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1518614636}
+    - targetCorrespondingSourceObject: {fileID: 7704302624302498015, guid: b3c6e9bbb5f3c6544a3bd8fb1b8beb1e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1518614637}
   m_SourcePrefab: {fileID: 100100000, guid: b3c6e9bbb5f3c6544a3bd8fb1b8beb1e, type: 3}
 --- !u!1 &413443773
 GameObject:
@@ -17765,22 +17765,6 @@ CapsuleCollider:
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &1518614631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1518614627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b34de2cd50f03fa44a86194e8f2c01af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 15
-  sprintSpeed: 15
-  jumpForce: 20
-  rotationAngle: 30
 --- !u!114 &1518614632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17844,6 +17828,23 @@ MonoBehaviour:
   damageFromRock: 5
   playerHitSound: {fileID: 8300000, guid: 889013dd16cb7414e90425c3e12e0427, type: 3}
   gameOverSound: {fileID: 8300000, guid: 923868333293581479b08fe5a7570e95, type: 3}
+--- !u!114 &1518614637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1518614627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e3ec004298b7d44a9ee2c0a0365cbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprintSpeed: 10
+  backwardSpeed: 7
+  jumpForce: 30
+  longJumpForwardForce: 40
+  turnSpeed: 5
 --- !u!1 &1706370074
 GameObject:
   m_ObjectHideFlags: 0
