@@ -4,7 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 7f;    // Normal movement speed
     public float sprintSpeed = 15f; // Sprinting speed
-    public float jumpForce = 7f;   // Jumping force
+    public float jumpForce = 30f;   // Jumping force
     private bool isGrounded = true; // Check if the player is on the ground
 
     private Animator animator;
