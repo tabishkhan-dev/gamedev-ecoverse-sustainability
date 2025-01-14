@@ -77,7 +77,7 @@ public class HealthManager : MonoBehaviour
         }
     }
 
-    void Die()
+    public void Die()
     {
         if (isGameOver) return; // Ensure this logic runs only once
         isGameOver = true;
