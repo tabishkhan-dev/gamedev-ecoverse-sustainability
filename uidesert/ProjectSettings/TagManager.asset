@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - SolarPanel
   - Lava
+  - Tube
   layers:
   - Default
   - TransparentFX
