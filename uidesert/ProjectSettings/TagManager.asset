@@ -9,6 +9,7 @@ TagManager:
   - SolarPanel
   - Lava
   - Tube
+  - WindTurbine
   layers:
   - Default
   - TransparentFX
