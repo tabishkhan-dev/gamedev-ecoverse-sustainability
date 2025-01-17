@@ -66,11 +66,28 @@ public class QuizManager : MonoBehaviour
 
     void InitializeQuiz()
     {
-        randomizedQuestions = new List<QuizData.Question>(quizData.questions);
+
+        string keysString = PlayerPrefs.GetString("SelectedFactKeys", "");
+        Debug.Log("Retrieved Keys from PlayerPrefs: " + keysString);
+
+        List<string> selectedKeys = new List<string>(keysString.Split(','));
+
+        // Filter questions based on selected keys
+        randomizedQuestions = new List<QuizData.Question>();
+        foreach (var question in quizData.questions)
+        {
+            if (selectedKeys.Contains(question.knowledgeFact)) // Assuming "knowledgeFact" holds the key
+            {
+                randomizedQuestions.Add(question);
+            }
+        }
+
+        // Randomize and select 3 questions
         RandomizeQuestions();
         shields = 0;
         UpdateShieldCounter();
         DisplayQuestion();
+
     }
 
     void RandomizeQuestions()
@@ -83,7 +100,8 @@ public class QuizManager : MonoBehaviour
             randomizedQuestions[randomIndex] = temp;
         }
 
-        randomizedQuestions = randomizedQuestions.GetRange(0, Mathf.Min(3, randomizedQuestions.Count));
+        randomizedQuestions = randomizedQuestions.GetRange(1, Mathf.Min(3, randomizedQuestions.Count));
+
     }
 
     void DisplayQuestion()
@@ -91,7 +109,7 @@ public class QuizManager : MonoBehaviour
         // Hide the symbols when moving to the next question
         correctSymbol.gameObject.SetActive(false);
         wrongSymbol.gameObject.SetActive(false);
-    
+
         if (currentQuestionIndex < randomizedQuestions.Count)
         {
             questionText.text = randomizedQuestions[currentQuestionIndex].questionText;
@@ -108,6 +126,7 @@ public class QuizManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("All questions answered. Completing the quiz.");
             QuizComplete();
         }
     }

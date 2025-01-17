@@ -17,10 +17,12 @@ MonoBehaviour:
     correctAnswers:
     - plant trees
     hint: 
+    knowledgeFact: fact1
   - questionText: "  can you guess this? \\n REDUCE \U0001F697\U0001F9B4 \U0001F463"
     correctAnswers:
     - carbon footprint
     hint: 
+    knowledgeFact: 
   - questionText: ' <size=180>Waste</size> <size=100>Waste</size> <size=60>Waste</size>
       <size=30>Waste</size>'
     correctAnswers:
@@ -28,15 +30,18 @@ MonoBehaviour:
     - waste reduction
     - waste reduce
     hint: 
+    knowledgeFact: fact2
   - questionText: "  can you guess this? \\n \U0001F914\U0001F49A\U0001F3AC\U0001F49A "
     correctAnswers:
     - think green act green
     hint: 
+    knowledgeFact: fact3
   - questionText: " <size=60>\"I\u2019m clean and green, \\n a planet\u2019s dream,\\n
       I work with the sun, wind, \\nand stream\". What am I?</size>"
     correctAnswers:
     - renewable energy
     hint: 'example: solar energy'
+    knowledgeFact: fact4
   - questionText: " <size=60>\"I don\u2019t drink gas, \\nI don\u2019t need a snack,
       \\n Just plug me in, and \\n I\u2019m back on track.\"What am I? </size>"
     correctAnswers:
@@ -44,23 +49,29 @@ MonoBehaviour:
     - electric car
     - electric vehicle
     hint: 'example: Tesla'
+    knowledgeFact: fact5
   - questionText: "  can you guess this? \\n \u2B07\U0001F4A7"
     correctAnswers:
     - save water
     hint: 
+    knowledgeFact: fact6
   - questionText: "  can you guess this? \\n \U0001F4A7 is \U0001F343"
     correctAnswers:
     - water is life
     hint: 
+    knowledgeFact: fact7
   - questionText: "  can you guess this? \\n \U0001F6B2\u21A9  \u2795\u2705 "
     correctAnswers:
     - recycle plastic
     hint: 
+    knowledgeFact: fact8
   - questionText: '  Unscramble this: \n  RNWTRAIRAE VTSGEHRIAN '
     correctAnswers:
     - rainwater harvesting
     hint: "\U0001F327\U0001F327\U0001F327\U0001F327"
+    knowledgeFact: fact9
   - questionText: '  Unscramble this: \n PTCRETO ILFEWDLI'
     correctAnswers:
     - protect wildlife
     hint: "\U0001F405\U0001F981\U0001F40E\U0001F98F "
+    knowledgeFact: fact10
