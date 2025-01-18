@@ -10,6 +10,7 @@ TagManager:
   - Lava
   - Tube
   - WindTurbine
+  - smoke
   layers:
   - Default
   - TransparentFX

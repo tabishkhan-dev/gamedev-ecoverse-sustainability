@@ -11,18 +11,14 @@ public class ShieldController : MonoBehaviour
 
     void Update()
     {
-        // Handle shield blocking when the S key is pressed
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            animator.SetBool("IsBlocking", true); // Trigger shield block
+            animator.SetBool("IsBlocking", true);
         }
 
         if (Input.GetKeyUp(KeyCode.S))
         {
-            animator.SetBool("IsBlocking", false); // Stop shield block
+            animator.SetBool("IsBlocking", false);
         }
     }
 }
-
-
-

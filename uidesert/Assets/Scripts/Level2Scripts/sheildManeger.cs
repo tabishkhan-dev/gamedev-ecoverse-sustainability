@@ -9,7 +9,11 @@ public class ShieldManager : MonoBehaviour
     private bool isShieldActive = false;
 
     private float shieldDuration = 10f; // Duration for which the shield is active
+    private float smokeDisableDuration = 7f; // Duration for which smoke effects are disabled
     private float shieldTimer = 0f;
+
+    private GameObject[] icebergs; // Array of iceberg GameObjects tagged as "ground"
+    private GameObject[] smokeEffects; // Array of smoke particle systems tagged as "smoke"
 
     void Start()
     {
@@ -22,6 +26,34 @@ public class ShieldManager : MonoBehaviour
 
         // Display the shield count on the UI
         UpdateShieldCounterUI();
+
+        // Find objects by tag
+        InitializeReferences();
+    }
+
+    void InitializeReferences()
+    {
+        // Find all icebergs tagged as "ground"
+        icebergs = GameObject.FindGameObjectsWithTag("Ground");
+        if (icebergs == null || icebergs.Length == 0)
+        {
+            Debug.LogWarning("No icebergs tagged as 'Ground' found in the scene.");
+        }
+        else
+        {
+            Debug.Log($"Found {icebergs.Length} icebergs tagged as 'Ground' in the scene.");
+        }
+
+        // Find all smoke particle systems tagged as "smoke"
+        smokeEffects = GameObject.FindGameObjectsWithTag("smoke");
+        if (smokeEffects == null || smokeEffects.Length == 0)
+        {
+            Debug.LogWarning("No smoke particle systems tagged as 'smoke' found in the scene.");
+        }
+        else
+        {
+            Debug.Log($"Found {smokeEffects.Length} smoke effects tagged as 'smoke' in the scene.");
+        }
     }
 
     void Update()
@@ -63,6 +95,33 @@ public class ShieldManager : MonoBehaviour
         shield.SetActive(true);
         UpdateShieldCounterUI();
         Debug.Log("Shield activated. Shields remaining: " + shieldsAvailable);
+
+        // Pause iceberg melting
+        foreach (var iceberg in icebergs)
+        {
+            if (iceberg != null)
+            {
+                IcebergBehavior icebergBehavior = iceberg.GetComponent<IcebergBehavior>();
+                if (icebergBehavior != null)
+                {
+                    icebergBehavior.PauseMelting(10f); // Pause melting for 10 seconds
+                }
+            }
+        }
+
+        // Immediately stop smoke effects
+        foreach (var smoke in smokeEffects)
+        {
+            if (smoke != null)
+            {
+                ParticleSystem particleSystem = smoke.GetComponent<ParticleSystem>();
+                if (particleSystem != null)
+                {
+                    particleSystem.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear); // Stop immediately
+                    StartCoroutine(EnableSmokeEffectAfterDelay(particleSystem, smokeDisableDuration));
+                }
+            }
+        }
     }
 
     void DeactivateShield()
@@ -74,6 +133,15 @@ public class ShieldManager : MonoBehaviour
         Debug.Log("Shield deactivated.");
     }
 
+    System.Collections.IEnumerator EnableSmokeEffectAfterDelay(ParticleSystem particleSystem, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (particleSystem != null)
+        {
+            particleSystem.Play();
+        }
+    }
+
     void UpdateShieldCounterUI()
     {
         // Update the UI text with the remaining shields
@@ -83,4 +151,3 @@ public class ShieldManager : MonoBehaviour
         }
     }
 }
-
