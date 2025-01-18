@@ -59,7 +59,7 @@ public class ShieldManager : MonoBehaviour
     void Update()
     {
         // Activate the shield if S key is pressed and shields are available
-        if (Input.GetKeyDown(KeyCode.S) && shieldsAvailable > 0 && !isShieldActive)
+        if (Input.GetKeyDown(KeyCode.Z) && shieldsAvailable > 0 && !isShieldActive)
         {
             ActivateShield();
         }
