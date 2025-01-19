@@ -1,17 +1,16 @@
 using UnityEngine;
 
-
 public class GameOverlevel2 : MonoBehaviour
 {
-    private HealthManager healthManager;
+    private HealthManagerLevel2 healthManagerlevel2; // Correct type
 
     void Start()
     {
-        // Get the HealthManager on the same GameObject
-        healthManager = GetComponent<HealthManager>();
-        if (healthManager == null)
+        // Get the HealthManagerLevel2 on the same GameObject
+        healthManagerlevel2 = GetComponent<HealthManagerLevel2>();
+        if (healthManagerlevel2 == null)
         {
-            Debug.LogError("HealthManager script not found on Player GameObject!");
+            Debug.LogError("HealthManagerLevel2 script not found on Player GameObject!");
         }
     }
 
@@ -21,8 +20,9 @@ public class GameOverlevel2 : MonoBehaviour
         if (collision.gameObject.CompareTag("Terrain"))
         {
             Debug.Log("Player hit terrain! Triggering game over.");
-            healthManager.Die();
+            healthManagerlevel2.Die(); // Call Die() on the correct type
         }
     }
 }
+
 

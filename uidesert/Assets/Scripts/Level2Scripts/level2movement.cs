@@ -83,7 +83,7 @@ public class PlayerController_Level2 : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         // Check if the player is grounded
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Iceberg"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true; // Allow jumping again
         }
