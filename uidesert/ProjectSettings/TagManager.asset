@@ -12,6 +12,7 @@ TagManager:
   - WindTurbine
   - smoke
   - Terrain
+  - Stream
   layers:
   - Default
   - TransparentFX
