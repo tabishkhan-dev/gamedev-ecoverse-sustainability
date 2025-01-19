@@ -147,7 +147,7 @@ public class ShieldManager : MonoBehaviour
         // Update the UI text with the remaining shields
         if (shieldCounterText != null)
         {
-            shieldCounterText.text = $"Shields Collected: {shieldsAvailable}";
+            shieldCounterText.text = $"Shields Collected: {shieldsAvailable}/3";
         }
     }
 }
