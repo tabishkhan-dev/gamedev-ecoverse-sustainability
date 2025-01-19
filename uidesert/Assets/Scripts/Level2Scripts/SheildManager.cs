@@ -144,10 +144,18 @@ public class ShieldManager : MonoBehaviour
 
     void UpdateShieldCounterUI()
     {
-        // Update the UI text with the remaining shields
         if (shieldCounterText != null)
-        {
-            shieldCounterText.text = $"Shields Collected: {shieldsAvailable}/3";
+        { 
+            if (shieldsAvailable > 0)
+            {
+                shieldCounterText.text = $"{shieldsAvailable}/3";
+                 // Set to default color (or your preferred color)
+            }
+            else
+            {
+                shieldCounterText.text = "No Shields!";
+                shieldCounterText.color = Color.red; // Change text color to red
+            }
         }
     }
 }

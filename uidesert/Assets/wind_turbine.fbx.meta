@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: eolic
-    second: {fileID: -1422942714682470968, guid: 7da1ce1d71fd6614291145c604874f44, type: 3}
+    second: {fileID: -1422942714682470968, guid: 1e8013682658763499ecc3334518ba5f, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -93,7 +93,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 3
+    globalScale: 300
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
