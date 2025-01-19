@@ -30,7 +30,10 @@ public class SolarPanelCollector : MonoBehaviour
     void Start()
     {
         // Initialize UI and fuel bar
-        fuelMeter.fillAmount = 0f;
+        collectedPanels = PlayerPrefs.GetInt("CollectedSolarPanels", 0);
+        currentFuel = PlayerPrefs.GetFloat("CurrentFuel", 0f);
+        fuelMeter.fillAmount = currentFuel;
+
         alignmentTask.SetActive(false);
 
         // Update the collection message UI
@@ -65,6 +68,8 @@ public class SolarPanelCollector : MonoBehaviour
     {
         collectedPanels++; // Increment the collected panels count
 
+        PlayerPrefs.SetInt("CollectedSolarPanels", collectedPanels);
+
         // Update the UI to reflect the current count
         UpdateCollectionMessage();
 
@@ -77,6 +82,8 @@ public class SolarPanelCollector : MonoBehaviour
         // Update fuel bar
         currentFuel += fuelIncreasePerPanel;
         UpdateFuelMeter(currentFuel);
+
+        PlayerPrefs.SetFloat("CurrentFuel", currentFuel);
 
         // Destroy collected panel
         Destroy(panel.gameObject);
@@ -96,7 +103,7 @@ public class SolarPanelCollector : MonoBehaviour
 
     private void UpdateCollectionMessage()
     {
-        collectionMessage.text = $"{collectedPanels} of 8 solar panels";
+        collectionMessage.text = $"{collectedPanels} of 8 Sustainable Assets";
     }
 
     private void UpdateFuelMeter(float fuelValue)

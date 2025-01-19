@@ -18,6 +18,9 @@ public class WindTurbineCollector : MonoBehaviour
 
     void Start()
     {
+        currentFuel = PlayerPrefs.GetFloat("CurrentFuel", 0f);
+        collectedTurbines = PlayerPrefs.GetInt("CollectedTurbines", 4);
+
         // Initialize UI and fuel bar
         fuelMeter.fillAmount = currentFuel;
         UpdateTurbineCollectionMessage();
@@ -43,6 +46,8 @@ public class WindTurbineCollector : MonoBehaviour
     {
         collectedTurbines++; // Increment collected turbines count
 
+        PlayerPrefs.SetInt("CollectedTurbines", collectedTurbines);
+
         // Update the UI to reflect the current count
         UpdateTurbineCollectionMessage();
 
@@ -56,13 +61,15 @@ public class WindTurbineCollector : MonoBehaviour
         currentFuel += fuelIncreasePerTurbine;
         UpdateFuelMeter(currentFuel);
 
+        PlayerPrefs.SetFloat("CurrentFuel", currentFuel);
+
         // Destroy the collected turbine
         Destroy(turbine.gameObject);
     }
 
     private void UpdateTurbineCollectionMessage()
     {
-        turbineCollectionMessage.text = $"{collectedTurbines} of {totalWindTurbines} wind turbines collected";
+        turbineCollectionMessage.text = $"{collectedTurbines} of 8 Sustainable Assets";
     }
 
     private void UpdateFuelMeter(float fuelValue)
