@@ -2982,6 +2982,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7704302624302498015, guid: b3c6e9bbb5f3c6544a3bd8fb1b8beb1e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1518614639}
+    - targetCorrespondingSourceObject: {fileID: 7704302624302498015, guid: b3c6e9bbb5f3c6544a3bd8fb1b8beb1e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1518614640}
   m_SourcePrefab: {fileID: 100100000, guid: b3c6e9bbb5f3c6544a3bd8fb1b8beb1e, type: 3}
 --- !u!1 &413443773
 GameObject:
@@ -13114,7 +13117,7 @@ GameObject:
   - component: {fileID: 1268572008}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Ground
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -19474,6 +19477,18 @@ MonoBehaviour:
   fuelMeter: {fileID: 1971809793}
   fuelIncreasePerTurbine: 0.125
   collectionSound: {fileID: 8300000, guid: 1da5dd1d2769c8945a8114396693a643, type: 3}
+--- !u!114 &1518614640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1518614627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 521654874f360e742a3c79b4167b8d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1574524601
 GameObject:
   m_ObjectHideFlags: 0
