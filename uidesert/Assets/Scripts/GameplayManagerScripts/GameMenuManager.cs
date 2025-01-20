@@ -12,6 +12,7 @@ public class GameMenuManager : MonoBehaviour
         PlayerPrefs.DeleteKey("CollectedSolarPanels"); // Reset solar panel progress
         PlayerPrefs.DeleteKey("CollectedTurbines");   // Reset wind turbine progress
         PlayerPrefs.DeleteKey("CurrentFuel");         // Reset fuel meter
+        PlayerPrefs.DeleteKey("PlayerHealth");
         PlayerPrefs.Save();                           // Save the reset state
     }
 
