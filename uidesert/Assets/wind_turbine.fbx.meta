@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: eolic
-    second: {fileID: -1422942714682470968, guid: 1e8013682658763499ecc3334518ba5f, type: 3}
+    second: {fileID: -1422942714682470968, guid: a35b15972dc46da4ea97f56748165ad6, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
