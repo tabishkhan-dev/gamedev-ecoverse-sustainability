@@ -7,6 +7,12 @@ TagManager:
   - Obstacle
   - Ground
   - SolarPanel
+  - Lava
+  - Tube
+  - WindTurbine
+  - smoke
+  - Terrain
+  - Stream
   layers:
   - Default
   - TransparentFX

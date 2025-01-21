@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: dd706081b3be6a34c8bf7a14c90acfa4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 249968
+  packageName: Astronaut Avatar
+  packageVersion: 1.0
+  assetPath: Assets/ASTRONAUT_AVATAR/Materials/astronaut_hair_eyebrows_Base_color.mat
+  uploadId: 595684

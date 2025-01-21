@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7ac3b751cfdbf46479d942c44dc839c4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 249968
+  packageName: Astronaut Avatar
+  packageVersion: 1.0
+  assetPath: Assets/ASTRONAUT_AVATAR/Animations/ASTRONAUT_AVATAR Animator Controller.controller
+  uploadId: 595684
