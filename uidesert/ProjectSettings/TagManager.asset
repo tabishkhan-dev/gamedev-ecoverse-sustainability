@@ -13,6 +13,7 @@ TagManager:
   - smoke
   - Terrain
   - Stream
+  - mainCanvas
   layers:
   - Default
   - TransparentFX
