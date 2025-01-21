@@ -59205,7 +59205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skyboxMaterial: {fileID: 2100000, guid: cba8250b9d9377f4ca5ccc7bda47897e, type: 2}
-  baseSpeed: 0.05
+  baseSpeed: 0.025
   randomVariance: 0.01
 --- !u!4 &1827211398
 Transform:
