@@ -1,147 +1,164 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Required for scene loading
-using UnityEngine.Video;           // Required for video playback;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class GameMenuManager : MonoBehaviour
 {
-    public string introVideoName = "IntroStory.mp4"; // Name of the video in StreamingAssets folder
-
-    // A black overlay object for smooth transitions
+    public string introVideoName = "IntroStory.mp4"; // Video file in StreamingAssets
     private GameObject blackOverlay;
+    private GameObject skipButton; // Skip Button reference
+    private VideoPlayer videoPlayer;
 
-    // Method to reset progress
-    private void ResetProgress()
-    {
-        PlayerPrefs.DeleteKey("CollectedSolarPanels"); // Reset solar panel progress
-        PlayerPrefs.DeleteKey("CollectedTurbines");   // Reset wind turbine progress
-        PlayerPrefs.DeleteKey("CurrentFuel");         // Reset fuel meter
-        PlayerPrefs.DeleteKey("PlayerHealth");
-        PlayerPrefs.Save();                           // Save the reset state
-    }
-
-    // Method to start the game
     public void StartGame()
     {
-        ResetProgress(); // Reset progress before starting the game
-
-        // Show the black overlay for smooth transition
+        ResetProgress();
         ShowBlackOverlay();
 
-        // Disable the main canvas (tagged as "mainCanvas")
         GameObject mainCanvas = GameObject.FindWithTag("mainCanvas");
         if (mainCanvas != null)
         {
-            mainCanvas.SetActive(false);
+            mainCanvas.SetActive(false); // Hide main menu
         }
 
-        // Play the intro video
         PlayIntroVideo(() =>
         {
-            // Callback to load the next scene after the video ends
-            SceneManager.LoadScene("SampleScene"); // Make sure the scene name matches exactly
+            SceneManager.LoadScene("SampleScene"); // Load Level 1
         });
+    }
+
+    private void ResetProgress()
+    {
+        PlayerPrefs.DeleteKey("CollectedSolarPanels");
+        PlayerPrefs.DeleteKey("CollectedTurbines");
+        PlayerPrefs.DeleteKey("CurrentFuel");
+        PlayerPrefs.DeleteKey("PlayerHealth");
+        PlayerPrefs.Save();
     }
 
     private void PlayIntroVideo(System.Action onVideoComplete)
     {
         Debug.Log("Initializing Intro video...");
 
-        // Create a new GameObject for the VideoPlayer
+        // ✅ Create Video Player
         GameObject videoPlayerObject = new GameObject("IntroVideoPlayer");
-        VideoPlayer videoPlayer = videoPlayerObject.AddComponent<VideoPlayer>();
+        videoPlayer = videoPlayerObject.AddComponent<VideoPlayer>();
 
-        // Set the video path (ensure the video is in the StreamingAssets folder)
         string videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, introVideoName);
-        Debug.Log("Video path: " + videoPath);
         videoPlayer.url = videoPath;
 
-        // Create a Render Texture for the video
         RenderTexture renderTexture = new RenderTexture(Screen.width, Screen.height, 0);
         renderTexture.Create();
         videoPlayer.targetTexture = renderTexture;
 
-        // Create a new UI Image to display the Render Texture
+        // ✅ Create Video Canvas
+        GameObject videoCanvasObject = new GameObject("IntroVideoCanvas");
+        Canvas videoCanvas = videoCanvasObject.AddComponent<Canvas>();
+        videoCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        videoCanvasObject.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        videoCanvasObject.AddComponent<GraphicRaycaster>();
+
+        // ✅ Create Raw Image to Display Video
         GameObject rawImageObject = new GameObject("IntroVideoRawImage");
-        UnityEngine.UI.RawImage rawImage = rawImageObject.AddComponent<UnityEngine.UI.RawImage>();
+        RawImage rawImage = rawImageObject.AddComponent<RawImage>();
         rawImage.texture = renderTexture;
+        rawImage.transform.SetParent(videoCanvasObject.transform, false);
+        rawImage.rectTransform.anchorMin = Vector2.zero;
+        rawImage.rectTransform.anchorMax = Vector2.one;
+        rawImage.rectTransform.offsetMin = Vector2.zero;
+        rawImage.rectTransform.offsetMax = Vector2.zero;
 
-        // Attach the RawImage to a full-screen Canvas
-        GameObject canvasObject = new GameObject("IntroVideoCanvas");
-        Canvas canvas = canvasObject.AddComponent<Canvas>();
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvasObject.AddComponent<UnityEngine.UI.CanvasScaler>().uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        canvasObject.AddComponent<UnityEngine.UI.GraphicRaycaster>();
-        rawImageObject.transform.SetParent(canvas.transform, false);
+        // ✅ Create Skip Button inside Video Canvas
+        skipButton = CreateSkipButton(videoCanvasObject);
+        skipButton.SetActive(false); // Hide initially
 
-        rawImage.rectTransform.anchorMin = Vector2.zero; // Bottom-left corner
-        rawImage.rectTransform.anchorMax = Vector2.one;  // Top-right corner
-        rawImage.rectTransform.offsetMin = Vector2.zero; // No offset
-        rawImage.rectTransform.offsetMax = Vector2.zero; // No offset
-
-        // Configure VideoPlayer
         videoPlayer.aspectRatio = VideoAspectRatio.FitInside;
         videoPlayer.isLooping = false;
 
-        // Event: When the video finishes
         videoPlayer.loopPointReached += (vp) =>
         {
             Debug.Log("Intro video finished playing.");
-
-            // Keep the black overlay active during the transition to the next scene
-            ShowBlackOverlay();
-
-            onVideoComplete?.Invoke(); // Trigger the callback after the video ends
-
-            // Clean up the video player objects
+            onVideoComplete?.Invoke();
             Destroy(videoPlayerObject);
-            Destroy(canvasObject);
+            Destroy(videoCanvasObject);
         };
 
-        // Event: When the video fails to load
         videoPlayer.errorReceived += (vp, msg) =>
         {
             Debug.LogError("VideoPlayer Error: " + msg);
-
-            // Keep the black overlay active during the transition to the next scene
-            ShowBlackOverlay();
-
             onVideoComplete?.Invoke();
-
-            // Clean up the video player objects
             Destroy(videoPlayerObject);
-            Destroy(canvasObject);
+            Destroy(videoCanvasObject);
         };
 
-        // Prepare the video
         videoPlayer.Prepare();
 
         videoPlayer.prepareCompleted += (vp) =>
         {
             Debug.Log("Intro video prepared, starting playback...");
             vp.Play();
-
-            // Hide the black overlay when the video starts playing
+            skipButton.SetActive(true); // ✅ Show Skip Button when video starts
             HideBlackOverlay();
         };
+    }
+
+    private GameObject CreateSkipButton(GameObject videoCanvas)
+    {
+        GameObject buttonObject = new GameObject("SkipButton");
+        buttonObject.transform.SetParent(videoCanvas.transform, false);
+
+        Button button = buttonObject.AddComponent<Button>();
+        RectTransform rectTransform = buttonObject.AddComponent<RectTransform>();
+        rectTransform.anchorMin = new Vector2(0.85f, 0.05f); // Bottom-right corner
+        rectTransform.anchorMax = new Vector2(0.95f, 0.12f);
+        rectTransform.offsetMin = Vector2.zero;
+        rectTransform.offsetMax = Vector2.zero;
+
+        // ✅ Add Button Background for Visibility
+        Image buttonImage = buttonObject.AddComponent<Image>();
+        buttonImage.color = new Color(0, 0, 0, 0.6f); // Semi-transparent black background
+
+        // ✅ Add Button Text with Proper Font
+        GameObject textObject = new GameObject("ButtonText");
+        textObject.transform.SetParent(buttonObject.transform, false);
+        Text buttonText = textObject.AddComponent<Text>();
+        buttonText.text = "Skip";
+        buttonText.alignment = TextAnchor.MiddleCenter;
+        buttonText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf"); // ✅ Fix font issue
+        buttonText.color = Color.white;
+
+        RectTransform textRect = textObject.GetComponent<RectTransform>();
+        textRect.anchorMin = Vector2.zero;
+        textRect.anchorMax = Vector2.one;
+        textRect.offsetMin = Vector2.zero;
+        textRect.offsetMax = Vector2.zero;
+
+        button.onClick.AddListener(() =>
+        {
+            Debug.Log("Skip Button Clicked!");
+            videoPlayer.Stop();
+            SceneManager.LoadScene("SampleScene"); // Load Level 1
+        });
+
+        return buttonObject;
     }
 
     private void ShowBlackOverlay()
     {
         if (blackOverlay == null)
         {
-            // Create a black overlay UI Image
             blackOverlay = new GameObject("BlackOverlay");
             Canvas overlayCanvas = blackOverlay.AddComponent<Canvas>();
             overlayCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
-            UnityEngine.UI.Image overlayImage = blackOverlay.AddComponent<UnityEngine.UI.Image>();
+            Image overlayImage = blackOverlay.AddComponent<Image>();
             overlayImage.color = Color.black;
 
             RectTransform overlayRect = blackOverlay.GetComponent<RectTransform>();
-            overlayRect.anchorMin = Vector2.zero; // Bottom-left corner
-            overlayRect.anchorMax = Vector2.one;  // Top-right corner
-            overlayRect.offsetMin = Vector2.zero; // No offset
-            overlayRect.offsetMax = Vector2.zero; // No offset
+            overlayRect.anchorMin = Vector2.zero;
+            overlayRect.anchorMax = Vector2.one;
+            overlayRect.offsetMin = Vector2.zero;
+            overlayRect.offsetMax = Vector2.zero;
         }
 
         blackOverlay.SetActive(true);
