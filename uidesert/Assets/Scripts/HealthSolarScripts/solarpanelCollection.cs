@@ -138,7 +138,7 @@ public class SolarPanelCollector : MonoBehaviour
         VideoPlayer videoPlayer = videoPlayerObject.AddComponent<VideoPlayer>();
 
         // Set the video path (ensure the video is in the StreamingAssets folder)
-        string videoPath = Application.streamingAssetsPath + "/Level 1.mp4";
+        string videoPath = Application.streamingAssetsPath + "/lvl_1.mp4";
         Debug.Log("Video path: " + videoPath);
         videoPlayer.url = videoPath;
 
