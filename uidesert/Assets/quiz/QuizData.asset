@@ -22,7 +22,7 @@ MonoBehaviour:
     correctAnswers:
     - carbon footprint
     hint: 
-    knowledgeFact: 
+    knowledgeFact: fact11
   - questionText: ' <size=180>Waste</size> <size=100>Waste</size> <size=60>Waste</size>
       <size=30>Waste</size>'
     correctAnswers:
