@@ -1983,6 +1983,7 @@ MonoBehaviour:
   quizBackgroundMusic: {fileID: 8300000, guid: 0e3007ced5b5fb642be11609c4b35942, type: 3}
   correctAnswerSound: {fileID: 8300000, guid: e0ef03a94f1412547a269e66d052a20e, type: 3}
   wrongAnswerSound: {fileID: 8300000, guid: 17541371e84c86b47918cd134e2a9cf8, type: 3}
+  levelCompletionSoundl2: {fileID: 8300000, guid: f4f200b8bca5ffb42b7965f4724a979e, type: 3}
   nextGameSceneName: level2
 --- !u!4 &1496629990
 Transform:
