@@ -174,13 +174,12 @@
         public void AddHealth(int healthAmount)
         {
             if (isGameOver) return; // Prevent health addition after game over
-
+        
             currentHealth += healthAmount;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Ensure health doesn't exceed max
-
-            
-
-            //Debug.Log("Health increased! Current health: " + currentHealth);
+        
+            UpdateHealthBar(); // Update the health bar UI
+            Debug.Log($"Health increased by {healthAmount}. Current health: {currentHealth}");
         }
 
         void OnTriggerEnter(Collider other)
