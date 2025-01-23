@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Video;
 
 public class QuizManager : MonoBehaviour
 {
@@ -29,6 +30,10 @@ public class QuizManager : MonoBehaviour
     public AudioClip quizBackgroundMusic; // Background music for the quiz
     public AudioClip correctAnswerSound;  // Sound effect for correct answers
     public AudioClip wrongAnswerSound;    // Sound effect for wrong answers
+    public AudioClip levelCompletionSoundl2;
+    private bool videoPlaying = false;
+
+    // Video-related variables
 
     private List<QuizData.Question> randomizedQuestions;
     private int currentQuestionIndex = 0;
@@ -44,29 +49,132 @@ public class QuizManager : MonoBehaviour
     {
         InitializeQuiz();
         submitButton.onClick.AddListener(CheckAnswer);
-        proceedButton.onClick.AddListener(LoadNextGameScene);
-
+        proceedButton.onClick.AddListener(PlayVideoBeforeScene);
+    
         // Set initial button text
         if (submitButtonText != null)
             submitButtonText.text = "Submit";
     
         if (proceedButtonText != null)
             proceedButtonText.text = "Proceed";
-
+    
         proceedButton.gameObject.SetActive(false);  // Hide proceed button initially
-
+    
         // Setup audio
         audioSource = gameObject.AddComponent<AudioSource>();
         PlayBackgroundMusic();
-
+    
         // Setup hint button
         if (hintButton != null)
             hintButton.onClick.AddListener(ShowHint);
     }
+    
+    void Update()
+    {
+        // If video is playing and player presses Enter, load the next scene
+        if (videoPlaying && Input.GetKeyDown(KeyCode.Return))
+        {
+            LoadNextGameScene();
+        }
+    }
+    
+    void QuizComplete()
+    {
+        questionText.text = "Quiz Complete!";
+        feedbackText.text = "";
+        timerText.text = "";  // Clear the timer
+        shieldCounterText.text = "";  // Clear the shield counter
+    
+        submitButton.gameObject.SetActive(false);
+        answerInput.gameObject.SetActive(false);  // Hide the answer input field
+        correctSymbol.gameObject.SetActive(false);
+        wrongSymbol.gameObject.SetActive(false);
+    
+        proceedButton.gameObject.SetActive(true);  // Show the proceed button
+    }
+    
+    void PlayVideoBeforeScene()
+    {
+        proceedButton.gameObject.SetActive(false);  // Hide the proceed button
+        Debug.Log("Initializing level2 video...");
+        videoPlaying = true;
+    
+        // Play level completion sound
+        if (levelCompletionSoundl2 != null)
+        {
+            audioSource.Stop(); // Stop any other audio
+            audioSource.clip = levelCompletionSoundl2;
+            audioSource.Play();
+        }
+    
+        // Create a new GameObject for the VideoPlayer
+        GameObject videoPlayerObject = new GameObject("quizcompletedvideo");
+        VideoPlayer videoPlayer = videoPlayerObject.AddComponent<VideoPlayer>();
+    
+        // Set the video path (ensure the video is in the StreamingAssets folder)
+        string videoPath = Application.streamingAssetsPath + "/lvl_2.mp4";
+        videoPlayer.url = videoPath;
+    
+        // Create a Render Texture for the video
+        RenderTexture renderTexture = new RenderTexture(Screen.width, Screen.height, 0);
+        renderTexture.Create();
+    
+        // Assign the Render Texture to the VideoPlayer
+        videoPlayer.targetTexture = renderTexture;
+    
+        // Create a new UI Image to display the Render Texture
+        GameObject rawImageObject = new GameObject("GameOverRawImage");
+        UnityEngine.UI.RawImage rawImage = rawImageObject.AddComponent<UnityEngine.UI.RawImage>();
+    
+        // Set the Render Texture as the source for the RawImage
+        rawImage.texture = renderTexture;
+    
+        // Attach the RawImage to a Canvas for full-screen display
+        Canvas canvas = Object.FindFirstObjectByType<Canvas>();
+        if (canvas == null)
+        {
+            GameObject canvasObject = new GameObject("GameOverCanvas");
+            canvas = canvasObject.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvasObject.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            canvasObject.AddComponent<GraphicRaycaster>();
+        }
+    
+        rawImageObject.transform.SetParent(canvas.transform, false);
+        rawImage.rectTransform.anchorMin = Vector2.zero;
+        rawImage.rectTransform.anchorMax = Vector2.one;
+        rawImage.rectTransform.offsetMin = Vector2.zero;
+        rawImage.rectTransform.offsetMax = Vector2.zero;
+    
+        // Configure VideoPlayer
+        videoPlayer.aspectRatio = VideoAspectRatio.Stretch;
+        videoPlayer.isLooping = false;
+    
+        // Attach event listeners
+        videoPlayer.prepareCompleted += (vp) =>
+        {
+            Debug.Log("Level2 video prepared, starting playback...");
+            vp.Play();
+        };
+    
+        videoPlayer.errorReceived += (vp, msg) =>
+        {
+            Debug.LogError("VideoPlayer Error: " + msg);
+        };
+    
+        videoPlayer.loopPointReached += (vp) =>
+        {
+            Debug.Log("Level2 video finished playing.");
+            videoPlaying = false;  // Video finished
+        };
+    
+        // Prepare the video
+        videoPlayer.Prepare();
+    }
+
 
     void InitializeQuiz()
     {
-
         string keysString = PlayerPrefs.GetString("SelectedFactKeys", "");
         Debug.Log("Retrieved Keys from PlayerPrefs: " + keysString);
 
@@ -87,7 +195,6 @@ public class QuizManager : MonoBehaviour
         shields = 0;
         UpdateShieldCounter();
         DisplayQuestion();
-
     }
 
     void RandomizeQuestions()
@@ -101,7 +208,6 @@ public class QuizManager : MonoBehaviour
         }
 
         randomizedQuestions = randomizedQuestions.GetRange(1, Mathf.Min(3, randomizedQuestions.Count));
-
     }
 
     void DisplayQuestion()
@@ -115,7 +221,7 @@ public class QuizManager : MonoBehaviour
             questionText.text = randomizedQuestions[currentQuestionIndex].questionText;
             feedbackText.text = "";
             answerInput.text = "";
-    
+
             // Hide hint text at the start
             hintText.text = "";
 
@@ -156,14 +262,14 @@ public class QuizManager : MonoBehaviour
     void CheckAnswer()
     {
         if (!isTimerRunning) return;
-    
+
         string userAnswer = answerInput.text.Trim().ToLower(); // Normalize input: trim spaces & lowercase
-    
+
         // Fetch the list of valid answers for the current question
         List<string> correctAnswers = randomizedQuestions[currentQuestionIndex].correctAnswers;
-    
+
         bool isCorrect = false;
-    
+
         // Check if the user's answer matches any correct answer (case-insensitive)
         foreach (string correctAnswer in correctAnswers)
         {
@@ -173,7 +279,7 @@ public class QuizManager : MonoBehaviour
                 break;
             }
         }
-    
+
         // Provide feedback based on correctness
         if (isCorrect)
         {
@@ -188,7 +294,7 @@ public class QuizManager : MonoBehaviour
             ShowSymbol(wrongSymbol);
             PlayWrongSound();
         }
-    
+
         UpdateShieldCounter();
         isTimerRunning = false;
         currentQuestionIndex++;
@@ -215,20 +321,7 @@ public class QuizManager : MonoBehaviour
         shieldCounterText.text = $"Shields:{shields}/3 🛡"; // Update the shield counter
     }
 
-    void QuizComplete()
-    {
-        questionText.text = "Quiz Complete!";
-        feedbackText.text = "";
-        timerText.text = "";  // Clear the timer
-        shieldCounterText.text = "";  // Clear the shield counter
-
-        submitButton.gameObject.SetActive(false);
-        answerInput.gameObject.SetActive(false);  // Hide the answer input field
-        correctSymbol.gameObject.SetActive(false);
-        wrongSymbol.gameObject.SetActive(false);
-
-        proceedButton.gameObject.SetActive(true);  // Show the proceed button
-    }
+    
 
     void LoadNextGameScene()
     {
