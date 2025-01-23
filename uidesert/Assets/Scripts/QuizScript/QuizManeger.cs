@@ -43,7 +43,7 @@ public class QuizManager : MonoBehaviour
     private int shields = 0;
     private AudioSource audioSource;
 
-    public string nextGameSceneName = "GameLevel"; // Name of the game scene to return to
+    
 
     void Start()
     {
@@ -71,12 +71,24 @@ public class QuizManager : MonoBehaviour
     
     void Update()
     {
-        // If video is playing and player presses Enter, load the next scene
-        if (videoPlaying && Input.GetKeyDown(KeyCode.Return))
+        // Debug video-playing state
+        Debug.Log($"Video Playing State: {videoPlaying}");
+    
+        // Check for Enter key press and ensure the video is finished
+        if (!videoPlaying && Input.GetKeyDown(KeyCode.Return))
         {
+            Debug.Log("Enter key pressed after video finished, loading next game scene...");
             LoadNextGameScene();
         }
+    
+        // Fallback to reset video-playing state if video stops playing unexpectedly
+        if (videoPlaying && !Object.FindFirstObjectByType<VideoPlayer>().isPlaying)
+        {
+            Debug.Log("Video has stopped playing. Setting videoPlaying to false.");
+            videoPlaying = false;
+        }
     }
+    
     
     void QuizComplete()
     {
@@ -327,7 +339,7 @@ public class QuizManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("ShieldCount", shields); // Save the shield count
         PlayerPrefs.Save(); // Ensure the data is written to disk
-        SceneManager.LoadScene(nextGameSceneName);  // Load the next game scene
+        SceneManager.LoadScene("level2");   // Load the next game scene
     }
 
     // Audio Methods

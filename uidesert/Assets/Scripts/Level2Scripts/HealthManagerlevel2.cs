@@ -171,6 +171,18 @@
             Debug.Log("All background activities stopped.");
         }
 
+        public void AddHealth(int healthAmount)
+        {
+            if (isGameOver) return; // Prevent health addition after game over
+
+            currentHealth += healthAmount;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Ensure health doesn't exceed max
+
+            
+
+            //Debug.Log("Health increased! Current health: " + currentHealth);
+        }
+
         void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Stream")) // Check if the object has the "Stream" tag
