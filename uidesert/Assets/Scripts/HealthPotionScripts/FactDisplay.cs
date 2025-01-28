@@ -22,7 +22,7 @@ public class TubeCollectionManager : MonoBehaviour
         ("fact8", "46 percent is the recycling rate\n for plastic waste in Germany."),
         ("fact9", "Rainwater harvesting can collect up to 600 gallons (2,271 liters) from just one inch of rain on a 1,000 sq. ft roof."),
         ("fact10", "Protect wildlife as illegal wildlife trade is $23 billion \n annually, causing extinction of species."),
-        ("fact11", "The carbon footprint of deforestation is 10-15% of global emissions,\n decreasing Earth’s ability to absorb CO₂")
+        ("fact11", "The carbon footprint of deforestation is 10-15% of global emissions,\n decreasing Earth’s ability to absorb CO2")
     };
 
     void Start()

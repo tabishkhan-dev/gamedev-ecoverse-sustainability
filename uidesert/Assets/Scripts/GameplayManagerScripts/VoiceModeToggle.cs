@@ -13,6 +13,7 @@ public class VoiceModeToggle : MonoBehaviour
 
         // Add listener to handle changes when the toggle is clicked
         VoiceToggle.onValueChanged.AddListener(OnVoiceToggleChanged);
+        
     }
 
     private void OnVoiceToggleChanged(bool isOn)
@@ -39,11 +40,19 @@ public class VoiceModeToggle : MonoBehaviour
     {
         // Add logic for enabling voice mode (e.g., start voice recognition)
         Debug.Log("Voice Mode Enabled");
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClickSound();
+        }
     }
 
     private void DisableVoiceMode()
     {
         // Add logic for disabling voice mode (e.g., stop voice recognition)
         Debug.Log("Voice Mode Disabled");
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClickSound();
+        }
     }
 }
