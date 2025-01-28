@@ -8,6 +8,7 @@ public class GamePlayManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ReturnToMenu();
+            
         }
     }
 
@@ -15,5 +16,9 @@ public class GamePlayManager : MonoBehaviour
     {
         Debug.Log("Returning to Game Menu...");
         SceneManager.LoadScene("Game menu"); // Ensure this matches your Game menu scene name
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClickSound();
+        }
     }
 }

@@ -18,6 +18,12 @@ public class GameMenuManager : MonoBehaviour
         ResetProgress();
         ShowBlackOverlay();
 
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClickSound();
+            
+        }
+
         GameObject mainCanvas = GameObject.FindWithTag("mainCanvas");
         if (mainCanvas != null)
         {
@@ -119,6 +125,7 @@ public class GameMenuManager : MonoBehaviour
             Debug.Log("Intro video prepared, starting playback...");
             vp.Play();
             skipButton.SetActive(true); // ✅ Show Skip Button when video starts
+            
             HideBlackOverlay();
         };
     }
@@ -157,9 +164,15 @@ public class GameMenuManager : MonoBehaviour
         button.onClick.AddListener(() =>
         {
             Debug.Log("Skip Button Clicked!");
+            if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClickSound();
+        }
             PlayButtonClickSound();
             videoPlayer.Stop();
             SceneManager.LoadScene("SampleScene"); // Load Level 1
+
+            
 
             // Re-enable game menu audio
             if (gameMenuAudio != null)

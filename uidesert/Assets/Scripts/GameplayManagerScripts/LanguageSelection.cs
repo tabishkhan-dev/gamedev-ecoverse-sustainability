@@ -4,29 +4,52 @@ using TMPro;
 public class LanguageSelection : MonoBehaviour
 {
     public TextMeshProUGUI EnglishOption; // Drag your English Text object here
-    public TextMeshProUGUI GermanOption;  // Drag your German Text object here
+    public TextMeshProUGUI HindiOption;  // Drag your Hindi Text object here
 
     private void Start()
     {
-          //PlayerPrefs.DeleteAll();
-    //Debug.Log("PlayerPrefs has been cleared!");
         // Initialize language from saved preferences, default to English if none is set
         string savedLanguage = PlayerPrefs.GetString("Language", "English");
+        
+        // Set initial language and apply formatting
+        if (string.IsNullOrEmpty(savedLanguage))
+        {
+            savedLanguage = "English"; // Default language
+            PlayerPrefs.SetString("Language", savedLanguage);
+            PlayerPrefs.Save();
+        }
+
         SetLanguage(savedLanguage);
     }
 
     public void SetLanguage(string language)
     {
         Debug.Log("Setting language to: " + language);
-        if (language == "English")
+        if (language == "Hindi")
         {
+            // Apply bold effect to Hindi and dim English
+            EnglishOption.fontStyle = FontStyles.Normal; // Remove bold from English
+            HindiOption.fontStyle = FontStyles.Bold;    // Make Hindi bold
+
             EnglishOption.color = Color.gray; // Dim English
-            GermanOption.color = Color.white; // Keep German white
-        }
-        else if (language == "German")
+            HindiOption.color = Color.white; // Keep Hindi white
+            if (AudioManager.Instance != null)
         {
+            AudioManager.Instance.PlayButtonClickSound();
+        }
+        }
+        else if (language == "English")
+        {
+            // Apply bold effect to English and dim Hindi
+            EnglishOption.fontStyle = FontStyles.Bold;    // Make English bold
+            HindiOption.fontStyle = FontStyles.Normal;    // Remove bold from Hindi
+
             EnglishOption.color = Color.white; // Keep English white
-            GermanOption.color = Color.gray;  // Dim German
+            HindiOption.color = Color.gray;   // Dim Hindi
+            if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClickSound();
+        }
         }
 
         // Save the selected language in PlayerPrefs
@@ -39,14 +62,8 @@ public class LanguageSelection : MonoBehaviour
         SetLanguage("English");
     }
 
-    public void SelectGerman()
+    public void SelectHindi()
     {
-        Debug.Log("German button clicked");
-        SetLanguage("German");
+        SetLanguage("Hindi");
     }
-    
 }
-
-
-
-
