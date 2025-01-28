@@ -70,14 +70,14 @@ public class TubeCollectionManagerl2 : MonoBehaviour
             // Enable the popup
             popup.SetActive(true);
 
-            // Hide the popup after 3 seconds
-            Invoke(nameof(HidePopup), 3f);
+            // Hide the popup after 6 seconds
+            Invoke(nameof(HidePopup), 6f);
         }
         else
         {
             popupText.text = "No more facts available!";
             popup.SetActive(true);
-            Invoke(nameof(HidePopup), 3f);
+            Invoke(nameof(HidePopup), 6f);
         }
     }
 

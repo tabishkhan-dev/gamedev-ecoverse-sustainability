@@ -115,8 +115,8 @@ public class TubeCollectionManager : MonoBehaviour
                 // Enable the popup
                 popup.SetActive(true);
 
-                // Hide the popup after 3 seconds
-                Invoke(nameof(HidePopup), 5f);
+                // Hide the popup after 7 seconds
+                Invoke(nameof(HidePopup), 7f);
             }
             else
             {
