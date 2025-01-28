@@ -10,6 +10,9 @@ public class GameMenuManager : MonoBehaviour
     private GameObject skipButton; // Skip Button reference
     private VideoPlayer videoPlayer;
 
+    public GameObject gameMenuAudio; // Reference to the "gamemenu" audio object
+    private AudioSource audioSource; // To play button click sounds
+
     public void StartGame()
     {
         ResetProgress();
@@ -39,6 +42,12 @@ public class GameMenuManager : MonoBehaviour
     private void PlayIntroVideo(System.Action onVideoComplete)
     {
         Debug.Log("Initializing Intro video...");
+
+        // Disable game menu audio
+        if (gameMenuAudio != null)
+        {
+            gameMenuAudio.SetActive(false);
+        }
 
         // ✅ Create Video Player
         GameObject videoPlayerObject = new GameObject("IntroVideoPlayer");
@@ -81,6 +90,12 @@ public class GameMenuManager : MonoBehaviour
             onVideoComplete?.Invoke();
             Destroy(videoPlayerObject);
             Destroy(videoCanvasObject);
+
+            // Re-enable game menu audio
+            if (gameMenuAudio != null)
+            {
+                gameMenuAudio.SetActive(true);
+            }
         };
 
         videoPlayer.errorReceived += (vp, msg) =>
@@ -89,6 +104,12 @@ public class GameMenuManager : MonoBehaviour
             onVideoComplete?.Invoke();
             Destroy(videoPlayerObject);
             Destroy(videoCanvasObject);
+
+            // Re-enable game menu audio
+            if (gameMenuAudio != null)
+            {
+                gameMenuAudio.SetActive(true);
+            }
         };
 
         videoPlayer.Prepare();
@@ -136,11 +157,35 @@ public class GameMenuManager : MonoBehaviour
         button.onClick.AddListener(() =>
         {
             Debug.Log("Skip Button Clicked!");
+            PlayButtonClickSound();
             videoPlayer.Stop();
             SceneManager.LoadScene("SampleScene"); // Load Level 1
+
+            // Re-enable game menu audio
+            if (gameMenuAudio != null)
+            {
+                gameMenuAudio.SetActive(true);
+            }
         });
 
         return buttonObject;
+    }
+
+    private void PlayButtonClickSound()
+    {
+        if (audioSource == null)
+        {
+            audioSource = gameMenuAudio.GetComponent<AudioSource>();
+        }
+
+        if (audioSource != null)
+        {
+            audioSource.Play(); // Play the button click sound
+        }
+        else
+        {
+            Debug.LogError("AudioSource component not found on gameMenuAudio object!");
+        }
     }
 
     private void ShowBlackOverlay()

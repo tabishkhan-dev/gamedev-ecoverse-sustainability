@@ -1368,6 +1368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aboutPanel: {fileID: 0}
   audioSource: {fileID: 901761521}
+  buttonClickSound: {fileID: 8300000, guid: 6f19acda6294f804195c5db15df2d0f1, type: 3}
 --- !u!82 &901761521
 AudioSource:
   m_ObjectHideFlags: 0
