@@ -1,4 +1,4 @@
-using UnityEngine;
+    using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -93,6 +93,7 @@ public class GameMenuManager : MonoBehaviour
         videoPlayer.loopPointReached += (vp) =>
         {
             Debug.Log("Intro video finished playing.");
+            ShowBlackOverlay();
             onVideoComplete?.Invoke();
             Destroy(videoPlayerObject);
             Destroy(videoCanvasObject);
