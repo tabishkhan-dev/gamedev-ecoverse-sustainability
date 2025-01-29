@@ -20172,6 +20172,7 @@ MonoBehaviour:
   popup: {fileID: 1577959120}
   popupText: {fileID: 2097121160}
   healthValue: 25
+  tubecollectionSound: {fileID: 8300000, guid: 7816e0c9db552f544bb1f45fd3ee8547, type: 3}
 --- !u!1001 &1555286264
 PrefabInstance:
   m_ObjectHideFlags: 0

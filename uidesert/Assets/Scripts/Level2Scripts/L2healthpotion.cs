@@ -9,6 +9,9 @@ public class TubeCollectionManagerl2 : MonoBehaviour
     public int healthValue = 20; // Amount of health restored per tube
     private List<string> remainingFacts; // List to keep track of unused facts
 
+    public AudioClip tubecollectionSound;
+    private AudioSource audioSource;
+
     private string[] knowledgeFacts = new string[]
     {
         "Mindful Consumption \n of Energy.",
@@ -24,6 +27,11 @@ public class TubeCollectionManagerl2 : MonoBehaviour
 
         // Ensure the popup is initially disabled
         popup.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -43,6 +51,11 @@ public class TubeCollectionManagerl2 : MonoBehaviour
                     // Restore the player's health
                     healthManager.AddHealth(healthValue);
                 }
+            }
+            // Play collection sound
+            if (tubecollectionSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(tubecollectionSound);
             }
 
             // Destroy the tube
