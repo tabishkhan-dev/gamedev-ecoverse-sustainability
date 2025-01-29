@@ -57799,6 +57799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popup: {fileID: 1552693366}
+  tubecollectionSound: {fileID: 8300000, guid: 2aa1392559eb0714984c0050a5dec918, type: 3}
   popupText: {fileID: 1824380757}
   healthValue: 20
 --- !u!1 &1676401604
@@ -58011,15 +58012,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4083679350173494, guid: 093a44e6b1a384df88fabf2976ac0055, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 720.0895
+      value: 721.88
       objectReference: {fileID: 0}
     - target: {fileID: 4083679350173494, guid: 093a44e6b1a384df88fabf2976ac0055, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.9204246
+      value: 2.53
       objectReference: {fileID: 0}
     - target: {fileID: 4083679350173494, guid: 093a44e6b1a384df88fabf2976ac0055, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 671.8971
+      value: 667.92
       objectReference: {fileID: 0}
     - target: {fileID: 4083679350173494, guid: 093a44e6b1a384df88fabf2976ac0055, type: 3}
       propertyPath: m_LocalRotation.w

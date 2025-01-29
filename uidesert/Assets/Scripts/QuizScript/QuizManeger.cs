@@ -9,6 +9,7 @@ using UnityEngine.Video;
 public class QuizManager : MonoBehaviour
 {
     public QuizData quizData;
+    public GameObject quizCompleteTextObject;
 
     // UI Elements
     public TMP_Text questionText;
@@ -48,11 +49,13 @@ public class QuizManager : MonoBehaviour
     void Start()
 {
     InitializeQuiz();
+    if (quizCompleteTextObject != null)
+    {
+        quizCompleteTextObject.SetActive(false); // Ensure it's hidden at the start
+    }
     submitButton.onClick.AddListener(CheckAnswer);
 
-    // Ensure "Proceed" button is disabled until quiz completion
-    proceedButton.gameObject.SetActive(false);  
-
+    proceedButton.gameObject.SetActive(false);
     proceedButton.onClick.AddListener(() =>
     {
         if (!videoPlaying)
@@ -67,16 +70,20 @@ public class QuizManager : MonoBehaviour
     if (proceedButtonText != null)
         proceedButtonText.text = "Proceed";
 
-    // Setup audio
     audioSource = gameObject.AddComponent<AudioSource>();
     PlayBackgroundMusic();
 
-    // Setup hint button
     if (hintButton != null)
         hintButton.onClick.AddListener(ShowHint);
 
-    videoPlaying = false; // Disable Enter key until video starts
+    videoPlaying = false;
+
+    // Ensure the timer text starts with black color
+    timerText.color = Color.black;
+
+    timerText.text = "<color=black>Time Left:</color> ";
 }
+
 
 
     
@@ -94,23 +101,32 @@ public class QuizManager : MonoBehaviour
 
 
 
-    
-    
     void QuizComplete()
 {
-    questionText.text = "Quiz Complete!";
-    feedbackText.text = "";
-    timerText.text = "";  // Clear the timer
-    shieldCounterText.text = "";  // Clear the shield counter
+    Debug.Log("Quiz Complete!");
 
+    // Hide all question-related UI elements
+    questionText.text = "";
+    feedbackText.text = "";
+    timerText.text = "";  
+    shieldCounterText.text = "";  
+    answerInput.gameObject.SetActive(false);
     submitButton.gameObject.SetActive(false);
-    answerInput.gameObject.SetActive(false);  // Hide the answer input field
     correctSymbol.gameObject.SetActive(false);
     wrongSymbol.gameObject.SetActive(false);
+    hintButton.gameObject.SetActive(false);
+    hintText.gameObject.SetActive(false);
 
-    // Now, and only now, enable the proceed button
+    // Show the Quiz Complete UI
+    if (quizCompleteTextObject != null)
+    {
+        quizCompleteTextObject.SetActive(true);
+    }
+
+    // Enable proceed button to go to the next level
     proceedButton.gameObject.SetActive(true);
 }
+
 
     
     void PlayVideoBeforeScene()
@@ -243,94 +259,102 @@ public class QuizManager : MonoBehaviour
 
     void DisplayQuestion()
     {
+        // Check if all questions are answered
+        if (currentQuestionIndex >= randomizedQuestions.Count)
+        {
+            Debug.Log("All questions answered. Completing the quiz.");
+            QuizComplete(); // Call the quiz completion function
+            return; // Stop further execution
+        }
+    
         // Hide the symbols when moving to the next question
         correctSymbol.gameObject.SetActive(false);
         wrongSymbol.gameObject.SetActive(false);
-
-        if (currentQuestionIndex < randomizedQuestions.Count)
-        {
-            questionText.text = randomizedQuestions[currentQuestionIndex].questionText;
-            feedbackText.text = "";
-            answerInput.text = "";
-
-            // Hide hint text at the start
-            hintText.text = "";
-
-            // Restart the timer
-            timeRemaining = timePerQuestion;
-            isTimerRunning = true;
-            StartCoroutine(UpdateTimer());
-        }
-        else
-        {
-            Debug.Log("All questions answered. Completing the quiz.");
-            QuizComplete();
-        }
+    
+        questionText.text = randomizedQuestions[currentQuestionIndex].questionText;
+        feedbackText.text = "";
+        answerInput.text = "";
+    
+        // Hide hint text at the start
+        hintText.text = "";
+    
+        // Restart the timer
+        timeRemaining = timePerQuestion;
+        isTimerRunning = true;
+        StartCoroutine(UpdateTimer());
     }
+    
 
     IEnumerator UpdateTimer()
+{
+    while (isTimerRunning)
     {
-        while (isTimerRunning)
+        if (timeRemaining > 0)
         {
-            if (timeRemaining > 0)
-            {
-                timeRemaining -= Time.deltaTime;
-                timerText.text = $"Time Left: {Mathf.CeilToInt(timeRemaining)}s";
-            }
-            else
-            {
-                isTimerRunning = false;
-                feedbackText.text = "Time's up!";
-                ShowSymbol(wrongSymbol);
-                PlayWrongSound();
-                currentQuestionIndex++;
-                Invoke(nameof(DisplayQuestion), 2);
-            }
-            yield return null;
-        }
-    }
+            timeRemaining -= Time.deltaTime;
+            timerText.text = $"Time Left: {Mathf.CeilToInt(timeRemaining)}s";
 
-    void CheckAnswer()
-    {
-        if (!isTimerRunning) return;
-
-        string userAnswer = answerInput.text.Trim().ToLower(); // Normalize input: trim spaces & lowercase
-
-        // Fetch the list of valid answers for the current question
-        List<string> correctAnswers = randomizedQuestions[currentQuestionIndex].correctAnswers;
-
-        bool isCorrect = false;
-
-        // Check if the user's answer matches any correct answer (case-insensitive)
-        foreach (string correctAnswer in correctAnswers)
-        {
-            if (userAnswer.Equals(correctAnswer.Trim().ToLower()))
-            {
-                isCorrect = true;
-                break;
-            }
-        }
-
-        // Provide feedback based on correctness
-        if (isCorrect)
-        {
-            feedbackText.text = "Correct!";
-            ShowSymbol(correctSymbol);
-            PlayCorrectSound();
-            shields++;
+            // Set colors based on time remaining
+            timerText.color = timeRemaining > 10 ? Color.green : Color.red;
         }
         else
         {
-            feedbackText.text = "Wrong Answer!";
+            isTimerRunning = false;
+            feedbackText.text = "Time's up!";
             ShowSymbol(wrongSymbol);
             PlayWrongSound();
+            currentQuestionIndex++;
+            Invoke(nameof(DisplayQuestion), 2);
         }
-
-        UpdateShieldCounter();
-        isTimerRunning = false;
-        currentQuestionIndex++;
-        Invoke(nameof(DisplayQuestion), 2); // Delay before moving to the next question
+        yield return null;
     }
+}
+
+
+    void CheckAnswer()
+{
+    if (!isTimerRunning) return;
+
+    string userAnswer = answerInput.text.Trim().ToLower(); // Normalize input: trim spaces & lowercase
+
+    // Fetch the list of valid answers for the current question
+    List<string> correctAnswers = randomizedQuestions[currentQuestionIndex].correctAnswers;
+
+    bool isCorrect = correctAnswers.Exists(answer => answer.Trim().ToLower() == userAnswer);
+
+    // Provide feedback based on correctness
+    if (isCorrect)
+    {
+        feedbackText.text = "Correct!";
+        ShowSymbol(correctSymbol);
+        PlayCorrectSound();
+        shields++;
+    }
+    else
+    {
+        feedbackText.text = "Wrong Answer!";
+        ShowSymbol(wrongSymbol);
+        PlayWrongSound();
+    }
+
+    UpdateShieldCounter();
+    isTimerRunning = false;
+
+    // Move to the next question if available, otherwise delay and end quiz
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex >= randomizedQuestions.Count)
+    {
+        // Wait for 2 seconds before showing "Quiz Complete" screen
+        Invoke(nameof(QuizComplete), 2f);
+    }
+    else
+    {
+        Invoke(nameof(DisplayQuestion), 2f); // Delay before moving to the next question
+    }
+}
+
+
 
     void ShowSymbol(Image symbol)
     {
@@ -348,9 +372,12 @@ public class QuizManager : MonoBehaviour
     }
 
     void UpdateShieldCounter()
-    {
-        shieldCounterText.text = $"Shields:{shields}/3 🛡"; // Update the shield counter
-    }
+{
+    string color = (shields > 0) ? "green" : "red"; // Green if shields > 0, otherwise Red
+    shieldCounterText.text = $"Shields: <color=black><b><size=36><color={color}>{shields}/3</color></size></b> 🛡</color>"; 
+}
+
+
 
     
 

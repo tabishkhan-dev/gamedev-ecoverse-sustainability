@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class TubeCollectionManager : MonoBehaviour
 {
     public GameObject popup; // Reference to the popup UI GameObject
+    public AudioClip tubecollectionSound;
+    private AudioSource audioSource;
     public TextMeshProUGUI popupText; // Reference to the TMP Text for the knowledge fact
     public int healthValue = 20; // Amount of health restored per tube
     private List<(string key, string fact)> remainingFacts; // List to keep track of unused facts with keys
@@ -37,6 +39,12 @@ public class TubeCollectionManager : MonoBehaviour
 
         // Ensure the popup is initially disabled
         popup.SetActive(false);
+        // Setup AudioSource
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     private void PreSelectFacts()
@@ -84,6 +92,11 @@ public class TubeCollectionManager : MonoBehaviour
                     // Restore the player's health
                     healthManager.AddHealth(healthValue);
                 }
+            }
+            // Play collection sound
+            if (tubecollectionSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(tubecollectionSound);
             }
 
             // Destroy the tube

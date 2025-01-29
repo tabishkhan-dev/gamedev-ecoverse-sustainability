@@ -16,12 +16,13 @@ MonoBehaviour:
   - questionText: "  can you guess this? \\n \U0001F6E9\uFE0F\u2615 \U0001F333\U0001F333"
     correctAnswers:
     - plant trees
-    hint: 
+    hint: One tree absorbs\n 22 kgs of CO2 each year
     knowledgeFact: fact1
   - questionText: "  can you guess this? \\n REDUCE \U0001F697\U0001F9B4 \U0001F463"
     correctAnswers:
     - carbon footprint
-    hint: 
+    hint: \n 10-15% of global emissions \n come from deforestation! \n How do we
+      bring that \n number down
     knowledgeFact: fact11
   - questionText: ' <size=180>Waste</size> <size=100>Waste</size> <size=60>Waste</size>
       <size=30>Waste</size>'
@@ -29,18 +30,18 @@ MonoBehaviour:
     - reduce waste
     - waste reduction
     - waste reduce
-    hint: 
+    hint: This helps to protect\n marine animals
     knowledgeFact: fact2
   - questionText: "  can you guess this? \\n \U0001F914\U0001F49A\U0001F3AC\U0001F49A "
     correctAnswers:
     - think green act green
-    hint: 
+    hint: What thought can save up to 30% \n of your electricity annually.
     knowledgeFact: fact3
   - questionText: " <size=60>\"I\u2019m clean and green, \\n a planet\u2019s dream,\\n
       I work with the sun, wind, \\nand stream\". What am I?</size>"
     correctAnswers:
     - renewable energy
-    hint: 'example: solar energy'
+    hint: Solar Energy
     knowledgeFact: fact4
   - questionText: " <size=60>\"I don\u2019t drink gas, \\nI don\u2019t need a snack,
       \\n Just plug me in, and \\n I\u2019m back on track.\"What am I? </size>"
@@ -48,30 +49,30 @@ MonoBehaviour:
     - EV
     - electric car
     - electric vehicle
-    hint: 'example: Tesla'
+    hint: Tesla
     knowledgeFact: fact5
   - questionText: "  can you guess this? \\n \u2B07\U0001F4A7"
     correctAnswers:
     - save water
-    hint: 
+    hint: What action keeps us \n from running dry?
     knowledgeFact: fact6
   - questionText: "  can you guess this? \\n \U0001F4A7 is \U0001F343"
     correctAnswers:
     - water is life
-    hint: 
+    hint: \n <1% of Earth's water is \n accessible for human use
     knowledgeFact: fact7
   - questionText: "  can you guess this? \\n \U0001F6B2\u21A9  \u2795\u2705 "
     correctAnswers:
     - recycle plastic
-    hint: 
+    hint: Pfand
     knowledgeFact: fact8
   - questionText: '  Unscramble this: \n  RNWTRAIRAE VTSGEHRIAN '
     correctAnswers:
     - rainwater harvesting
-    hint: "\U0001F327\U0001F327\U0001F327\U0001F327"
+    hint: This can collect up to \n 600 gallons water
     knowledgeFact: fact9
   - questionText: '  Unscramble this: \n PTCRETO ILFEWDLI'
     correctAnswers:
     - protect wildlife
-    hint: "\U0001F405\U0001F981\U0001F40E\U0001F98F "
+    hint: Without this can cause \n extinction of species.
     knowledgeFact: fact10
