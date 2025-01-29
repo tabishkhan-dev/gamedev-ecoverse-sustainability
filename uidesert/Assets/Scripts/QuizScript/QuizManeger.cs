@@ -46,143 +46,162 @@ public class QuizManager : MonoBehaviour
     
 
     void Start()
+{
+    InitializeQuiz();
+    submitButton.onClick.AddListener(CheckAnswer);
+
+    // Ensure "Proceed" button is disabled until quiz completion
+    proceedButton.gameObject.SetActive(false);  
+
+    proceedButton.onClick.AddListener(() =>
     {
-        InitializeQuiz();
-        submitButton.onClick.AddListener(CheckAnswer);
-        proceedButton.onClick.AddListener(PlayVideoBeforeScene);
-    
-        // Set initial button text
-        if (submitButtonText != null)
-            submitButtonText.text = "Submit";
-    
-        if (proceedButtonText != null)
-            proceedButtonText.text = "Proceed";
-    
-        proceedButton.gameObject.SetActive(false);  // Hide proceed button initially
-    
-        // Setup audio
-        audioSource = gameObject.AddComponent<AudioSource>();
-        PlayBackgroundMusic();
-    
-        // Setup hint button
-        if (hintButton != null)
-            hintButton.onClick.AddListener(ShowHint);
-    }
+        if (!videoPlaying)
+        {
+            PlayVideoBeforeScene();
+        }
+    });
+
+    if (submitButtonText != null)
+        submitButtonText.text = "Submit";
+
+    if (proceedButtonText != null)
+        proceedButtonText.text = "Proceed";
+
+    // Setup audio
+    audioSource = gameObject.AddComponent<AudioSource>();
+    PlayBackgroundMusic();
+
+    // Setup hint button
+    if (hintButton != null)
+        hintButton.onClick.AddListener(ShowHint);
+
+    videoPlaying = false; // Disable Enter key until video starts
+}
+
+
     
     void Update()
+{
+    Debug.Log($"Video Playing State: {videoPlaying}");
+
+    // Allow Enter key press ONLY when the video is playing
+    if (videoPlaying && Input.GetKeyDown(KeyCode.Return))
     {
-        // Debug video-playing state
-        Debug.Log($"Video Playing State: {videoPlaying}");
-    
-        // Check for Enter key press and ensure the video is finished
-        if (!videoPlaying && Input.GetKeyDown(KeyCode.Return))
-        {
-            Debug.Log("Enter key pressed after video finished, loading next game scene...");
-            LoadNextGameScene();
-        }
-    
-        // Fallback to reset video-playing state if video stops playing unexpectedly
-        if (videoPlaying && !Object.FindFirstObjectByType<VideoPlayer>().isPlaying)
-        {
-            Debug.Log("Video has stopped playing. Setting videoPlaying to false.");
-            videoPlaying = false;
-        }
+        Debug.Log("Enter key pressed after video finished, loading next game scene...");
+        LoadNextGameScene();
     }
+}
+
+
+
     
     
     void QuizComplete()
-    {
-        questionText.text = "Quiz Complete!";
-        feedbackText.text = "";
-        timerText.text = "";  // Clear the timer
-        shieldCounterText.text = "";  // Clear the shield counter
-    
-        submitButton.gameObject.SetActive(false);
-        answerInput.gameObject.SetActive(false);  // Hide the answer input field
-        correctSymbol.gameObject.SetActive(false);
-        wrongSymbol.gameObject.SetActive(false);
-    
-        proceedButton.gameObject.SetActive(true);  // Show the proceed button
-    }
+{
+    questionText.text = "Quiz Complete!";
+    feedbackText.text = "";
+    timerText.text = "";  // Clear the timer
+    shieldCounterText.text = "";  // Clear the shield counter
+
+    submitButton.gameObject.SetActive(false);
+    answerInput.gameObject.SetActive(false);  // Hide the answer input field
+    correctSymbol.gameObject.SetActive(false);
+    wrongSymbol.gameObject.SetActive(false);
+
+    // Now, and only now, enable the proceed button
+    proceedButton.gameObject.SetActive(true);
+}
+
     
     void PlayVideoBeforeScene()
+{
+    // Ensure quiz is completed before playing the video
+    if (!proceedButton.gameObject.activeSelf)
     {
-        proceedButton.gameObject.SetActive(false);  // Hide the proceed button
-        Debug.Log("Initializing level2 video...");
-        videoPlaying = true;
-    
-        // Play level completion sound
-        if (levelCompletionSoundl2 != null)
-        {
-            audioSource.Stop(); // Stop any other audio
-            audioSource.clip = levelCompletionSoundl2;
-            audioSource.Play();
-        }
-    
-        // Create a new GameObject for the VideoPlayer
-        GameObject videoPlayerObject = new GameObject("quizcompletedvideo");
-        VideoPlayer videoPlayer = videoPlayerObject.AddComponent<VideoPlayer>();
-    
-        // Set the video path (ensure the video is in the StreamingAssets folder)
-        string videoPath = Application.streamingAssetsPath + "/lvl_2.mp4";
-        videoPlayer.url = videoPath;
-    
-        // Create a Render Texture for the video
-        RenderTexture renderTexture = new RenderTexture(Screen.width, Screen.height, 0);
-        renderTexture.Create();
-    
-        // Assign the Render Texture to the VideoPlayer
-        videoPlayer.targetTexture = renderTexture;
-    
-        // Create a new UI Image to display the Render Texture
-        GameObject rawImageObject = new GameObject("GameOverRawImage");
-        UnityEngine.UI.RawImage rawImage = rawImageObject.AddComponent<UnityEngine.UI.RawImage>();
-    
-        // Set the Render Texture as the source for the RawImage
-        rawImage.texture = renderTexture;
-    
-        // Attach the RawImage to a Canvas for full-screen display
-        Canvas canvas = Object.FindFirstObjectByType<Canvas>();
-        if (canvas == null)
-        {
-            GameObject canvasObject = new GameObject("GameOverCanvas");
-            canvas = canvasObject.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvasObject.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            canvasObject.AddComponent<GraphicRaycaster>();
-        }
-    
-        rawImageObject.transform.SetParent(canvas.transform, false);
-        rawImage.rectTransform.anchorMin = Vector2.zero;
-        rawImage.rectTransform.anchorMax = Vector2.one;
-        rawImage.rectTransform.offsetMin = Vector2.zero;
-        rawImage.rectTransform.offsetMax = Vector2.zero;
-    
-        // Configure VideoPlayer
-        videoPlayer.aspectRatio = VideoAspectRatio.Stretch;
-        videoPlayer.isLooping = false;
-    
-        // Attach event listeners
-        videoPlayer.prepareCompleted += (vp) =>
-        {
-            Debug.Log("Level2 video prepared, starting playback...");
-            vp.Play();
-        };
-    
-        videoPlayer.errorReceived += (vp, msg) =>
-        {
-            Debug.LogError("VideoPlayer Error: " + msg);
-        };
-    
-        videoPlayer.loopPointReached += (vp) =>
-        {
-            Debug.Log("Level2 video finished playing.");
-            videoPlaying = false;  // Video finished
-        };
-    
-        // Prepare the video
-        videoPlayer.Prepare();
+        Debug.Log("Cannot play video before completing the quiz!");
+        return;  // Stop execution if quiz is not yet completed
     }
+
+    proceedButton.gameObject.SetActive(false);  // Hide proceed button
+    Debug.Log("Initializing level2 video...");
+    videoPlaying = true;  // Enable Enter key detection only during video playback
+
+    // Play level completion sound
+    if (levelCompletionSoundl2 != null)
+    {
+        audioSource.Stop(); // Stop other audio
+        audioSource.clip = levelCompletionSoundl2;
+        audioSource.Play();
+    }
+
+    // Create a new GameObject for the VideoPlayer
+    GameObject videoPlayerObject = new GameObject("quizcompletedvideo");
+    VideoPlayer videoPlayer = videoPlayerObject.AddComponent<VideoPlayer>();
+
+    // Set the video path (ensure the video is in the StreamingAssets folder)
+    string videoPath = Application.streamingAssetsPath + "/lvl_2.mp4";
+    videoPlayer.url = videoPath;
+
+    // Create a Render Texture for the video
+    RenderTexture renderTexture = new RenderTexture(Screen.width, Screen.height, 0);
+    renderTexture.Create();
+
+    // Assign the Render Texture to the VideoPlayer
+    videoPlayer.targetTexture = renderTexture;
+
+    // Create a new UI Image to display the Render Texture
+    GameObject rawImageObject = new GameObject("GameOverRawImage");
+    UnityEngine.UI.RawImage rawImage = rawImageObject.AddComponent<UnityEngine.UI.RawImage>();
+
+    // Set the Render Texture as the source for the RawImage
+    rawImage.texture = renderTexture;
+
+    // Attach the RawImage to a Canvas for full-screen display
+    Canvas canvas = Object.FindFirstObjectByType<Canvas>();
+    if (canvas == null)
+    {
+        GameObject canvasObject = new GameObject("GameOverCanvas");
+        canvas = canvasObject.AddComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvasObject.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        canvasObject.AddComponent<GraphicRaycaster>();
+    }
+
+    rawImageObject.transform.SetParent(canvas.transform, false);
+    rawImage.rectTransform.anchorMin = Vector2.zero;
+    rawImage.rectTransform.anchorMax = Vector2.one;
+    rawImage.rectTransform.offsetMin = Vector2.zero;
+    rawImage.rectTransform.offsetMax = Vector2.zero;
+
+    // Configure VideoPlayer
+    videoPlayer.aspectRatio = VideoAspectRatio.Stretch;
+    videoPlayer.isLooping = false;
+
+    // Attach event listeners
+    videoPlayer.prepareCompleted += (vp) =>
+    {
+        Debug.Log("Level2 video prepared, starting playback...");
+        vp.Play();
+    };
+
+    videoPlayer.errorReceived += (vp, msg) =>
+    {
+        Debug.LogError("VideoPlayer Error: " + msg);
+    };
+
+    videoPlayer.loopPointReached += (vp) =>
+    {
+        Debug.Log("Level2 video finished playing.");
+        videoPlaying = true;  // Enable Enter key press only after video is finished
+        Debug.Log("Press Enter to proceed to the next game scene.");
+    };
+
+    // Prepare the video
+    videoPlayer.Prepare();
+}
+
+
+
 
 
     void InitializeQuiz()
@@ -336,11 +355,12 @@ public class QuizManager : MonoBehaviour
     
 
     void LoadNextGameScene()
-    {
-        PlayerPrefs.SetInt("ShieldCount", shields); // Save the shield count
-        PlayerPrefs.Save(); // Ensure the data is written to disk
-        SceneManager.LoadScene("level2");   // Load the next game scene
-    }
+{
+    PlayerPrefs.SetInt("ShieldCount", shields); // Save the shield count
+    PlayerPrefs.Save(); // Ensure the data is written to disk
+    SceneManager.LoadScene("level2");   // Load the next game scene
+}
+
 
     // Audio Methods
     void PlayBackgroundMusic()

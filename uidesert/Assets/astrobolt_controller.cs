@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Handle jumping with Shift key
-        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             isGrounded = false; // Temporarily prevent jumping again until grounded
             animator.SetTrigger("Jump");
