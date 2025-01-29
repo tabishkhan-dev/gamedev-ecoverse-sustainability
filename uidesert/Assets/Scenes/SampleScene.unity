@@ -57753,7 +57753,7 @@ MonoBehaviour:
   collectionMessage: {fileID: 1676401606}
   fuelMeter: {fileID: 1385192249}
   fuelIncreasePerPanel: 0.125
-  collectionSound: {fileID: 8300000, guid: 1da5dd1d2769c8945a8114396693a643, type: 3}
+  collectionSound: {fileID: 8300000, guid: d96ac8d22a61e5940b20bb79dd4deed2, type: 3}
   levelCompletionSound: {fileID: 8300000, guid: f4f200b8bca5ffb42b7965f4724a979e, type: 3}
   alignmentTask: {fileID: 415612464}
 --- !u!114 &1671586249
