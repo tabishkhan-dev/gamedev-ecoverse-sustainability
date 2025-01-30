@@ -35,7 +35,7 @@ MonoBehaviour:
   - questionText: "  can you guess this? \\n \U0001F914\U0001F49A\U0001F3AC\U0001F49A "
     correctAnswers:
     - think green act green
-    hint: What thought can save up to 30% \n of your electricity annually.
+    hint: What thought can save \n up to 30%  of electricity annually
     knowledgeFact: fact3
   - questionText: " <size=60>\"I\u2019m clean and green, \\n a planet\u2019s dream,\\n
       I work with the sun, wind, \\nand stream\". What am I?</size>"

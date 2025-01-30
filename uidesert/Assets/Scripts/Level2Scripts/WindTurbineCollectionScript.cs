@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Video;
+using System.Collections;
 
 public class WindTurbineCollector : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class WindTurbineCollector : MonoBehaviour
     public float fuelIncreasePerTurbine = 0.25f; // Fuel bar increment per turbine (4 turbines -> 0.25 per turbine)
 
     public AudioClip collectionSound; // Sound to play on turbine collection
+    public string endVideoFileName = "EndVideo.mp4"; // Name of the video file in StreamingAssets
 
     private AudioSource audioSource;
     private float currentFuel = 0f; // Tracks current fuel level for wind turbines
@@ -19,7 +22,7 @@ public class WindTurbineCollector : MonoBehaviour
     void Start()
     {
         currentFuel = PlayerPrefs.GetFloat("CurrentFuel", 0f);
-        collectedTurbines = PlayerPrefs.GetInt("CollectedTurbines", 4);
+        collectedTurbines = PlayerPrefs.GetInt("CollectedTurbines", 0); // Fix: Reset value to 0 initially
 
         // Initialize UI and fuel bar
         fuelMeter.fillAmount = currentFuel;
@@ -65,15 +68,77 @@ public class WindTurbineCollector : MonoBehaviour
 
         // Destroy the collected turbine
         Destroy(turbine.gameObject);
+
+        // Check if all turbines are collected and trigger the End Video
+        if (collectedTurbines >= totalWindTurbines)
+        {
+            StartCoroutine(PlayEndVideoWithDelay(1f)); // 1-second delay before playing video
+        }
     }
 
     private void UpdateTurbineCollectionMessage()
     {
-        turbineCollectionMessage.text = $"{collectedTurbines} of 8 Sustainable Assets";
+        turbineCollectionMessage.text = $"{collectedTurbines} of {totalWindTurbines} Sustainable Assets";
     }
 
     private void UpdateFuelMeter(float fuelValue)
     {
         fuelMeter.fillAmount = Mathf.Clamp01(fuelValue);
+    }
+
+    private IEnumerator PlayEndVideoWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        PlayEndVideo();
+    }
+
+    private void PlayEndVideo()
+    {
+        Debug.Log("Playing End Video...");
+
+        // Create a GameObject for Video Player
+        GameObject videoPlayerObject = new GameObject("EndVideoPlayer");
+        VideoPlayer videoPlayer = videoPlayerObject.AddComponent<VideoPlayer>();
+
+        // Set the path to the video inside StreamingAssets
+        string videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, endVideoFileName);
+        videoPlayer.url = videoPath;
+
+        // Create a render texture
+        RenderTexture renderTexture = new RenderTexture(Screen.width, Screen.height, 0);
+        renderTexture.Create();
+        videoPlayer.targetTexture = renderTexture;
+
+        // Create a UI Raw Image to display the video
+        GameObject rawImageObject = new GameObject("EndVideoRawImage");
+        RawImage rawImage = rawImageObject.AddComponent<RawImage>();
+        rawImage.texture = renderTexture;
+
+        // Assign it to the Canvas
+        Canvas canvas = Object.FindFirstObjectByType<Canvas>();
+        if (canvas == null)
+        {
+            GameObject canvasObject = new GameObject("EndVideoCanvas");
+            canvas = canvasObject.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvasObject.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            canvasObject.AddComponent<GraphicRaycaster>();
+        }
+
+        rawImageObject.transform.SetParent(canvas.transform, false);
+        rawImage.rectTransform.anchorMin = Vector2.zero;
+        rawImage.rectTransform.anchorMax = Vector2.one;
+        rawImage.rectTransform.offsetMin = Vector2.zero;
+        rawImage.rectTransform.offsetMax = Vector2.zero;
+
+        // Set Video Properties
+        videoPlayer.aspectRatio = VideoAspectRatio.Stretch;
+        videoPlayer.isLooping = false;
+
+        // Play Video
+        videoPlayer.prepareCompleted += (vp) => { vp.Play(); };
+        videoPlayer.loopPointReached += (vp) => { Debug.Log("End Video finished."); };
+
+        videoPlayer.Prepare();
     }
 }
