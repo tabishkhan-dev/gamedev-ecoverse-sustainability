@@ -1,16 +1,13 @@
 using UnityEngine;
 
-public class windturbinemovement : MonoBehaviour
+public class PlayAnimation : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private Animator animator;
+
     void Start()
     {
-        Animation anim = GetComponent<Animation>();
-        if (anim != null)
-        {
-            anim.Play("Armature_wing|Rotation_Slow_fan");
-        } 
+        animator = GetComponent<Animator>();
+        animator.Play("Armature_wing|Rotation_fan2 (1)"); // Replace with actual animation clip name
     }
-
-    
 }
+

@@ -996,7 +996,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 5
   m_Height: 50
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
@@ -2283,7 +2283,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2223639932434330405, guid: cf441c403b1798a4da78a21138ad5fc6, type: 3}
       propertyPath: m_UpdateMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2223639932434330405, guid: cf441c403b1798a4da78a21138ad5fc6, type: 3}
       propertyPath: m_CullingType
@@ -2291,7 +2291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2223639932434330405, guid: cf441c403b1798a4da78a21138ad5fc6, type: 3}
       propertyPath: m_AnimatePhysics
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2223639932434330405, guid: cf441c403b1798a4da78a21138ad5fc6, type: 3}
       propertyPath: m_PlayAutomatically
@@ -10441,7 +10441,8 @@ PrefabInstance:
       propertyPath: m_Animations.Array.size
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2223639932434330405, guid: cf441c403b1798a4da78a21138ad5fc6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -13318,7 +13319,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 5
   m_Height: 50
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
@@ -18872,9 +18873,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e1deea230f2f3ee4d950a69f1a61155e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1627944961}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e1deea230f2f3ee4d950a69f1a61155e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1627944960}
   m_SourcePrefab: {fileID: 100100000, guid: e1deea230f2f3ee4d950a69f1a61155e, type: 3}
 --- !u!1 &1283380124 stripped
 GameObject:
@@ -19416,8 +19414,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 50
+  m_Radius: 5
+  m_Height: 30
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1395785325
@@ -19547,7 +19545,7 @@ GameObject:
   - component: {fileID: 1412549189}
   m_Layer: 5
   m_Name: sheildicon
-  m_TagString: Untagged
+  m_TagString: shieldcanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20619,20 +20617,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e1deea230f2f3ee4d950a69f1a61155e, type: 3}
   m_PrefabInstance: {fileID: 1282634708}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1627944960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1627944958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa1e13932b0ad414eb0011f32462dc1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meltDelay: 3
-  meltDuration: 3
 --- !u!54 &1627944961
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -21225,7 +21209,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 5
   m_Height: 50
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
@@ -28155,7 +28139,7 @@ GameObject:
   - component: {fileID: 2079753169}
   m_Layer: 5
   m_Name: sheildCount
-  m_TagString: Untagged
+  m_TagString: shieldcanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
