@@ -12,6 +12,7 @@ public class WindTurbineCollector : MonoBehaviour
     public TMP_Text turbineCollectionMessage; // UI Text for turbine collection progress
     public Image fuelMeter; // UI Image for the fuel bar
     public float fuelIncreasePerTurbine = 0.25f; // Fuel bar increment per turbine (4 turbines -> 0.25 per turbine)
+    
 
     public AudioClip collectionSound; // Sound to play on turbine collection
     public string endVideoFileName = "EndVideo.mp4"; // Name of the video file in StreamingAssets
@@ -22,7 +23,7 @@ public class WindTurbineCollector : MonoBehaviour
     void Start()
     {
         currentFuel = PlayerPrefs.GetFloat("CurrentFuel", 0f);
-        collectedTurbines = PlayerPrefs.GetInt("CollectedTurbines", 0); // Fix: Reset value to 0 initially
+        collectedTurbines = PlayerPrefs.GetInt("CollectedTurbines", 4); // Fix: Reset value to 0 initially
 
         // Initialize UI and fuel bar
         fuelMeter.fillAmount = currentFuel;
@@ -70,7 +71,7 @@ public class WindTurbineCollector : MonoBehaviour
         Destroy(turbine.gameObject);
 
         // Check if all turbines are collected and trigger the End Video
-        if (collectedTurbines >= totalWindTurbines)
+        if (collectedTurbines >= 8)
         {
             StartCoroutine(PlayEndVideoWithDelay(1f)); // 1-second delay before playing video
         }
@@ -78,7 +79,7 @@ public class WindTurbineCollector : MonoBehaviour
 
     private void UpdateTurbineCollectionMessage()
     {
-        turbineCollectionMessage.text = $"{collectedTurbines} of {totalWindTurbines} Sustainable Assets";
+        turbineCollectionMessage.text = $"{collectedTurbines} of 8 Sustainable Assets";
     }
 
     private void UpdateFuelMeter(float fuelValue)
@@ -95,6 +96,21 @@ public class WindTurbineCollector : MonoBehaviour
     private void PlayEndVideo()
     {
         Debug.Log("Playing End Video...");
+        StopAllBackgroundActivities();
+
+        GameObject[] shieldObjects = GameObject.FindGameObjectsWithTag("shieldcanvas");
+        if (shieldObjects.Length > 0)
+        {
+             foreach (GameObject obj in shieldObjects)
+             {
+                 obj.SetActive(false);
+             }
+             Debug.Log("All ShieldCanvas objects (ShieldCount & ShieldIcon) disabled.");
+        }
+        else
+        {
+             Debug.LogWarning("No objects found with tag 'ShieldCanvas'!");
+        }
 
         // Create a GameObject for Video Player
         GameObject videoPlayerObject = new GameObject("EndVideoPlayer");
@@ -141,4 +157,39 @@ public class WindTurbineCollector : MonoBehaviour
 
         videoPlayer.Prepare();
     }
+
+    void StopAllBackgroundActivities()
+    {
+        // Stop all sounds
+        var allAudioSources = Object.FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
+        foreach (var source in allAudioSources)
+        {
+            source.Stop();
+        }
+
+
+        // Stop all rigidbody-based physics
+        var allRigidbodies = Object.FindObjectsByType<Rigidbody>(FindObjectsSortMode.None);
+        foreach (var rb in allRigidbodies)
+        {
+            rb.isKinematic = true;
+        }
+
+        // Disable all animations
+        var allAnimators = Object.FindObjectsByType<Animator>(FindObjectsSortMode.None);
+        foreach (var animator in allAnimators)
+        {
+            animator.enabled = false;
+        }
+
+        // Disable player movement
+        var playerMovement = Object.FindFirstObjectByType<astronaut_controller>();
+        if (playerMovement != null)
+        {
+            playerMovement.enabled = false;
+        }
+
+        Debug.Log("All background activities have been stopped.");
+    }
+
 }
