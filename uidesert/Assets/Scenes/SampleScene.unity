@@ -4772,7 +4772,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 95de44dac7305da4e9a1774b52dc8e0c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -226.4
+      value: -226.76
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 95de44dac7305da4e9a1774b52dc8e0c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4846,7 +4846,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 6
+  m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &301738714 stripped
 Transform:
@@ -10588,6 +10588,7 @@ GameObject:
   - component: {fileID: 643462863}
   - component: {fileID: 643462862}
   - component: {fileID: 643462864}
+  - component: {fileID: 643462865}
   m_Layer: 0
   m_Name: ambient sound
   m_TagString: Untagged
@@ -10720,6 +10721,103 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 05349dcf6f35c754583848e219e3e9b4, type: 3}
   m_Resource: {fileID: 8300000, guid: 05349dcf6f35c754583848e219e3e9b4, type: 3}
   m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &643462865
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643462861}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: fa65ad0891450c042b5b63188a0aee40, type: 3}
+  m_Resource: {fileID: 8300000, guid: fa65ad0891450c042b5b63188a0aee40, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -25864,8 +25962,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 8
-      minScalar: 7
+      scalar: 3
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -49463,7 +49561,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 6
+  m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1570447199
 GameObject:
@@ -49571,7 +49669,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MeshWeighting: 1
-  m_MeshWeighting1: 0.07
+  m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
@@ -49829,8 +49927,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 7
-      minScalar: 5
+      scalar: 1
+      minScalar: 0.7
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -54702,8 +54800,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 5
-      minScalar: 3
+      scalar: 2
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -59298,7 +59396,7 @@ ParticleSystemRenderer:
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 4214894590326129924, guid: af684f98ee2d10545b098651c1ac088f, type: 3}
-  m_Mesh1: {fileID: 5167598553062015541, guid: 731a279277cfbe04bac6fb9cb89ea84a, type: 3}
+  m_Mesh1: {fileID: 7701288561249619455, guid: f79cbf2a3ff2a0d4180269b8bf841c70, type: 3}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MeshWeighting: 1
@@ -65475,7 +65573,7 @@ MonoBehaviour:
   fuelMeter: {fileID: 1385192249}
   fuelIncreasePerPanel: 0.125
   collectionSound: {fileID: 8300000, guid: d96ac8d22a61e5940b20bb79dd4deed2, type: 3}
-  levelCompletionSound: {fileID: 8300000, guid: f4f200b8bca5ffb42b7965f4724a979e, type: 3}
+  levelCompletionSound: {fileID: 8300000, guid: 4f5ee6b8da5e20d43aaa3d8c07251ceb, type: 3}
   alignmentTask: {fileID: 415612464}
 --- !u!114 &1671586249
 MonoBehaviour:
@@ -65494,7 +65592,7 @@ MonoBehaviour:
   healthBarFill: {fileID: 169280430}
   damageFromRock: 5
   playerHitSound: {fileID: 8300000, guid: 889013dd16cb7414e90425c3e12e0427, type: 3}
-  gameOverSound: {fileID: 8300000, guid: 923868333293581479b08fe5a7570e95, type: 3}
+  gameOverSound: {fileID: 8300000, guid: 63ed3a8a8aac40b488447ef250317f4f, type: 3}
 --- !u!114 &1671586251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76015,11 +76113,11 @@ ParticleSystemRenderer:
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 7508490650296950461, guid: b4143b0824a933d4ba74f757220517c2, type: 3}
-  m_Mesh1: {fileID: 5670966607213774925, guid: 89e5487b4a4ed334f9fea94369e3b93f, type: 3}
+  m_Mesh1: {fileID: -3262910355955414891, guid: 1ad8fe0bdd6e0ce47b8f5075a61aef15, type: 3}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MeshWeighting: 1
-  m_MeshWeighting1: 0.07
+  m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0

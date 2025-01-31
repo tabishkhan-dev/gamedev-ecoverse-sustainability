@@ -108,7 +108,7 @@
             GameObject videoPlayerObject = new GameObject("GameOverVideoPlayer");
             VideoPlayer videoPlayer = videoPlayerObject.AddComponent<VideoPlayer>();
 
-            string videoPath = Application.streamingAssetsPath + "/Game Over.mp4";
+            string videoPath = Application.streamingAssetsPath + "/gameoverFinal.mp4";
             Debug.Log("Video path: " + videoPath);
             videoPlayer.url = videoPath;
 
