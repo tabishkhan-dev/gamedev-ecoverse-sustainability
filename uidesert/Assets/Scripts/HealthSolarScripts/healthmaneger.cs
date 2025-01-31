@@ -115,7 +115,7 @@
             VideoPlayer videoPlayer = videoPlayerObject.AddComponent<VideoPlayer>();
         
             // Set the video path (ensure the video is in the StreamingAssets folder)
-            string videoPath = Application.streamingAssetsPath + "/Game Over.mp4";
+            string videoPath = Application.streamingAssetsPath + "/gameoverFinal.mp4";
             Debug.Log("Video path: " + videoPath);
             videoPlayer.url = videoPath;
         
@@ -146,11 +146,13 @@
             }
         
             rawImageObject.transform.SetParent(canvas.transform, false);
-            rawImage.rectTransform.anchorMin = Vector2.zero; // Bottom-left corner
-            rawImage.rectTransform.anchorMax = Vector2.one;  // Top-right corner
-            rawImage.rectTransform.offsetMin = Vector2.zero; // No offset
-            rawImage.rectTransform.offsetMax = Vector2.zero; // No offset
-        
+            // Adjust RectTransform to cover the entire screen
+            RectTransform rectTransform = rawImage.rectTransform;
+            rectTransform.anchorMin = Vector2.zero; // Bottom-left corner
+            rectTransform.anchorMax = Vector2.one;  // Top-right corner
+            rectTransform.offsetMin = Vector2.zero; // No offset
+            rectTransform.offsetMax = Vector2.zero; // No offset
+            rectTransform.sizeDelta = Vector2.zero; // Ensure no extra spacing
             // Configure VideoPlayer
             videoPlayer.aspectRatio = VideoAspectRatio.Stretch;
             videoPlayer.isLooping = false;
