@@ -23,7 +23,7 @@ MonoBehaviour:
       \U0001F463</size>"
     correctAnswers:
     - carbon footprint
-    hint: \n 10-15% of global emissions \n come from deforestation! \n How do we
+    hint: \n 10-15% of global emissions \n come from deforestation! \n Process to
       bring that \n number down
     knowledgeFact: fact11
   - questionText: ' <size=60>Solve This Riddle!</size>\n <size=180>Waste</size> <size=100>Waste</size>
@@ -38,7 +38,7 @@ MonoBehaviour:
       </size>"
     correctAnswers:
     - think green act green
-    hint: This thought can save \n up to 30%  of electricity annually
+    hint: This thought can save \n up to 30%  of electricity \nannually
     knowledgeFact: fact3
   - questionText: " <size=60>\"I\u2019m clean and green, a planet\u2019s dream,\\n     
       I work with the sun, wind, and stream\". What am I?</size>"
@@ -62,7 +62,7 @@ MonoBehaviour:
   - questionText: " <size=60>Guess This Quote! \\n     \U0001F4A7 is \U0001F343</size>"
     correctAnswers:
     - water is life
-    hint: \n <1% of Earth's water is \n accessible for human use
+    hint: \n Less than 1% of Earth's \nwater is accessible for \nhuman use
     knowledgeFact: fact7
   - questionText: " <size=60>Can You Solve This Riddle? \\n     \U0001F6B2\u21A9  
       \u2795\u2705 </size>"
@@ -80,5 +80,5 @@ MonoBehaviour:
       </size>'
     correctAnswers:
     - protect wildlife
-    hint: Without this can cause \n extinction of species.
+    hint: Without this can cause \n extinction of species
     knowledgeFact: fact10

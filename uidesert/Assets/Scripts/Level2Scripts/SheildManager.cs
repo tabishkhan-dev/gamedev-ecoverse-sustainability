@@ -148,7 +148,7 @@ public class ShieldManager : MonoBehaviour
         { 
             if (shieldsAvailable > 0)
             {
-                shieldCounterText.text = $"{shieldsAvailable}/3";
+                shieldCounterText.text = $"{shieldsAvailable} of 3";
                  // Set to default color (or your preferred color)
             }
             else
