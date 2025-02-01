@@ -19,9 +19,9 @@
         public TMP_Text shieldCounterText;
         public Button submitButton;
         public Button proceedButton;
-        public Image correctSymbol;
+     //   public Image correctSymbol;
         
-        public Image wrongSymbol;
+    //    public Image wrongSymbol;
         public TMP_Text submitButtonText;
         public TMP_Text proceedButtonText;
 
@@ -46,9 +46,9 @@
         private AudioSource audioSource;
 
         public TimerIcon timerIcon;
+        public Image  shieldIcon;
 
-
-        
+                
 
         void Start()
     {
@@ -69,10 +69,10 @@
         });
 
         if (submitButtonText != null)
-            submitButtonText.text = "Submit";
+            submitButtonText.text = "GO";
 
         if (proceedButtonText != null)
-            proceedButtonText.text = "Proceed";
+            proceedButtonText.text = "CONTINUE";
 
         audioSource = gameObject.AddComponent<AudioSource>();
         PlayBackgroundMusic();
@@ -106,30 +106,32 @@
 
 
         void QuizComplete()
+{
+    Debug.Log("Quiz Complete!");
+
+    // Hide all question-related UI elements
+    questionText.text = "";
+    feedbackText.text = "";
+    timerText.text = "";
+    shieldCounterText.text = "";
+    answerInput.gameObject.SetActive(false);
+    submitButton.gameObject.SetActive(false);
+    hintButton.gameObject.SetActive(false);
+    hintText.gameObject.SetActive(false);
+    timerIcon.gameObject.SetActive(false);
+    shieldIcon.gameObject.SetActive(false);
+
+    // Show the Quiz Complete UI
+    if (quizCompleteTextObject != null)
     {
-        Debug.Log("Quiz Complete!");
-
-        // Hide all question-related UI elements
-        questionText.text = "";
-        feedbackText.text = "";
-        timerText.text = "";  
-        shieldCounterText.text = "";  
-        answerInput.gameObject.SetActive(false);
-        submitButton.gameObject.SetActive(false);
-        correctSymbol.gameObject.SetActive(false);
-        wrongSymbol.gameObject.SetActive(false);
-        hintButton.gameObject.SetActive(false);
-        hintText.gameObject.SetActive(false);
-
-        // Show the Quiz Complete UI
-        if (quizCompleteTextObject != null)
-        {
-            quizCompleteTextObject.SetActive(true);
-        }
-
-        // Enable proceed button to go to the next level
-        proceedButton.gameObject.SetActive(true);
+        quizCompleteTextObject.SetActive(true);
+        StartCoroutine(AnimateProcessingText()); // Start dots animation
     }
+
+    // Enable proceed button to go to the next level
+    proceedButton.gameObject.SetActive(true);
+}
+
 
 
         
@@ -261,9 +263,8 @@
             randomizedQuestions = randomizedQuestions.GetRange(1, Mathf.Min(3, randomizedQuestions.Count));
         }
 
-        void DisplayQuestion()
+void DisplayQuestion()
 {
-    // Check if all questions are answered
     if (currentQuestionIndex >= randomizedQuestions.Count)
     {
         Debug.Log("All questions answered. Completing the quiz.");
@@ -272,13 +273,18 @@
     }
 
     // Hide symbols
-    correctSymbol.gameObject.SetActive(false);
-    wrongSymbol.gameObject.SetActive(false);
+    //correctSymbol.gameObject.SetActive(false);
+    //wrongSymbol.gameObject.SetActive(false);
 
     // Set question and reset answer
     questionText.text = randomizedQuestions[currentQuestionIndex].questionText;
     feedbackText.text = "";
     answerInput.text = "";
+
+    // Reset input field color to white
+    Color whiteColor;
+    ColorUtility.TryParseHtmlString("#FFFFFF", out whiteColor);
+    answerInput.colors = ChangeInputFieldColor(whiteColor);
 
     // Hide hint text
     hintText.text = "";
@@ -288,110 +294,141 @@
     isTimerRunning = true;
     StartCoroutine(UpdateTimer());
 
-    // **Restart TimerIcon Timer**  
+    // Restart TimerIcon Timer
     if (timerIcon != null)
     {
         timerIcon.RestartTimer();
     }
 }
 
+
+
+    private ColorBlock ChangeInputFieldColor(Color newColor)
+{
+    ColorBlock colors = answerInput.colors;
+    colors.normalColor = newColor;
+    colors.highlightedColor = newColor;
+    colors.selectedColor = newColor;
+    colors.pressedColor = newColor;
+    return colors;
+}
+
+
         
 
         IEnumerator UpdateTimer()
+{
+    while (isTimerRunning)
     {
-        while (isTimerRunning)
+        if (timeRemaining > 0)
         {
-            if (timeRemaining > 0)
-            {
-                timeRemaining -= Time.deltaTime;
-                timerText.text = $"{Mathf.CeilToInt(timeRemaining)}s";
+            timeRemaining -= Time.deltaTime;
+            timerText.text = $"{Mathf.CeilToInt(timeRemaining)}s";
 
-                // Set colors based on time remaining
-                timerText.color = timeRemaining > 9 ? Color.green : Color.red;
-            }
-            else
-            {
-                isTimerRunning = false;
-                feedbackText.text = "Time's up!";
-                ShowSymbol(wrongSymbol);
-                PlayWrongSound();
-                currentQuestionIndex++;
-                Invoke(nameof(DisplayQuestion), 2);
-            }
-            yield return null;
-        }
-    }
-
-
-        void CheckAnswer()
-    {
-        if (!isTimerRunning) return;
-
-        string userAnswer = answerInput.text.Trim().ToLower(); // Normalize input: trim spaces & lowercase
-
-        // Fetch the list of valid answers for the current question
-        List<string> correctAnswers = randomizedQuestions[currentQuestionIndex].correctAnswers;
-
-        bool isCorrect = correctAnswers.Exists(answer => answer.Trim().ToLower() == userAnswer);
-
-        // Provide feedback based on correctness
-        if (isCorrect)
-        {
-            feedbackText.text = "Correct!";
-            ShowSymbol(correctSymbol);
-            PlayCorrectSound();
-            shields++;
+            // Set timer text color based on time remaining
+            timerText.color = timeRemaining > 9 ? Color.green : Color.red;
         }
         else
         {
-            feedbackText.text = "Wrong Answer!";
-            ShowSymbol(wrongSymbol);
+            isTimerRunning = false;
+            feedbackText.text = "Time's up!";
+            //ShowSymbol(wrongSymbol);
             PlayWrongSound();
-        }
 
-        UpdateShieldCounter();
-        isTimerRunning = false;
+            // Change input field color to red (wrong answer)
+            Color wrongColor;
+            ColorUtility.TryParseHtmlString("#F68C8C", out wrongColor);
+            answerInput.colors = ChangeInputFieldColor(wrongColor);
 
-        // Move to the next question if available, otherwise delay and end quiz
-        currentQuestionIndex++;
+            currentQuestionIndex++;
+            Invoke(nameof(DisplayQuestion), 2);
+        }
+        yield return null;
+    }
+}
 
-        if (currentQuestionIndex >= randomizedQuestions.Count)
-        {
-            // Wait for 2 seconds before showing "Quiz Complete" screen
-            Invoke(nameof(QuizComplete), 2f);
-        }
-        else
-        {
-            Invoke(nameof(DisplayQuestion), 2f); // Delay before moving to the next question
-        }
+
+
+void CheckAnswer()
+{
+    if (!isTimerRunning) return;
+
+    // Normalize input: trim spaces, lowercase, and remove all spaces between words
+    string userAnswer = answerInput.text.Trim().ToLower().Replace(" ", "");
+
+    // Fetch the list of valid answers for the current question
+    List<string> correctAnswers = randomizedQuestions[currentQuestionIndex].correctAnswers;
+
+    // Normalize each correct answer: lowercase and remove spaces
+    bool isCorrect = correctAnswers.Exists(answer => answer.Trim().ToLower().Replace(" ", "") == userAnswer);
+
+    // Define correct (green) and wrong (red) colors
+    Color correctColor, wrongColor;
+    ColorUtility.TryParseHtmlString("#96E49B", out correctColor); // Green
+    ColorUtility.TryParseHtmlString("#F68C8C", out wrongColor);   // Red
+
+    // Change input field color based on correctness
+    answerInput.colors = ChangeInputFieldColor(isCorrect ? correctColor : wrongColor);
+
+    // Provide feedback based on correctness
+    if (isCorrect)
+    {
+        feedbackText.text = "Correct!";
+        //ShowSymbol(correctSymbol);
+        PlayCorrectSound();
+        shields++;
+    }
+    else
+    {
+        feedbackText.text = "Wrong Answer!";
+        //ShowSymbol(wrongSymbol);
+        PlayWrongSound();
     }
 
+    UpdateShieldCounter();
+    isTimerRunning = false;
+
+    // Move to the next question if available, otherwise delay and end quiz
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex >= randomizedQuestions.Count)
+    {
+        // Wait for 2 seconds before showing "Quiz Complete" screen
+        Invoke(nameof(QuizComplete), 2f);
+    }
+    else
+    {
+        Invoke(nameof(DisplayQuestion), 2f); // Delay before moving to the next question
+    }
+}
 
 
-        void ShowSymbol(Image symbol)
-        {
-            correctSymbol.gameObject.SetActive(false);
-            wrongSymbol.gameObject.SetActive(false);
 
-            symbol.gameObject.SetActive(true);
-            Invoke(nameof(HideSymbols), 1f);  // Delay to hide symbols after 1 second
-        }
 
-        void HideSymbols()
-        {
-            correctSymbol.gameObject.SetActive(false);
-            wrongSymbol.gameObject.SetActive(false);
-        }
+   //    void ShowSymbol(Image symbol)
+   //   {
+   //       correctSymbol.gameObject.SetActive(false);
+   //       wrongSymbol.gameObject.SetActive(false);
+//
+   //       symbol.gameObject.SetActive(true);
+   //       Invoke(nameof(HideSymbols), 1f);  // Delay to hide symbols after 1 second
+   //   }
+//
+   //   void HideSymbols()
+   //   {
+   //       correctSymbol.gameObject.SetActive(false);
+   //       wrongSymbol.gameObject.SetActive(false);
+   //   }
 
     void UpdateShieldCounter()
     {
-        string color = (shields > 0) ? "green" : "black"; // Green if shields > 0, otherwise Red
+        string color = (shields > 0) ? "green" : "white"; // Green if shields > 0, otherwise Red
 
         shieldCounterText.text = 
             
-            $"Shields: <color=yellow><b><size=36>" +
-            $"<color={color}><size=30><b>\n {shields}/3</b></size></color>"+
-            $"</size></b>🛡</color>" ;
+           // $"<color=yellow><b><size=36>" +
+           // $"</size></b>🛡</color>" +
+            $"<color={color}>{shields} of 3</color>";
             
     }
 
@@ -452,4 +489,22 @@
                 }
             }
         }
+
+        IEnumerator AnimateProcessingText()
+{
+    string baseText = "Processing Data"; 
+    int dotCount = 0;
+
+    while (true)
+    {
+        // Update the text with increasing dots
+        quizCompleteTextObject.GetComponent<TMP_Text>().text = baseText + new string('.', dotCount);
+
+        // Increment dot count (cycle from 0 to 3 dots)
+        dotCount = (dotCount + 1) % 4;
+
+        yield return new WaitForSeconds(0.5f); // Adjust speed if needed
+    }
+}
+
     }
