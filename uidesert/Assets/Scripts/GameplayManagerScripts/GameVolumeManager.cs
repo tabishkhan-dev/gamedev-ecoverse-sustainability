@@ -10,15 +10,16 @@ public class VolumeManager : MonoBehaviour
     private const string VolumeKey = "GameVolume"; // PlayerPrefs Key
 
     void Start()
-    {
-        // Load saved volume or set default
-        float savedVolume = PlayerPrefs.GetFloat(VolumeKey, 1f);
-        AudioListener.volume = savedVolume;
-        volumeSlider.value = savedVolume;
+{
+    // Load saved volume or set default
+    float savedVolume = PlayerPrefs.GetFloat("GameVolume", 1f);
+    AudioListener.volume = savedVolume;
+    volumeSlider.value = savedVolume;
 
-        // Add listener for real-time volume change
-        volumeSlider.onValueChanged.AddListener(UpdateVolume);
-    }
+    // Add listener for real-time volume change
+    volumeSlider.onValueChanged.AddListener(UpdateVolume);
+}
+
 
     void UpdateVolume(float volume)
     {
@@ -28,7 +29,7 @@ public class VolumeManager : MonoBehaviour
 
         if (volumeValueText != null)
         {
-            volumeValueText.text = $"Volume:"; // Display percentage
+            volumeValueText.text = $"Game Volume:"; // Display percentage
         }
     }
 }
