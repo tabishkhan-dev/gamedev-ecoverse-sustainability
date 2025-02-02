@@ -5,7 +5,7 @@ using TMPro;
 public class VolumeManager : MonoBehaviour
 {
     public Slider volumeSlider; // Reference to UI Slider
-    public TMP_Text volumeValueText; // Optional: Displays numeric volume level
+    public TMP_Text volumeValueText; // Optional: Display numeric volume level
 
     private const string VolumeKey = "GameVolume"; // PlayerPrefs Key
 
