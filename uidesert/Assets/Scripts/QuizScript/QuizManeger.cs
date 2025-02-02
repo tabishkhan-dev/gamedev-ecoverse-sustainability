@@ -48,60 +48,70 @@
         public TimerIcon timerIcon;
         public Image  shieldIcon;
 
+        public AudioClip clickSound; // Sound effect for button clicks
+
+
                 
 
         void Start()
+{
+    InitializeQuiz();
+    
+    if (quizCompleteTextObject != null)
     {
-        InitializeQuiz();
-        if (quizCompleteTextObject != null)
-        {
-            quizCompleteTextObject.SetActive(false); // Ensure it's hidden at the start
-        }
-        submitButton.onClick.AddListener(CheckAnswer);
-
-        proceedButton.gameObject.SetActive(false);
-        proceedButton.onClick.AddListener(() =>
-        {
-            if (!videoPlaying)
-            {
-                PlayVideoBeforeScene();
-            }
-        });
-
-        if (submitButtonText != null)
-            submitButtonText.text = "GO";
-
-        if (proceedButtonText != null)
-            proceedButtonText.text = "CONTINUE";
-
-        audioSource = gameObject.AddComponent<AudioSource>();
-        PlayBackgroundMusic();
-
-        if (hintButton != null)
-            hintButton.onClick.AddListener(ShowHint);
-
-        videoPlaying = false;
-
-        // Ensure the timer text starts with black color
-        timerText.color = Color.green;
-
-        //timerText.text = "<color=black>Time Left:</color> ";
+        quizCompleteTextObject.SetActive(false); // Ensure it's hidden at the start
     }
+
+    submitButton.onClick.AddListener(() => { PlayClickSound(); CheckAnswer(); });
+    hintButton.onClick.AddListener(() => { PlayClickSound(); ShowHint(); });
+
+    // Ensure click sound plays BEFORE playing video
+    proceedButton.onClick.AddListener(() =>
+    {
+        PlayClickSound();
+        Invoke(nameof(PlayVideoBeforeScene), 0.1f); // Small delay to ensure sound plays
+    });
+
+    if (submitButtonText != null)
+        submitButtonText.text = "GO";
+
+    if (proceedButtonText != null)
+        proceedButtonText.text = "CONTINUE";
+
+    audioSource = gameObject.AddComponent<AudioSource>();
+    PlayBackgroundMusic();
+
+    videoPlaying = false;
+
+    // Ensure the timer text starts with black color
+    timerText.color = Color.green;
+}
+
+
 
 
 
         
         void Update()
-    {
-        Debug.Log($"Video Playing State: {videoPlaying}");
+{
+    Debug.Log($"Video Playing State: {videoPlaying}");
 
-        // Allow Enter key press ONLY when the video is playing
-        if (videoPlaying && Input.GetKeyDown(KeyCode.Return))
-        {
-            Debug.Log("Enter key pressed after video finished, loading next game scene...");
-            LoadNextGameScene();
-        }
+    if (videoPlaying && Input.GetKeyDown(KeyCode.Return))
+    {
+        PlayClickSound();
+        Debug.Log("Enter key pressed after video finished, loading next game scene...");
+        LoadNextGameScene();
     }
+}
+
+void PlayClickSound()
+{
+    if (audioSource != null && clickSound != null)
+    {
+        audioSource.PlayOneShot(clickSound);
+    }
+}
+
 
 
 

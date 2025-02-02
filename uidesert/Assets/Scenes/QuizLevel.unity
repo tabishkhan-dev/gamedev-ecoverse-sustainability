@@ -176,8 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ' <size=60>Solve This Riddle!</size>\n <size=180>Waste</size> <size=100>Waste</size>
-    <size=60>Waste</size> <size=30>Waste</size>'
+  m_text: ' <size=60>Question</size>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 35ee85037006a694f95ac7420c90be7f, type: 2}
   m_sharedMaterial: {fileID: -5795120798176582953, guid: 35ee85037006a694f95ac7420c90be7f, type: 2}
@@ -1699,7 +1698,7 @@ RectTransform:
   m_GameObject: {fileID: 1054118599}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.25, z: 1}
+  m_LocalScale: {x: 2, y: 2.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1572197459}
@@ -1707,7 +1706,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4, y: -74}
+  m_AnchoredPosition: {x: 4, y: 76.6}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1054118601
@@ -1731,7 +1730,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.9245283, g: 0.61678934, b: 0.06803123, a: 1}
+    m_NormalColor: {r: 0.7509433, g: 0.46999913, b: 0.12893553, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -2290,6 +2289,7 @@ MonoBehaviour:
   levelCompletionSoundl2: {fileID: 8300000, guid: 4f5ee6b8da5e20d43aaa3d8c07251ceb, type: 3}
   timerIcon: {fileID: 478745304}
   shieldIcon: {fileID: 66824152}
+  clickSound: {fileID: 8300000, guid: 6f19acda6294f804195c5db15df2d0f1, type: 3}
 --- !u!4 &1496629990
 Transform:
   m_ObjectHideFlags: 0

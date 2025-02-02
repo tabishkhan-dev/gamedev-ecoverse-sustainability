@@ -4683,7 +4683,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3313449881774331337, guid: 47020d386b9454617bc9f694b04dc18d, type: 3}
       propertyPath: m_Convex
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5956820561586303036, guid: 47020d386b9454617bc9f694b04dc18d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -17781,7 +17781,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3313449881774331337, guid: 47020d386b9454617bc9f694b04dc18d, type: 3}
       propertyPath: m_Convex
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5956820561586303036, guid: 47020d386b9454617bc9f694b04dc18d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -23747,7 +23747,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3313449881774331337, guid: 47020d386b9454617bc9f694b04dc18d, type: 3}
       propertyPath: m_Convex
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7683377408859805160, guid: 47020d386b9454617bc9f694b04dc18d, type: 3}
       propertyPath: m_LocalScale.x
@@ -65575,6 +65575,7 @@ MonoBehaviour:
   collectionSound: {fileID: 8300000, guid: d96ac8d22a61e5940b20bb79dd4deed2, type: 3}
   levelCompletionSound: {fileID: 8300000, guid: 4f5ee6b8da5e20d43aaa3d8c07251ceb, type: 3}
   alignmentTask: {fileID: 415612464}
+  clickSound: {fileID: 8300000, guid: 6f19acda6294f804195c5db15df2d0f1, type: 3}
 --- !u!114 &1671586249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81265,7 +81266,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3313449881774331337, guid: 47020d386b9454617bc9f694b04dc18d, type: 3}
       propertyPath: m_Convex
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7683377408859805160, guid: 47020d386b9454617bc9f694b04dc18d, type: 3}
       propertyPath: m_LocalScale.x
