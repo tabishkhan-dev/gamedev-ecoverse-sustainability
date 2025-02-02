@@ -27,6 +27,11 @@ public class SolarPanelCollector : MonoBehaviour
     private VideoPlayer videoPlayer; // VideoPlayer for level completion
     //private GameObject videoCanvas; // Canvas for displaying video
 
+    public AudioClip clickSound;
+    
+    public StoryVolumeManager storyVolumeManager;
+
+
     void Start()
     {
         // Initialize UI and fuel bar
@@ -48,13 +53,25 @@ public class SolarPanelCollector : MonoBehaviour
     }
 
     void Update()
+{
+    Debug.Log($"Video Playing State: {videoPlaying}");
+
+    // Allow Enter key press ONLY when the video is playing
+    if (videoPlaying && Input.GetKeyDown(KeyCode.Return))
     {
-        // If video is playing and player presses Enter, load the next scene
-        if (videoPlaying && Input.GetKeyDown(KeyCode.Return))
-        {
-            LoadNextScene();
-        }
+        PlayClickSound(); // Play the click sound
+        Invoke(nameof(LoadNextScene), 0.1f); // Delay scene switch to allow sound to play
     }
+}
+
+void PlayClickSound()
+{
+    if (audioSource != null && collectionSound != null)
+    {
+        audioSource.PlayOneShot(clickSound);
+    }
+}
+
 
     void OnTriggerEnter(Collider other)
     {
@@ -177,6 +194,8 @@ public class SolarPanelCollector : MonoBehaviour
         videoPlayer.aspectRatio = VideoAspectRatio.Stretch;
         videoPlayer.isLooping = false;
 
+        
+
         // Attach event listeners
         videoPlayer.prepareCompleted += (vp) =>
         {
@@ -193,6 +212,9 @@ public class SolarPanelCollector : MonoBehaviour
         {
             Debug.Log("Game Over video finished playing.");
         };
+
+        bool isMuted = storyVolumeManager != null && PlayerPrefs.GetInt(StoryVolumeManager.StoryVolumeKey, 0) == 1;
+        videoPlayer.SetDirectAudioMute(0, isMuted);
 
         // Prepare the video
         videoPlayer.Prepare();

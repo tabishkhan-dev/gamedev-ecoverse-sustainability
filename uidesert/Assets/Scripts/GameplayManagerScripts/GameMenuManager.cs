@@ -51,9 +51,10 @@ public class GameMenuManager : MonoBehaviour
 
         // Disable game menu audio
         if (gameMenuAudio != null)
-        {
-            gameMenuAudio.SetActive(false);
-        }
+{
+    gameMenuAudio.GetComponent<AudioSource>().mute = true; // Mute instead of deactivating
+}
+
 
         // ✅ Create Video Player
         GameObject videoPlayerObject = new GameObject("IntroVideoPlayer");
@@ -100,9 +101,10 @@ public class GameMenuManager : MonoBehaviour
 
             // Re-enable game menu audio
             if (gameMenuAudio != null)
-            {
-                gameMenuAudio.SetActive(true);
-            }
+{
+    gameMenuAudio.GetComponent<AudioSource>().mute = false; // Unmute when the video ends
+}
+
         };
 
         videoPlayer.errorReceived += (vp, msg) =>
@@ -114,21 +116,28 @@ public class GameMenuManager : MonoBehaviour
 
             // Re-enable game menu audio
             if (gameMenuAudio != null)
-            {
-                gameMenuAudio.SetActive(true);
-            }
+{
+    gameMenuAudio.GetComponent<AudioSource>().mute = false; // Unmute when the video ends
+}
+
         };
 
         videoPlayer.Prepare();
 
         videoPlayer.prepareCompleted += (vp) =>
-        {
-            Debug.Log("Intro video prepared, starting playback...");
-            vp.Play();
-            skipButton.SetActive(true); // ✅ Show Skip Button when video starts
-            
-            HideBlackOverlay();
-        };
+{
+    Debug.Log("Intro video prepared, starting playback...");
+
+    // Apply Story Volume Mute Setting
+    bool isMuted = PlayerPrefs.GetInt("StoryVolume", 0) == 1;
+    videoPlayer.SetDirectAudioMute(0, isMuted);
+
+    vp.Play();
+    skipButton.SetActive(true);
+    HideBlackOverlay();
+};
+
+
     }
 
     private GameObject CreateSkipButton(GameObject videoCanvas)
@@ -177,9 +186,10 @@ public class GameMenuManager : MonoBehaviour
 
             // Re-enable game menu audio
             if (gameMenuAudio != null)
-            {
-                gameMenuAudio.SetActive(true);
-            }
+{
+    gameMenuAudio.GetComponent<AudioSource>().mute = false; // Unmute when the video ends
+}
+
         });
 
         return buttonObject;
