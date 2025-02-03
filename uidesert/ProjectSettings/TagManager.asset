@@ -15,6 +15,7 @@ TagManager:
   - Stream
   - mainCanvas
   - shieldcanvas
+  - GameMenuSound
   layers:
   - Default
   - TransparentFX

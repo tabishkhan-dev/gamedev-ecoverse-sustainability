@@ -1,19 +1,23 @@
-    using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class GameMenuManager : MonoBehaviour
 {
-    public string introVideoName = "IntroStory.mp4"; // Video file in StreamingAssets
+    public string introVideoName = "IntroStory.mp4"; 
+    public string welcomeVideoName = "welcomeL1.mp4"; 
+
     private GameObject blackOverlay;
-    private GameObject skipButton; // Skip Button reference
+    private GameObject skipButton;
     private VideoPlayer videoPlayer;
+    private bool isWelcomeVideoPlaying = false; 
+    private GameObject welcomeVideoCanvas = null; //  Store Welcome Video Canvas
 
-    public GameObject gameMenuAudio; // Reference to the "gamemenu" audio object
-    private AudioSource audioSource; // To play button click sounds
+    public GameObject gameMenuAudio; 
+    public GameObject welcomeL1Audio; 
 
-    public void StartGame()
+    private void StartGame()
     {
         ResetProgress();
         ShowBlackOverlay();
@@ -21,19 +25,22 @@ public class GameMenuManager : MonoBehaviour
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlayButtonClickSound();
-            
         }
 
         GameObject mainCanvas = GameObject.FindWithTag("mainCanvas");
         if (mainCanvas != null)
         {
-            mainCanvas.SetActive(false); // Hide main menu
+            mainCanvas.SetActive(false);
         }
 
-        PlayIntroVideo(() =>
+        PlayVideo(introVideoName, () =>
         {
-            SceneManager.LoadScene("SampleScene"); // Load Level 1
-        });
+            PlayVideo(welcomeVideoName, () =>
+            {
+                Debug.Log("WelcomeL1.mp4 ended, waiting for Enter key...");
+                isWelcomeVideoPlaying = true; //  Keep Welcome video on screen
+            }, welcomeL1Audio, true);
+        }, null);
     }
 
     private void ResetProgress()
@@ -45,37 +52,31 @@ public class GameMenuManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    private void PlayIntroVideo(System.Action onVideoComplete)
+    private void PlayVideo(string videoFileName, System.Action onVideoComplete, GameObject videoAudio, bool enableEnterKey = false)
     {
-        Debug.Log("Initializing Intro video...");
+        Debug.Log("Initializing video: " + videoFileName);
 
-        // Disable game menu audio
-        if (gameMenuAudio != null)
-{
-    gameMenuAudio.GetComponent<AudioSource>().mute = true; // Mute instead of deactivating
-}
+        //  Disable game menu audio instead of just muting
+        if (gameMenuAudio != null) gameMenuAudio.SetActive(false);
+        if (welcomeL1Audio != null) welcomeL1Audio.SetActive(false);
 
-
-        // ✅ Create Video Player
-        GameObject videoPlayerObject = new GameObject("IntroVideoPlayer");
+        GameObject videoPlayerObject = new GameObject(videoFileName + "Player");
         videoPlayer = videoPlayerObject.AddComponent<VideoPlayer>();
 
-        string videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, introVideoName);
+        string videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, videoFileName);
         videoPlayer.url = videoPath;
 
         RenderTexture renderTexture = new RenderTexture(Screen.width, Screen.height, 0);
         renderTexture.Create();
         videoPlayer.targetTexture = renderTexture;
 
-        // ✅ Create Video Canvas
-        GameObject videoCanvasObject = new GameObject("IntroVideoCanvas");
+        GameObject videoCanvasObject = new GameObject(videoFileName + "Canvas");
         Canvas videoCanvas = videoCanvasObject.AddComponent<Canvas>();
         videoCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
         videoCanvasObject.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         videoCanvasObject.AddComponent<GraphicRaycaster>();
 
-        // ✅ Create Raw Image to Display Video
-        GameObject rawImageObject = new GameObject("IntroVideoRawImage");
+        GameObject rawImageObject = new GameObject(videoFileName + "RawImage");
         RawImage rawImage = rawImageObject.AddComponent<RawImage>();
         rawImage.texture = renderTexture;
         rawImage.transform.SetParent(videoCanvasObject.transform, false);
@@ -84,26 +85,42 @@ public class GameMenuManager : MonoBehaviour
         rawImage.rectTransform.offsetMin = Vector2.zero;
         rawImage.rectTransform.offsetMax = Vector2.zero;
 
-        // ✅ Create Skip Button inside Video Canvas
-        skipButton = CreateSkipButton(videoCanvasObject);
-        skipButton.SetActive(false); // Hide initially
+        if (videoFileName == introVideoName)
+        {
+            skipButton = CreateSkipButton(videoCanvasObject, () =>
+            {
+                videoPlayer.Stop();
+                PlayVideo(welcomeVideoName, () =>
+                {
+                    Debug.Log("WelcomeL1.mp4 ended, waiting for Enter key..."); 
+                    isWelcomeVideoPlaying = true;
+                }, welcomeL1Audio, true);
+            });
+            skipButton.SetActive(false);
+        }
 
         videoPlayer.aspectRatio = VideoAspectRatio.FitInside;
         videoPlayer.isLooping = false;
 
         videoPlayer.loopPointReached += (vp) =>
         {
-            Debug.Log("Intro video finished playing.");
+            Debug.Log(videoFileName + " finished playing.");
+
+            if (videoFileName == welcomeVideoName)
+            {
+                //  Keep Welcome Video canvas visible
+                isWelcomeVideoPlaying = true;
+                welcomeVideoCanvas = videoCanvasObject;
+                return;
+            }
+
             ShowBlackOverlay();
             onVideoComplete?.Invoke();
             Destroy(videoPlayerObject);
             Destroy(videoCanvasObject);
 
-            // Re-enable game menu audio
-            if (gameMenuAudio != null)
-{
-    gameMenuAudio.GetComponent<AudioSource>().mute = false; // Unmute when the video ends
-}
+            if (gameMenuAudio != null && !isWelcomeVideoPlaying && videoFileName != introVideoName) 
+                gameMenuAudio.SetActive(true);
 
         };
 
@@ -114,55 +131,50 @@ public class GameMenuManager : MonoBehaviour
             Destroy(videoPlayerObject);
             Destroy(videoCanvasObject);
 
-            // Re-enable game menu audio
-            if (gameMenuAudio != null)
-{
-    gameMenuAudio.GetComponent<AudioSource>().mute = false; // Unmute when the video ends
-}
-
+            if (gameMenuAudio != null) gameMenuAudio.SetActive(true);
+            isWelcomeVideoPlaying = false;
         };
 
         videoPlayer.Prepare();
 
         videoPlayer.prepareCompleted += (vp) =>
-{
-    Debug.Log("Intro video prepared, starting playback...");
+        {
+            Debug.Log(videoFileName + " prepared, starting playback...");
 
-    // Apply Story Volume Mute Setting
-    bool isMuted = PlayerPrefs.GetInt("StoryVolume", 0) == 1;
-    videoPlayer.SetDirectAudioMute(0, isMuted);
+            bool isMuted = PlayerPrefs.GetInt("StoryVolume", 0) == 1;
+            videoPlayer.SetDirectAudioMute(0, isMuted);
 
-    vp.Play();
-    skipButton.SetActive(true);
-    HideBlackOverlay();
-};
+            vp.Play();
+            if (videoFileName == introVideoName) skipButton.SetActive(true);
+            HideBlackOverlay();
 
+            if (videoAudio != null) videoAudio.SetActive(true);
 
+            isWelcomeVideoPlaying = enableEnterKey;
+        };
     }
 
-    private GameObject CreateSkipButton(GameObject videoCanvas)
+    private GameObject CreateSkipButton(GameObject videoCanvas, System.Action onSkip)
     {
         GameObject buttonObject = new GameObject("SkipButton");
         buttonObject.transform.SetParent(videoCanvas.transform, false);
 
         Button button = buttonObject.AddComponent<Button>();
         RectTransform rectTransform = buttonObject.AddComponent<RectTransform>();
-        rectTransform.anchorMin = new Vector2(0.85f, 0.05f); // Bottom-right corner
+        rectTransform.anchorMin = new Vector2(0.85f, 0.05f);
         rectTransform.anchorMax = new Vector2(0.95f, 0.12f);
         rectTransform.offsetMin = Vector2.zero;
         rectTransform.offsetMax = Vector2.zero;
 
-        // ✅ Add Button Background for Visibility
         Image buttonImage = buttonObject.AddComponent<Image>();
-        buttonImage.color = new Color(0, 0, 0, 0.6f); // Semi-transparent black background
+        buttonImage.color = new Color(0, 0, 0, 0.6f);
 
-        // ✅ Add Button Text with Proper Font
         GameObject textObject = new GameObject("ButtonText");
         textObject.transform.SetParent(buttonObject.transform, false);
         Text buttonText = textObject.AddComponent<Text>();
         buttonText.text = "Skip";
         buttonText.alignment = TextAnchor.MiddleCenter;
-        buttonText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf"); // ✅ Fix font issue
+        buttonText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         buttonText.color = Color.white;
 
         RectTransform textRect = textObject.GetComponent<RectTransform>();
@@ -175,41 +187,34 @@ public class GameMenuManager : MonoBehaviour
         {
             Debug.Log("Skip Button Clicked!");
             if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.PlayButtonClickSound();
-        }
-            PlayButtonClickSound();
-            videoPlayer.Stop();
-            SceneManager.LoadScene("SampleScene"); // Load Level 1
-
-            
-
-            // Re-enable game menu audio
-            if (gameMenuAudio != null)
-{
-    gameMenuAudio.GetComponent<AudioSource>().mute = false; // Unmute when the video ends
-}
-
+            {
+                AudioManager.Instance.PlayButtonClickSound();
+            }
+            onSkip?.Invoke();
         });
 
         return buttonObject;
     }
 
-    private void PlayButtonClickSound()
+    private void Update()
     {
-        if (audioSource == null)
+        if (isWelcomeVideoPlaying && Input.GetKeyDown(KeyCode.Return))
         {
-            audioSource = gameMenuAudio.GetComponent<AudioSource>();
-        }
+            Debug.Log("Enter key pressed! Loading game...");
+            isWelcomeVideoPlaying = false;
 
-        if (audioSource != null)
-        {
-            audioSource.Play(); // Play the button click sound
+            if (welcomeVideoCanvas != null) Destroy(welcomeVideoCanvas); // Remove welcome video when Enter is pressed
+           
+            
+            LoadGameScene();
         }
-        else
-        {
-            Debug.LogError("AudioSource component not found on gameMenuAudio object!");
-        }
+    }
+
+    private void LoadGameScene()
+    {
+        ShowBlackOverlay();
+        Debug.Log("Loading SampleScene...");
+        SceneManager.LoadScene("SampleScene");
     }
 
     private void ShowBlackOverlay()
@@ -219,17 +224,14 @@ public class GameMenuManager : MonoBehaviour
             blackOverlay = new GameObject("BlackOverlay");
             Canvas overlayCanvas = blackOverlay.AddComponent<Canvas>();
             overlayCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
-
             Image overlayImage = blackOverlay.AddComponent<Image>();
             overlayImage.color = Color.black;
-
             RectTransform overlayRect = blackOverlay.GetComponent<RectTransform>();
             overlayRect.anchorMin = Vector2.zero;
             overlayRect.anchorMax = Vector2.one;
             overlayRect.offsetMin = Vector2.zero;
             overlayRect.offsetMax = Vector2.zero;
         }
-
         blackOverlay.SetActive(true);
     }
 
