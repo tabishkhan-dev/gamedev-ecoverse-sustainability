@@ -29,7 +29,7 @@ public class VolumeManager : MonoBehaviour
 
         if (volumeValueText != null)
         {
-            volumeValueText.text = $"Game Volume:"; // Display percentage
+            volumeValueText.text = $"Game Volume"; // Display percentage
         }
     }
 }
