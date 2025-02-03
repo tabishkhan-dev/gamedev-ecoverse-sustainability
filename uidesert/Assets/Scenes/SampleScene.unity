@@ -22753,6 +22753,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FireSkill003 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1000011113172478, guid: 4b9e1e5074422484cb2d2aca777ef525, type: 3}
+      propertyPath: m_TagString
+      value: Lava
+      objectReference: {fileID: 0}
     - target: {fileID: 4000010940229156, guid: 4b9e1e5074422484cb2d2aca777ef525, type: 3}
       propertyPath: m_LocalScale.z
       value: 5.4999995
@@ -49374,6 +49378,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FireSkill003
       objectReference: {fileID: 0}
+    - target: {fileID: 1000011113172478, guid: 4b9e1e5074422484cb2d2aca777ef525, type: 3}
+      propertyPath: m_TagString
+      value: Lava
+      objectReference: {fileID: 0}
     - target: {fileID: 4000010940229156, guid: 4b9e1e5074422484cb2d2aca777ef525, type: 3}
       propertyPath: m_LocalScale.z
       value: 2.7000003
@@ -65576,6 +65584,7 @@ MonoBehaviour:
   levelCompletionSound: {fileID: 8300000, guid: 4f5ee6b8da5e20d43aaa3d8c07251ceb, type: 3}
   alignmentTask: {fileID: 415612464}
   clickSound: {fileID: 8300000, guid: 6f19acda6294f804195c5db15df2d0f1, type: 3}
+  storyVolumeManager: {fileID: 0}
 --- !u!114 &1671586249
 MonoBehaviour:
   m_ObjectHideFlags: 0
