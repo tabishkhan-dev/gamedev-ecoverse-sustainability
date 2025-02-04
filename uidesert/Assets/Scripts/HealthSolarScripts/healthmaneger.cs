@@ -107,6 +107,8 @@
         void PlayGameOverVideo()
         {
             Debug.Log("Initializing Game Over video...");
+
+            
         
             // Create a new GameObject for the VideoPlayer
             GameObject videoPlayerObject = new GameObject("GameOverVideoPlayer");

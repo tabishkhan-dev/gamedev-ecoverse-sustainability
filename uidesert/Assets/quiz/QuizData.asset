@@ -23,6 +23,7 @@ MonoBehaviour:
       \U0001F463</size>"
     correctAnswers:
     - carbon footprint
+    - reduce carbon footprint
     hint: \n 10-15% of global emissions \n come from deforestation! \n Process to
       bring that \n number down
     knowledgeFact: fact11
