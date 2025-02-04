@@ -16,6 +16,7 @@ TagManager:
   - mainCanvas
   - shieldcanvas
   - GameMenuSound
+  - factCanvas
   layers:
   - Default
   - TransparentFX
