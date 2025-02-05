@@ -33,17 +33,17 @@ public class PlayerController : MonoBehaviour
             transform.Translate(moveDirection * sprintSpeed * Time.deltaTime, Space.World);
             animator.SetBool("isSprinting", true); // Sprinting animation
         }
-        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) // Handle backward movement
-        {
-            moveDirection = -transform.forward; // Move in the backward direction
-            transform.Translate(moveDirection * moveSpeed * Time.deltaTime, Space.World);
-            
-        }
-        else
-        {
-             // Stop walking animation
-            animator.SetBool("isSprinting", false); // Stop sprinting animation
-        }
+        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+    {
+        moveDirection = -transform.forward;
+        transform.Translate(moveDirection * moveSpeed * Time.deltaTime, Space.World);
+        animator.SetBool("isTurning", true);  // Activate animation
+    }
+    else
+    {
+        animator.SetBool("isSprinting", false);
+        animator.SetBool("isTurning", false); // Stop turning animation
+    }
 
         // Handle left rotation (A or Left Arrow)
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
