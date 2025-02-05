@@ -43,7 +43,6 @@ public class PlayerController_Level2 : MonoBehaviour
         {
             Vector3 moveDirection = -transform.forward; // Move backward
             transform.Translate(moveDirection * backwardSpeed * Time.deltaTime, Space.World);
-            animator.SetBool("isTurning", true);  // Activate animation
 
             // Stop sprinting animation for backward movement
             animator.SetBool("isSprinting", false);
@@ -52,7 +51,6 @@ public class PlayerController_Level2 : MonoBehaviour
         {
             // Stop sprinting animation when no movement keys are pressed
             animator.SetBool("isSprinting", false);
-            animator.SetBool("isTurning", false); // Stop turning animation
         }
 
         // Handle Left Rotation (A or Left Arrow)
