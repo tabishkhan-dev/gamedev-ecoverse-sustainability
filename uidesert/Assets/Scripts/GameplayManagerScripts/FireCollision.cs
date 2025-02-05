@@ -1,70 +1,30 @@
-
 using UnityEngine;
 
 public class FireCollision : MonoBehaviour
 {
-    //private ParticleSystem fireParticleSystem;
-    private HealthManager healthManager; // Assign this in the Inspector
+    private HealthManager healthManager;
 
     void Start()
     {
-
-        GameObject player = GameObject.FindGameObjectWithTag("Player"); // Find the player
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
             healthManager = player.GetComponent<HealthManager>();
         }
-
-        if (healthManager == null)
-        {
-            Debug.LogWarning("Failed to find HealthManager on the player.");
-        }
     }
 
-    void OnCollisionEnter(Collision collision)
+    // This method is triggered when particles collide with another object
+    void OnParticleCollision(GameObject other)
     {
-        
-        // Check if the colliding object is the player
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            // Print your name to the console
+            Debug.Log("Player hit by fire particles!");
 
-            if (collision.gameObject.CompareTag("Player"))
+            if (healthManager != null)
             {
-                // Call the Die method if the script is found
-                bool isFireActive = CheckAllParticleSystems();
-
-                if (isFireActive)
-                {
-                    if (healthManager != null)
-                    {
-                        healthManager.Die();
-                    }
-                    else
-                    {
-                        Debug.Log("Script not found.");
-                    }
-                }
+                healthManager.Die();
             }
         }
-    }
-
-    private bool CheckAllParticleSystems()
-    {
-        // Get all Particle Systems in the parent object and its children
-        ParticleSystem[] fireParticleSystems = GetComponentsInChildren<ParticleSystem>();
-
-        foreach (ParticleSystem ps in fireParticleSystems)
-        {
-            // Check if the Particle System is emitting or has active particles
-            if (ps.particleCount < 30 && ps.particleCount > 12)
-            {
-                Debug.Log($"Player dies on particle count : {ps.particleCount}");
-                return true; // Return true if any Particle System is active
-            }
-            Debug.Log($"Fire not burning : {ps.particleCount}");
-        }
-        
-        return false; // Return false if no Particle System is active
     }
 }
+
