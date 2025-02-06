@@ -20099,11 +20099,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77e3ec004298b7d44a9ee2c0a0365cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprintSpeed: 10
+  sprintSpeed: 8.5
   backwardSpeed: 7
   jumpForce: 30
   longJumpForwardForce: 40
-  turnSpeed: 1
+  turnSpeed: 0.8
 --- !u!114 &1518614639
 MonoBehaviour:
   m_ObjectHideFlags: 0

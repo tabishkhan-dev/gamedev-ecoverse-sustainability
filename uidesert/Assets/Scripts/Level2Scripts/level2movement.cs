@@ -69,7 +69,7 @@ public class PlayerController_Level2 : MonoBehaviour
     private void HandleLongJump()
     {
         // Long Elevated Jump (LeftShift + Space)
-        if (Input.GetKey(KeyCode.Space) && Input.GetKey(KeyCode.UpArrow) && isGrounded)
+        if (Input.GetKey(KeyCode.Space)  && isGrounded)
         {
             isGrounded = false; // Prevent further jumps until grounded
             animator.SetTrigger("Jump"); // Trigger jump animation
