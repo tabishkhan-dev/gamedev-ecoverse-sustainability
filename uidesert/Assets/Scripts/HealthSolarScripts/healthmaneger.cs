@@ -46,7 +46,7 @@
             if (playerHitSound != null)
             {
                 audioSource.PlayOneShot(playerHitSound);
-                Debug.Log("Aah sound played for damage!");
+                //Debug.Log("Aah sound played for damage!");
             }
             else
             {
