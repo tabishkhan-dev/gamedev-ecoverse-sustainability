@@ -53,24 +53,24 @@ public class SolarPanelCollector : MonoBehaviour
     }
 
     void Update()
-{
-    Debug.Log($"Video Playing State: {videoPlaying}");
-
-    // Allow Enter key press ONLY when the video is playing
-    if (videoPlaying && Input.GetKeyDown(KeyCode.Return))
     {
-        PlayClickSound(); // Play the click sound
-        Invoke(nameof(LoadNextScene), 0.1f); // Delay scene switch to allow sound to play
-    }
-}
+        //Debug.Log($"Video Playing State: {videoPlaying}");
 
-void PlayClickSound()
-{
-    if (audioSource != null && collectionSound != null)
-    {
-        audioSource.PlayOneShot(clickSound);
+        // Allow Enter key press ONLY when the video is playing
+        if (videoPlaying && Input.GetKeyDown(KeyCode.Return))
+        {
+            PlayClickSound(); // Play the click sound
+            Invoke(nameof(LoadNextScene), 0.1f); // Delay scene switch to allow sound to play
+        }
     }
-}
+
+    void PlayClickSound()
+    {
+        if (audioSource != null && collectionSound != null)
+        {
+            audioSource.PlayOneShot(clickSound);
+        }
+    }
 
 
     void OnTriggerEnter(Collider other)
