@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5402cb3d24496644a9a4e3321da9340, type: 3}
+  m_Name: QuizData
+  m_EditorClassIdentifier: 
+  questions:
+  - questionText: " <size=60>Astrobolt! Can You Guess This? \\n     \U0001F6E9\u2615  
+      \U0001F333\U0001F333</size>"
+    correctAnswers:
+    - plant trees
+    hint: One tree absorbs\n 22 kgs of CO2 each year
+    knowledgeFact: fact1
+  - questionText: " <size=60>Guess This? \\n      Reduce  \U0001F697\U0001F9B4  
+      \U0001F463</size>"
+    correctAnswers:
+    - carbon footprint
+    - reduce carbon footprint
+    hint: \n 10-15% of global emissions \n come from deforestation! \n Process to
+      bring that \n number down
+    knowledgeFact: fact11
+  - questionText: ' <size=60>Solve This Riddle!</size>\n <size=180>Waste</size> <size=100>Waste</size>
+      <size=60>Waste</size> <size=30>Waste</size>'
+    correctAnswers:
+    - reduce waste
+    - waste reduction
+    - waste reduce
+    hint: This helps to protect\n marine animals
+    knowledgeFact: fact2
+  - questionText: " <size=60>Can You Guess This Quote? \\n      \U0001F914\U0001F49A\U0001F3AC\U0001F49A
+      </size>"
+    correctAnswers:
+    - think green act green
+    hint: This thought can save \n up to 30%  of electricity \nannually
+    knowledgeFact: fact3
+  - questionText: " <size=60>\"I\u2019m clean and green, a planet\u2019s dream,\\n     
+      I work with the sun, wind, and stream\". What am I?</size>"
+    correctAnswers:
+    - renewable energy
+    hint: Solar Energy
+    knowledgeFact: fact4
+  - questionText: " <size=60>\"I don\u2019t drink gas, I don\u2019t need a snack,
+      \\n      Just plug me in, and I\u2019m back on track.\"What am I? </size>"
+    correctAnswers:
+    - EV
+    - electric car
+    - electric vehicle
+    hint: Tesla
+    knowledgeFact: fact5
+  - questionText: " <size=60>Guess This Astrobolt! \\n      \u2B07\U0001F4A7</size>"
+    correctAnswers:
+    - save water
+    hint: Action that keeps us \n from running dry
+    knowledgeFact: fact6
+  - questionText: " <size=60>Guess This Quote! \\n     \U0001F4A7 is \U0001F343</size>"
+    correctAnswers:
+    - water is life
+    hint: \n Less than 1% of Earth's \nwater is accessible for \nhuman use
+    knowledgeFact: fact7
+  - questionText: " <size=60>Can You Solve This Riddle? \\n     \U0001F6B2\u21A9  
+      \u2795\u2705 </size>"
+    correctAnswers:
+    - recycle plastic
+    hint: Pfand
+    knowledgeFact: fact8
+  - questionText: ' <size=60>Unscramble The Jumble Words: \n        "RNWTRAIRAE VTSGEHRIAN"
+      </size>'
+    correctAnswers:
+    - rainwater harvesting
+    hint: This can collect up to \n 600 gallons water
+    knowledgeFact: fact9
+  - questionText: ' <size=60>Unscramble The Jumble Words: \n        "PTCRETO ILFEWDLI"
+      </size>'
+    correctAnswers:
+    - protect wildlife
+    hint: Without this can cause \n extinction of species
+    knowledgeFact: fact10

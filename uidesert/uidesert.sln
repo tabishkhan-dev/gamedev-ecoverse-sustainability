@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVoiceProcessor", "UnityVoiceProcessor.csproj", "{6CA319D4-2DEA-FB08-88B8-B54B6483B588}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{01A0AEF0-A1FC-ABB0-0024-C2CD8BFDBBFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{29EEC250-940A-0A12-0EDA-6981FACF9A33}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CA319D4-2DEA-FB08-88B8-B54B6483B588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CA319D4-2DEA-FB08-88B8-B54B6483B588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CA319D4-2DEA-FB08-88B8-B54B6483B588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CA319D4-2DEA-FB08-88B8-B54B6483B588}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01A0AEF0-A1FC-ABB0-0024-C2CD8BFDBBFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01A0AEF0-A1FC-ABB0-0024-C2CD8BFDBBFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01A0AEF0-A1FC-ABB0-0024-C2CD8BFDBBFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01A0AEF0-A1FC-ABB0-0024-C2CD8BFDBBFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29EEC250-940A-0A12-0EDA-6981FACF9A33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29EEC250-940A-0A12-0EDA-6981FACF9A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29EEC250-940A-0A12-0EDA-6981FACF9A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29EEC250-940A-0A12-0EDA-6981FACF9A33}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

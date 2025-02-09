@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: e54035bd8b1e1494081de67bbac93a63
+timeCreated: 1521139151
+licenseType: Store
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 77402
+  packageName: Rigged Astronaut
+  packageVersion: 4.0
+  assetPath: Assets/Scenes/SpacePack/Astronaut/DemoScene/Astronaut.unity
+  uploadId: 692720

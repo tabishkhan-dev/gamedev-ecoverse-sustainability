@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5eed26d5b94578d4ebed06ab605d9e05
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 249968
+  packageName: Astronaut Avatar
+  packageVersion: 1.0
+  assetPath: Assets/ASTRONAUT_AVATAR/Materials/astronaut_face_eyes_Base_color.mat
+  uploadId: 595684

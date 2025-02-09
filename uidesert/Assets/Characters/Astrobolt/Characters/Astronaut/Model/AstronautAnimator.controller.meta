@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: af003e9e89d95454d8444c9a2ae7da1e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 223222
+  packageName: Astronaut 3D Character
+  packageVersion: 1.0
+  assetPath: Assets/Zindeaxx/Characters/Astronaut/Model/AstronautAnimator.controller
+  uploadId: 560595

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 445bf8f1ca18d4f47bf45dadab04f3a3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 77402
+  packageName: Rigged Astronaut
+  packageVersion: 4.0
+  assetPath: Assets/Scenes/SpacePack/Astronaut/DemoScene/Astronaut/Point Light Profile.asset
+  uploadId: 692720
