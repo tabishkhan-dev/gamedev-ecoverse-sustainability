@@ -34,10 +34,12 @@ public class VoiceProcessorDemo : MonoBehaviour
 
     private SpeechClient speechClient;
     public static string latestTranscription = "";
+    public static bool isNewTranscription = false; // ✅ Track if a new transcription is available
 
     void Start()
     {
          Debug.Log("✅ VoiceProcessorDemo started!");
+         Debug.Log($"Voice mode from settings : {PlayerPrefs.GetInt("VoiceMode")}");
 
         if (VoiceProcessor.Instance == null)
         {
@@ -122,6 +124,7 @@ public class VoiceProcessorDemo : MonoBehaviour
     // Function to Check If Voice Mode is Enabled in Settings
     private bool IsVoiceModeEnabled()
     {
+        //Debug.Log($"Voice mode from settings : {PlayerPrefs.GetInt("VoiceMode")}");
         return PlayerPrefs.GetInt("VoiceMode", 1) == 1;
     }
 
@@ -225,6 +228,7 @@ public class VoiceProcessorDemo : MonoBehaviour
 
             // ✅ Store it in a global variable (define latestTranscription at the top of your script)
             latestTranscription = fullTranscript.ToLower();
+            isNewTranscription = true; // ✅ New transcription received!
             Debug.Log("Speech-to-Text processing complete.");
         }
         catch (Exception e)
@@ -275,13 +279,19 @@ public class VoiceProcessorDemo : MonoBehaviour
             
         }
 
-        // ✅ Find and destroy the Pv.Unity.VoiceProcessor GameObject
-        GameObject voiceProcessorObj = GameObject.Find("Pv.Unity.VoiceProcessor");
-        if (voiceProcessorObj != null)
+        GameObject[] allObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None); // 🔹 Get all active GameObjects in the scene
+
+        foreach (GameObject obj in allObjects)
         {
-            Debug.Log("🗑️ Destroying Pv.Unity.VoiceProcessor on application quit.");
-            Destroy(voiceProcessorObj);
+            if (obj.name == "Pv.Unity.VoiceProcessor") // ✅ Check if the name matches
+            {
+                Debug.Log($"🗑️ Destroying object: {obj.name} on application quit.");
+                DestroyImmediate(obj);
+            }
         }
+
+        Resources.UnloadUnusedAssets(); // ✅ Forces Unity to clean up
+        System.GC.Collect(); // ✅ Runs garbage collection
     }
 
 }
