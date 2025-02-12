@@ -14,7 +14,9 @@ public class PlayerController : MonoBehaviour
     private float currentRotation = 0f; // Tracks the current rotation of the player
 
     private int isVoiceControlActive = 0; // Track control mode
-    private string voiceCommand = ""; // Stores last voice command
+    //private string voiceCommand = ""; // Stores last voice command
+    private bool isRunningFwd = false; // Track whether the player is running forward
+    private bool isRunningBack = false; // Track whether the player is running backward
 
     void Start()
     {
@@ -43,31 +45,51 @@ public class PlayerController : MonoBehaviour
         {
             string command = VoiceProcessorDemo.latestTranscription; // Get latest transcribed command
 
-            if (string.IsNullOrEmpty(command)) return; // If no command, do nothing
+            //if (string.IsNullOrEmpty(command)) return; // If no command, do nothing
 
-            if (command.Contains("run"))
+            if (VoiceProcessorDemo.isNewTranscription) // ✅ Process only when new transcription arrives
+            {
+
+                if (command.Contains("run"))
+                {
+                    MoveForward();
+                    isRunningFwd = true; // Set running flag
+                    isRunningBack = false; // Set running flag
+                }
+                else if (command.Contains("back"))
+                {
+                    isRunningFwd = false; // Set running flag
+                    isRunningBack = true; // Set running flag
+                    MoveBackward();
+                }
+                else if (command.Contains("stop"))
+                {
+                    isRunningFwd = false; // Set running flag
+                    isRunningBack = false; // Set running flag
+                    stop_turning();
+                }
+                else if (command.Contains("left"))
+                {
+                    RotateLeft();
+                }
+                else if (command.Contains("right") || command.Contains("write"))
+                {
+                    RotateRight();
+                }
+                else if (command.Contains("jump"))
+                {
+                    Jump();
+                }
+            }
+            VoiceProcessorDemo.isNewTranscription = false; // ✅ Reset flag after processing
+            // ✅ Keep running if the player said "run" until "stop" is spoken
+            if (isRunningFwd)
             {
                 MoveForward();
             }
-            else if (command.Contains("back"))
+            if (isRunningBack)
             {
                 MoveBackward();
-            }
-            else if (command.Contains("stop"))
-            {
-                stop_turning();
-            }
-            else if (command.Contains("left"))
-            {
-                RotateLeft();
-            }
-            else if (command.Contains("right"))
-            {
-                RotateRight();
-            }
-            else if (command.Contains("jump"))
-            {
-                Jump();
             }
         }
 
