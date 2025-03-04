@@ -92,17 +92,17 @@
 
 
         
-        void Update()
-{
-    Debug.Log($"Video Playing State: {videoPlaying}");
-
-    if (videoPlaying && Input.GetKeyDown(KeyCode.Return))
+    void Update()
     {
-        PlayClickSound();
-        Debug.Log("Enter key pressed after video finished, loading next game scene...");
-        LoadNextGameScene();
+        //Debug.Log($"Video Playing State: {videoPlaying}");
+
+        if (videoPlaying && Input.GetKeyDown(KeyCode.Return))
+        {
+            PlayClickSound();
+            Debug.Log("Enter key pressed after video finished, loading next game scene...");
+            LoadNextGameScene();
+        }
     }
-}
 
 void PlayClickSound()
 {
