@@ -36,7 +36,7 @@ public class PlayerController_Level2 : MonoBehaviour
     }
 
     void HandleVoiceControl()
-    {
+    {Debug.Log($"Level 2 should be here");
         string command = VoiceProcessorDemo.latestTranscription; // Get latest transcribed command
 
         //if (string.IsNullOrEmpty(command)) return; // If no command, do nothing
