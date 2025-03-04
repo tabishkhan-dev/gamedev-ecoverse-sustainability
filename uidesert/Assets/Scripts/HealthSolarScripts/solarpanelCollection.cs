@@ -52,6 +52,9 @@ public class SolarPanelCollector : MonoBehaviour
         // Update the collection message UI
         UpdateCollectionMessage();
 
+        PlayerPrefs.SetInt("videoPlaying", 0);
+        PlayerPrefs.Save();
+
         // Setup AudioSource
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
@@ -241,6 +244,8 @@ public class SolarPanelCollector : MonoBehaviour
 
     void StopAllBackgroundActivities()
     {
+        PlayerPrefs.SetInt("videoPlaying", 1);
+        PlayerPrefs.Save();
         // Stop all sounds
         var allAudioSources = Object.FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
         foreach (var source in allAudioSources)

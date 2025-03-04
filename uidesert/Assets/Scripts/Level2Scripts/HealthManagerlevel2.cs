@@ -147,6 +147,10 @@ using UnityEngine;
 
         void StopAllBackgroundActivities()
         {
+
+            PlayerPrefs.SetInt("videoPlaying", 1);
+            PlayerPrefs.Save();
+
             // Stop all sounds
             var allAudioSources = Object.FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
             foreach (var source in allAudioSources)

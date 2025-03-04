@@ -36,14 +36,13 @@ public class PlayerController_Level2 : MonoBehaviour
     }
 
     void HandleVoiceControl()
-    {Debug.Log($"Level 2 should be here");
+    {
         string command = VoiceProcessorDemo.latestTranscription; // Get latest transcribed command
 
         //if (string.IsNullOrEmpty(command)) return; // If no command, do nothing
 
         if (VoiceProcessorDemo.isNewTranscription) // ✅ Process only when new transcription arrives
         {
-
             if (command.Contains("run"))
             {
                 MoveForward();
@@ -72,7 +71,7 @@ public class PlayerController_Level2 : MonoBehaviour
             }
             else if (command.Contains("jump"))
             {
-                HandleLongJump();
+                LongJump();
             }
         }
         VoiceProcessorDemo.isNewTranscription = false; // ✅ Reset flag after processing
@@ -103,6 +102,20 @@ public class PlayerController_Level2 : MonoBehaviour
 
         // Stop sprinting animation for backward movement
         animator.SetBool("isSprinting", false);
+    }
+
+    private void LongJump()
+    {
+        // Long Elevated Jump (LeftShift + Space)
+        if (isGrounded)
+        {
+            isGrounded = false; // Prevent further jumps until grounded
+            animator.SetTrigger("Jump"); // Trigger jump animation
+
+            // Apply combined vertical and forward force
+            Vector3 jumpDirection = Vector3.up * jumpForce + transform.forward * longJumpForwardForce;
+            rb.AddForce(jumpDirection, ForceMode.Impulse);
+        }
     }
 
     void HandleKeyboardControl()
