@@ -31,9 +31,17 @@ public class SolarPanelCollector : MonoBehaviour
     
     public StoryVolumeManager storyVolumeManager;
 
+    private string savedLanguage;
+
+    public string levelcompletedvideo = "lvl_1CompleteHindi.mp4";
+
 
     void Start()
     {
+
+         // Retrieve the saved language from PlayerPrefs
+        savedLanguage = PlayerPrefs.GetString("Language", "English");
+        Debug.Log("Loaded language in Start(): " + savedLanguage);
         // Initialize UI and fuel bar
         collectedPanels = PlayerPrefs.GetInt("CollectedSolarPanels", 0);
         currentFuel = PlayerPrefs.GetFloat("CurrentFuel", 0f);
@@ -136,6 +144,11 @@ public class SolarPanelCollector : MonoBehaviour
 
     void Playlevel1Video()
     {
+        PlayerPrefs.SetString("Language", savedLanguage);
+        PlayerPrefs.Save(); // Ensure changes are written
+    
+        Debug.Log("Selected language saved as: " + savedLanguage);
+        
         Debug.Log("Initializing level1 video...");
         videoPlaying = true;
 
@@ -154,8 +167,14 @@ public class SolarPanelCollector : MonoBehaviour
         GameObject videoPlayerObject = new GameObject("levelcompletedvideo");
         VideoPlayer videoPlayer = videoPlayerObject.AddComponent<VideoPlayer>();
 
+        string videoFileName = savedLanguage == "Hindi" ? "lvl_1CompleteHindi.mp4" : "lvl_1Complete.mp4";
+
+    // Set the video path (ensure the video is in the StreamingAssets folder)
+        string videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, videoFileName);
+        
+
         // Set the video path (ensure the video is in the StreamingAssets folder)
-        string videoPath = Application.streamingAssetsPath + "/lvl_1Complete.mp4";
+        
         Debug.Log("Video path: " + videoPath);
         videoPlayer.url = videoPath;
 

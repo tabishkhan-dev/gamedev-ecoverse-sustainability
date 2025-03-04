@@ -19,9 +19,13 @@ public class WindTurbineCollector : MonoBehaviour
 
     private AudioSource audioSource;
     private float currentFuel = 0f; // Tracks current fuel level for wind turbines
+    private string savedLanguage;
 
     void Start()
     {
+
+        savedLanguage = PlayerPrefs.GetString("Language", "English");
+        Debug.Log("Loaded language in Start(): " + savedLanguage);
         currentFuel = PlayerPrefs.GetFloat("CurrentFuel", 0f);
         collectedTurbines = PlayerPrefs.GetInt("CollectedTurbines", 4); // Fix: Reset value to 0 initially
 
@@ -117,7 +121,11 @@ public class WindTurbineCollector : MonoBehaviour
         VideoPlayer videoPlayer = videoPlayerObject.AddComponent<VideoPlayer>();
 
         // Set the path to the video inside StreamingAssets
-        string videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, endVideoFileName);
+        string videoFileName = savedLanguage == "Hindi" ? "End_Hindi.mp4" : "EndVideo.mp4";
+
+    // Set the video path (ensure the video is in the StreamingAssets folder)
+        string videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, videoFileName);
+
         videoPlayer.url = videoPath;
 
         // Create a render texture

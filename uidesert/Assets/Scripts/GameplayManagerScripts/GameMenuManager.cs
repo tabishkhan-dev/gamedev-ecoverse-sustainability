@@ -7,6 +7,8 @@ public class GameMenuManager : MonoBehaviour
 {
     public string introVideoName = "IntroStory.mp4"; 
     public string welcomeVideoName = "welcomeL1.mp4"; 
+    public string welcomeVideoHindi = "welcomel1Hindi.mp4";
+    public string introVideoHindi = "IntroHindi.mp4"; 
 
     private GameObject blackOverlay;
     private GameObject skipButton;
@@ -16,6 +18,7 @@ public class GameMenuManager : MonoBehaviour
 
     public GameObject gameMenuAudio; 
     public GameObject welcomeL1Audio; 
+    private string savedLanguage;
 
     private void StartGame()
     {
@@ -33,6 +36,28 @@ public class GameMenuManager : MonoBehaviour
             mainCanvas.SetActive(false);
         }
 
+         // *Retrieve saved language before playing videos*
+        savedLanguage = PlayerPrefs.GetString("Language", "English");
+        Debug.Log("Applying stored language in GameMenuManager: " + savedLanguage);
+    
+        // *Check if saved language is Hindi, then change the welcome video*
+        if (savedLanguage == "Hindi")
+        {
+            welcomeVideoName = "welcomel1Hindi.mp4";
+            introVideoName = "IntroHindi.mp4";  
+        }
+    
+        // *Apply the language selection for UI update*
+        LanguageSelection languageSelection = Object.FindFirstObjectByType<LanguageSelection>();
+        if (languageSelection != null)
+        {
+            languageSelection.SetLanguage(savedLanguage);
+        }
+        else
+        {
+            Debug.LogWarning("LanguageSelection object not found!");
+        }
+
         PlayVideo(introVideoName, () =>
         {
             PlayVideo(welcomeVideoName, () =>
@@ -41,6 +66,7 @@ public class GameMenuManager : MonoBehaviour
                 isWelcomeVideoPlaying = true; //  Keep Welcome video on screen
             }, welcomeL1Audio, true);
         }, null);
+        
     }
 
     private void ResetProgress()
@@ -213,6 +239,12 @@ public class GameMenuManager : MonoBehaviour
     private void LoadGameScene()
     {
         ShowBlackOverlay();
+        // Save selected language before loading SampleScene
+        PlayerPrefs.SetString("Language", savedLanguage);
+        PlayerPrefs.Save(); // Ensure changes are written
+    
+        Debug.Log("Selected language saved as: " + savedLanguage);
+    
         Debug.Log("Loading SampleScene...");
         SceneManager.LoadScene("SampleScene");
     }
@@ -240,6 +272,6 @@ public class GameMenuManager : MonoBehaviour
         if (blackOverlay != null)
         {
             blackOverlay.SetActive(false);
-        }
-    }
+        }
+    }
 }
