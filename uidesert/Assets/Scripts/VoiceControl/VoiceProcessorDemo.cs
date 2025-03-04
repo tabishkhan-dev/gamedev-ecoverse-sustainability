@@ -93,6 +93,7 @@ public class VoiceProcessorDemo : MonoBehaviour
             if (VoiceProcessor.Instance.IsRecording)
             {
                 PlayerPrefs.SetInt("Voice", 0);
+                PlayerPrefs.SetInt("videoPlaying", 0);
                 PlayerPrefs.Save();
                 Debug.Log("[VoiceProcessorDemo] Scene change Stopping recording.");
                 VoiceProcessor.Instance.StopRecording();
@@ -143,7 +144,7 @@ public class VoiceProcessorDemo : MonoBehaviour
 
     private void _onFrameCaptured(short[] frame)
     {
-      //  if (PlayerPrefs.GetInt("Voice") == 0) return; // Prevents errors when voice control is OFF
+        if (PlayerPrefs.GetInt("videoPlaying") == 1) return; // If level completion video is running
 
         if (_dumpAudio)
         {
