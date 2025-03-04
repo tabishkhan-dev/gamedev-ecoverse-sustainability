@@ -49,12 +49,17 @@
         public Image  shieldIcon;
 
         public AudioClip clickSound; // Sound effect for button clicks
+        private string savedLanguage;
+        public string welcomeVideoName = "welcomeL2Hindi.mp4"; 
 
 
                 
 
         void Start()
 {
+
+    savedLanguage = PlayerPrefs.GetString("Language", "English");
+    Debug.Log("Loaded language in Start(): " + savedLanguage);
     InitializeQuiz();
     
     if (quizCompleteTextObject != null)
@@ -170,8 +175,13 @@ void PlayClickSound()
         GameObject videoPlayerObject = new GameObject("quizcompletedvideo");
         VideoPlayer videoPlayer = videoPlayerObject.AddComponent<VideoPlayer>();
 
+        string videoFileName = savedLanguage == "Hindi" ? "welcomeL2Hindi.mp4" : "lvl_2Complete.mp4";
+
+    // Set the video path (ensure the video is in the StreamingAssets folder)
+        string videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, videoFileName);
+
         // Set the video path (ensure the video is in the StreamingAssets folder)
-        string videoPath = Application.streamingAssetsPath + "/lvl_2Complete.mp4";
+        
         videoPlayer.url = videoPath;
 
         // Create a Render Texture for the video

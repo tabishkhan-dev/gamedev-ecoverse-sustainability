@@ -1,60 +1,51 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class LanguageSelection : MonoBehaviour
 {
-    public TextMeshProUGUI EnglishOption; // Drag your English Text object here
-    public TextMeshProUGUI HindiOption;  // Drag your Hindi Text object here
+    public TextMeshProUGUI EnglishOption; // Assign English text UI element
+    public TextMeshProUGUI HindiOption;   // Assign Hindi text UI element
 
-    private void Start()
+    private void Awake()
     {
-        // Initialize language from saved preferences, default to English if none is set
         string savedLanguage = PlayerPrefs.GetString("Language", "English");
-        
-        // Set initial language and apply formatting
-        if (string.IsNullOrEmpty(savedLanguage))
-        {
-            savedLanguage = "English"; // Default language
-            PlayerPrefs.SetString("Language", savedLanguage);
-            PlayerPrefs.Save();
-        }
+        Debug.Log("Language loaded in Awake(): " + savedLanguage);
 
-        SetLanguage(savedLanguage);
+        SetLanguage(savedLanguage, false); // Ensure UI updates correctly, but don’t play sound
     }
 
-    public void SetLanguage(string language)
+    public void SetLanguage(string language, bool playSound = true)
     {
         Debug.Log("Setting language to: " + language);
+        
+
+        // Update UI based on language
         if (language == "Hindi")
         {
-            // Apply bold effect to Hindi and dim English
-            EnglishOption.fontStyle = FontStyles.Normal; // Remove bold from English
-            HindiOption.fontStyle = FontStyles.Bold;    // Make Hindi bold
-
-            EnglishOption.color = Color.gray; // Dim English
-            HindiOption.color = Color.white; // Keep Hindi white
-            if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.PlayButtonClickSound();
+            EnglishOption.fontStyle = FontStyles.Normal;
+            HindiOption.fontStyle = FontStyles.Bold;
+            EnglishOption.color = Color.gray;
+            HindiOption.color = Color.white;
         }
-        }
-        else if (language == "English")
+        else
         {
-            // Apply bold effect to English and dim Hindi
-            EnglishOption.fontStyle = FontStyles.Bold;    // Make English bold
-            HindiOption.fontStyle = FontStyles.Normal;    // Remove bold from Hindi
-
-            EnglishOption.color = Color.white; // Keep English white
-            HindiOption.color = Color.gray;   // Dim Hindi
-            if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.PlayButtonClickSound();
-        }
+            EnglishOption.fontStyle = FontStyles.Bold;
+            HindiOption.fontStyle = FontStyles.Normal;
+            EnglishOption.color = Color.white;
+            HindiOption.color = Color.gray;
         }
 
-        // Save the selected language in PlayerPrefs
+        // Save the language preference
         PlayerPrefs.SetString("Language", language);
         PlayerPrefs.Save();
+        Debug.Log("Language saved: " + PlayerPrefs.GetString("Language"));
+
+        // Play button click sound only if triggered by user action
+        if (playSound && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayButtonClickSound();
+        }
     }
 
     public void SelectEnglish()
@@ -65,5 +56,5 @@ public class LanguageSelection : MonoBehaviour
     public void SelectHindi()
     {
         SetLanguage("Hindi");
-    }
+    }
 }

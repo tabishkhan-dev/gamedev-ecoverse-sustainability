@@ -2929,7 +2929,6 @@ Transform:
   - {fileID: 308532864}
   - {fileID: 1984440267}
   - {fileID: 294650843}
-  - {fileID: 1244908684}
   - {fileID: 624645111}
   m_Father: {fileID: 1035937412}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3794,6 +3793,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   introVideoName: IntroStory.mp4
   welcomeVideoName: welcomeL1.mp4
+  welcomeVideoHindi: welcomel1Hindi.mp4
+  introVideoHindi: IntroHindi.mp4
   gameMenuAudio: {fileID: 1199122345}
   welcomeL1Audio: {fileID: 666976639}
 --- !u!114 &1215157193
@@ -4024,7 +4025,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1244908684}
-  - component: {fileID: 1244908685}
   - component: {fileID: 1244908686}
   m_Layer: 0
   m_Name: LanguageManager
@@ -4032,7 +4032,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1244908684
 Transform:
   m_ObjectHideFlags: 0
@@ -4042,25 +4042,12 @@ Transform:
   m_GameObject: {fileID: 1244908683}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 446.87387, y: -109.519104, z: -40.78661}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1173.2305, y: 17.233719, z: -72.62708}
+  m_LocalScale: {x: 1.7806599, y: 1.7806599, z: 1.7806599}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 922073622}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1244908685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1244908683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 162cc829cde4df5408ecd88193662cb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StoryModeToggle: {fileID: 0}
 --- !u!114 &1244908686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6783,6 +6770,7 @@ SceneRoots:
   - {fileID: 1980065935}
   - {fileID: 1035937412}
   - {fileID: 872854919}
+  - {fileID: 1244908684}
   - {fileID: 1733261348}
   - {fileID: 1265302465}
   - {fileID: 1253196266}

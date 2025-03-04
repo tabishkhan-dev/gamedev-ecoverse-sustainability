@@ -3,10 +3,16 @@ using UnityEngine.SceneManagement;
 
 public class GamePlayManager : MonoBehaviour
 {
+    private bool isReturningToMenu = false; // Prevents multiple calls
+    private string savedLanguage;
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !isReturningToMenu)
         {
+            isReturningToMenu = true;
+            savedLanguage = PlayerPrefs.GetString("Language", "English");
+            Debug.Log("Loaded language in Start(): " + savedLanguage);
             ReturnToMenu();
         }
     }
@@ -14,27 +20,30 @@ public class GamePlayManager : MonoBehaviour
     public void ReturnToMenu()
     {
         Debug.Log("Returning to Game Menu...");
-        
-        // Save settings before switching scenes to ensure they're not reset
+
+        savedLanguage = PlayerPrefs.GetString("Language", "English");
+        Debug.Log("Loaded language in Start(): " + savedLanguage);
+
         SaveVolumeSettings();
 
-        SceneManager.LoadScene("Game menu"); // Ensure this matches your Game menu scene name
+        // Delay the sound slightly to avoid double playing
+        Invoke(nameof(PlayButtonClickSound), 0.05f);
 
+        SceneManager.LoadScene("Game menu");
+    }
+
+    private void PlayButtonClickSound()
+    {
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlayButtonClickSound();
         }
     }
 
-    // This method saves the volume settings (both game and story)
     private void SaveVolumeSettings()
     {
-        // Example for saving game volume
         PlayerPrefs.SetFloat("GameVolume", AudioListener.volume);
-        
-        // Example for saving story volume state (mute or unmute)
-        bool isMuted = PlayerPrefs.GetInt("StoryVolume", 0) == 1;
-        PlayerPrefs.SetInt("StoryVolume", isMuted ? 1 : 0);
+        PlayerPrefs.SetInt("StoryVolume", PlayerPrefs.GetInt("StoryVolume", 0));
         PlayerPrefs.Save();
-    }
+    }
 }
