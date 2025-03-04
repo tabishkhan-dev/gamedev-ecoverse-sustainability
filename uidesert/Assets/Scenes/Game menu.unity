@@ -1827,7 +1827,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &624645111
 Transform:
   m_ObjectHideFlags: 0
@@ -1850,12 +1850,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 624645110}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c17053e4cb428c4e9dc41710100723d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VoiceToggle: {fileID: 1235473668}
+  myToggle: {fileID: 0}
 --- !u!1 &666976639
 GameObject:
   m_ObjectHideFlags: 0
@@ -3819,6 +3819,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1235473667}
   - component: {fileID: 1235473668}
+  - component: {fileID: 1235473669}
   m_Layer: 5
   m_Name: VoiceModeToggle
   m_TagString: Untagged
@@ -3894,7 +3895,20 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 0
+  m_IsOn: 1
+--- !u!114 &1235473669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235473666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c17053e4cb428c4e9dc41710100723d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myToggle: {fileID: 1235473668}
 --- !u!1 &1242436686
 GameObject:
   m_ObjectHideFlags: 0

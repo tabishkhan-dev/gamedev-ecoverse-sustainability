@@ -100,11 +100,27 @@ namespace Pv.Unity
         /// Singleton instance of the VoiceProcessor.
         /// </summary>
         static VoiceProcessor _instance;
+        public static bool _applicationIsQuitting = false;
+
+        void OnApplicationQuit()
+        {
+            _applicationIsQuitting = true;
+            
+            // Set instance to null to prevent accessing a destroyed object
+            _instance = null;
+        }
 
         public static VoiceProcessor Instance
         {
+
             get
             {
+                if (_applicationIsQuitting)
+                {
+                    Debug.Log("Accessing VoiceProcessor singleton while application is quitting. Returning null.");
+                    return null;
+                }
+
                 if (_instance == null) FindFirstObjectByType<VoiceProcessor>();
                 if (_instance == null)
                 {
