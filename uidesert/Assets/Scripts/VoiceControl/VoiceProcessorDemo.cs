@@ -39,12 +39,18 @@ public class VoiceProcessorDemo : MonoBehaviour
     void Start()
     {
          Debug.Log("✅ VoiceProcessorDemo started!");
-         Debug.Log($"Voice mode from settings : {PlayerPrefs.GetInt("VoiceModeState")}");
 
         if (VoiceProcessor.Instance == null)
         {
             Debug.LogError("❌ VoiceProcessor Instance not found! Ensure it's in the scene.");
             return;
+        }
+
+        if (VoiceProcessor.Instance.IsRecording)
+        {
+            PlayerPrefs.SetInt("Voice", 0);
+            PlayerPrefs.Save();
+            VoiceProcessor.Instance.StopRecording();
         }
 
         // 🔹 Prevent duplicate instances
@@ -74,7 +80,7 @@ public class VoiceProcessorDemo : MonoBehaviour
 
     void Update()
     {
-        if (!IsVoiceModeEnabled()) return;
+        //if (!IsVoiceModeEnabled()) return;
 
         string currentScene = SceneManager.GetActiveScene().name;
         //Debug.Log($"[VoiceProcessorDemo] CurrentScene: {currentScene}");
@@ -86,6 +92,8 @@ public class VoiceProcessorDemo : MonoBehaviour
         {
             if (VoiceProcessor.Instance.IsRecording)
             {
+                PlayerPrefs.SetInt("Voice", 0);
+                PlayerPrefs.Save();
                 Debug.Log("[VoiceProcessorDemo] Scene change Stopping recording.");
                 VoiceProcessor.Instance.StopRecording();
             }
@@ -93,7 +101,7 @@ public class VoiceProcessorDemo : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && IsVoiceModeEnabled()) // Added Check
+        if (Input.GetKeyDown(KeyCode.LeftShift)) // Added Check
         {
 
                 if (VoiceProcessor.Instance.IsRecording)
@@ -133,16 +141,9 @@ public class VoiceProcessorDemo : MonoBehaviour
         }
     }
 
-    // Function to Check If Voice Mode is Enabled in Settings
-    private bool IsVoiceModeEnabled()
-    {
-
-        return PlayerPrefs.GetInt("VoiceModeState", 1) == 1;
-    }
-
     private void _onFrameCaptured(short[] frame)
     {
-        if (!IsVoiceModeEnabled()) return; // Prevents errors when voice control is OFF
+      //  if (PlayerPrefs.GetInt("Voice") == 0) return; // Prevents errors when voice control is OFF
 
         if (_dumpAudio)
         {
@@ -271,6 +272,8 @@ public class VoiceProcessorDemo : MonoBehaviour
         {
             if (VoiceProcessor.Instance.IsRecording)
             {
+                PlayerPrefs.SetInt("Voice", 0);
+                PlayerPrefs.Save();
                 Debug.Log("🛑 Game closing! Stopping recording...");
                 VoiceProcessor.Instance.StopRecording();
             }
