@@ -11,12 +11,12 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 using Pv.Unity;
 
 using System.Collections; 
 using System;
-using System.IO;// ✅ Required for Unity coroutines
+using System.IO;// Required for Unity coroutines
 using Google.Cloud.Speech.V1;
 
 
@@ -29,17 +29,17 @@ public class VoiceProcessorDemo : MonoBehaviour
     private bool _dumpAudio = true;
     private bool _wasPositive = false; // Track if scale was positive before
     private Coroutine _saveCoroutine = null; // Store coroutine reference
-    //private float recordingEndTime = -1f;
     private List<short[]> _audioData = new List<short[]>();
 
     private SpeechClient speechClient;
     public static string latestTranscription = "";
-    public static bool isNewTranscription = false; // ✅ Track if a new transcription is available
+    public static bool isNewTranscription = false; // Track if a new transcription is available
+    private readonly string[] voiceEnabledScenes = { "SampleScene", "level2" };
 
     void Start()
     {
          Debug.Log("✅ VoiceProcessorDemo started!");
-         Debug.Log($"Voice mode from settings : {PlayerPrefs.GetInt("VoiceMode")}");
+         Debug.Log($"Voice mode from settings : {PlayerPrefs.GetInt("VoiceModeState")}");
 
         if (VoiceProcessor.Instance == null)
         {
@@ -50,18 +50,16 @@ public class VoiceProcessorDemo : MonoBehaviour
         // 🔹 Prevent duplicate instances
         if (FindObjectsByType<VoiceProcessorDemo>(FindObjectsSortMode.None).Length > 1)
         {
-            Debug.LogWarning("⚠️ Duplicate VoiceProcessorDemo detected, destroying...");
+            Debug.Log(" Duplicate VoiceProcessorDemo detected, destroying...");
             Destroy(gameObject);
             return;
         }
 
-        DontDestroyOnLoad(gameObject); // ✅ Keeps it alive across scenes
+        DontDestroyOnLoad(gameObject); // Keeps it alive across scenes
 
         Debug.Log("🎤 Adding Frame Listener after scene reload...");
-        VoiceProcessor.Instance.AddFrameListener(_onFrameCaptured); // ✅ Re-register listener after scene reload
+        VoiceProcessor.Instance.AddFrameListener(_onFrameCaptured); // Re-register listener after scene reload
 
-
-        //DontDestroyOnLoad(gameObject); // ✅ Keeps it alive across scenes
 
         Debug.Log("Available Devices: " + string.Join(",", VoiceProcessor.Instance.Devices.ToArray()));
 
@@ -78,12 +76,26 @@ public class VoiceProcessorDemo : MonoBehaviour
     {
         if (!IsVoiceModeEnabled()) return;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && IsVoiceModeEnabled()) // ✅ Added Check
+        string currentScene = SceneManager.GetActiveScene().name;
+        //Debug.Log($"[VoiceProcessorDemo] CurrentScene: {currentScene}");
+        bool isVoiceScene = Array.Exists(voiceEnabledScenes, scene => scene == currentScene);
+        //Debug.Log($"[VoiceProcessorDemo] IsVoiceScene: {isVoiceScene}");
+
+        // 2) If not in a voice-enabled scene, skip SHIFT checks entirely
+        if (!isVoiceScene)
+        {
+            if (VoiceProcessor.Instance.IsRecording)
+            {
+                Debug.Log("[VoiceProcessorDemo] Scene change Stopping recording.");
+                VoiceProcessor.Instance.StopRecording();
+            }
+
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && IsVoiceModeEnabled()) // Added Check
         {
 
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                
                 if (VoiceProcessor.Instance.IsRecording)
                 {
                     PlayerPrefs.SetInt("Voice", 0);
@@ -100,7 +112,7 @@ public class VoiceProcessorDemo : MonoBehaviour
                     PlayerPrefs.Save();
                     VoiceProcessor.Instance.StartRecording(FrameLength, SampleRate);
                 }
-            }
+
 
             if (Input.GetKeyDown(KeyCode.Alpha0))
             {
@@ -124,13 +136,13 @@ public class VoiceProcessorDemo : MonoBehaviour
     // Function to Check If Voice Mode is Enabled in Settings
     private bool IsVoiceModeEnabled()
     {
-        //Debug.Log($"Voice mode from settings : {PlayerPrefs.GetInt("VoiceMode")}");
-        return PlayerPrefs.GetInt("VoiceMode", 1) == 1;
+
+        return PlayerPrefs.GetInt("VoiceModeState", 1) == 1;
     }
 
     private void _onFrameCaptured(short[] frame)
     {
-        if (!IsVoiceModeEnabled()) return; // ✅ Prevents errors when voice control is OFF
+        if (!IsVoiceModeEnabled()) return; // Prevents errors when voice control is OFF
 
         if (_dumpAudio)
         {
@@ -154,7 +166,7 @@ public class VoiceProcessorDemo : MonoBehaviour
         
         if (scale < 0)
         {
-            // ✅ If scale was positive before and now it's negative, start coroutine
+            // If scale was positive before and now it's negative, start coroutine
             if (_wasPositive && _saveCoroutine == null)
             {
                 _saveCoroutine = StartCoroutine(DelayedSave());
@@ -170,7 +182,7 @@ public class VoiceProcessorDemo : MonoBehaviour
     private IEnumerator DelayedSave()
     {
         Debug.Log("⏳ Waiting 1 second before saving...");
-        yield return new WaitForSeconds(1f); // ✅ Waits for 1 second
+        yield return new WaitForSeconds(1f); //  Waits for 1 second
 
         SaveRecordedAudio();
         _saveCoroutine = null; // Reset coroutine reference
@@ -185,7 +197,7 @@ public class VoiceProcessorDemo : MonoBehaviour
             wavFileWriter.Save("unity_voice_processor_auto.wav", _audioData);
             Debug.Log("✅ Audio saved: unity_voice_processor_auto.wav");
 
-            _audioData.Clear(); // ✅ Clear buffer after saving, but keep recording
+            _audioData.Clear(); //  Clear buffer after saving, but keep recording
 
             TranscribeAudio(audioFilePath);
         }
@@ -204,7 +216,7 @@ public class VoiceProcessorDemo : MonoBehaviour
             {
                 Encoding = RecognitionConfig.Types.AudioEncoding.Linear16,
                 SampleRateHertz = SampleRate,
-                //EnableAutomaticPunctuation = true, // ✅ Adds punctuation
+                //EnableAutomaticPunctuation = true, //  Adds punctuation
                 Model = "latest_long",
                 LanguageCode = "en-US"
             },
@@ -223,12 +235,12 @@ public class VoiceProcessorDemo : MonoBehaviour
                 }
             }
 
-            // ✅ Combine all transcriptions into one full sentence
+            //  Combine all transcriptions into one full sentence
             string fullTranscript = string.Join(" ", transcriptions); 
 
-            // ✅ Store it in a global variable (define latestTranscription at the top of your script)
+            //  Store it in a global variable (define latestTranscription at the top of your script)
             latestTranscription = fullTranscript.ToLower();
-            isNewTranscription = true; // ✅ New transcription received!
+            isNewTranscription = true; //  New transcription received!
             Debug.Log("Speech-to-Text processing complete.");
         }
         catch (Exception e)
@@ -244,17 +256,7 @@ public class VoiceProcessorDemo : MonoBehaviour
             StopCoroutine(_saveCoroutine);
             _saveCoroutine = null;
         }
-        if (VoiceProcessor.Instance.IsRecording)
-        {
-            Debug.Log("🛑 Scene changed! Stopping recording...");
-            VoiceProcessor.Instance.StopRecording();
-        }
 
-        if (VoiceProcessor.Instance != null)
-        {
-            Debug.Log("🔄 Removing frame listener to prevent accessing destroyed object...");
-            VoiceProcessor.Instance.RemoveFrameListener(_onFrameCaptured); // ✅ Remove listener
-        }
     }
 
     private void OnApplicationQuit()
@@ -264,34 +266,23 @@ public class VoiceProcessorDemo : MonoBehaviour
             StopCoroutine(_saveCoroutine);
             _saveCoroutine = null;
         }
-        if (VoiceProcessor.Instance.IsRecording)
-        {
-            Debug.Log("🛑 Game closing! Stopping recording...");
-            VoiceProcessor.Instance.StopRecording();
-        }
-
-        Debug.Log("🔄 Removing frame listener on quit...");
-        VoiceProcessor.Instance.RemoveFrameListener(_onFrameCaptured); // ✅ Ensure clean exit
 
         if (VoiceProcessor.Instance != null)
         {
-            Destroy(VoiceProcessor.Instance.gameObject); // ✅ Destroy only when the app closes
-            
-        }
-
-        GameObject[] allObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None); // 🔹 Get all active GameObjects in the scene
-
-        foreach (GameObject obj in allObjects)
-        {
-            if (obj.name == "Pv.Unity.VoiceProcessor") // ✅ Check if the name matches
+            if (VoiceProcessor.Instance.IsRecording)
             {
-                Debug.Log($"🗑️ Destroying object: {obj.name} on application quit.");
-                DestroyImmediate(obj);
+                Debug.Log("🛑 Game closing! Stopping recording...");
+                VoiceProcessor.Instance.StopRecording();
             }
+        
+
+            Debug.Log("🔄 Removing frame listener on quit...");
+            VoiceProcessor.Instance.RemoveFrameListener(_onFrameCaptured); //  Ensure clean exit
         }
 
-        Resources.UnloadUnusedAssets(); // ✅ Forces Unity to clean up
-        System.GC.Collect(); // ✅ Runs garbage collection
+
+        Resources.UnloadUnusedAssets(); //  Forces Unity to clean up
+        System.GC.Collect(); //  Runs garbage collection
     }
 
 }

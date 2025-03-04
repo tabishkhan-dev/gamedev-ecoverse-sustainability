@@ -29,8 +29,10 @@ public class TubeCollectionManager : MonoBehaviour
 
     void Start()
     {
-        PlayerPrefs.DeleteAll(); // Clear all previous data
-        PlayerPrefs.SetInt("FactCount", 0); // Reset FactCount to 0
+        // Clear all previous data
+        PlayerPrefs.DeleteKey("FactCount"); 
+        PlayerPrefs.DeleteKey("SelectedFactKeys");
+        //PlayerPrefs.SetInt("FactCount", 0); // Reset FactCount to 0
 
         // Initialize the list of remaining facts with all the facts
         remainingFacts = new List<(string key, string fact)>(knowledgeFactsWithKeys);

@@ -8,6 +8,9 @@ public class PlayerController_Level2 : MonoBehaviour
     public float longJumpForwardForce = 40f; // Forward force for the long jump
     public float turnSpeed = 5f;           // Speed of rotation
     private bool isGrounded = true;        // Checks if the player is on the ground
+    private int isVoiceControlActive = 0; // Track control mode
+    private bool isRunningFwd = false; // Track whether the player is running forward
+    private bool isRunningBack = false; // Track whether the player is running backward
 
     private Rigidbody rb;
     private Animator animator;
@@ -19,6 +22,90 @@ public class PlayerController_Level2 : MonoBehaviour
     }
 
     void Update()
+    {
+        isVoiceControlActive = PlayerPrefs.GetInt("Voice"); // Read Voice Mode
+
+        if(isVoiceControlActive == 1)
+        {
+            HandleVoiceControl();  // Use Voice Commands
+        }
+        else
+        {
+            HandleKeyboardControl();  // Use Keyboard
+        }
+    }
+
+    void HandleVoiceControl()
+    {
+        string command = VoiceProcessorDemo.latestTranscription; // Get latest transcribed command
+
+        //if (string.IsNullOrEmpty(command)) return; // If no command, do nothing
+
+        if (VoiceProcessorDemo.isNewTranscription) // ✅ Process only when new transcription arrives
+        {
+
+            if (command.Contains("run"))
+            {
+                MoveForward();
+                isRunningFwd = true; // Set running flag
+                isRunningBack = false; // Set running flag
+            }
+            else if (command.Contains("back"))
+            {
+                isRunningFwd = false; // Set running flag
+                isRunningBack = true; // Set running flag
+                MoveBackward();
+            }
+            else if (command.Contains("stop"))
+            {
+                isRunningFwd = false; // Set running flag
+                isRunningBack = false; // Set running flag
+                animator.SetBool("isSprinting", false);
+            }
+            else if (command.Contains("left"))
+            {
+                transform.Rotate(Vector3.down * turnSpeed);
+            }
+            else if (command.Contains("right") || command.Contains("write"))
+            {
+                transform.Rotate(Vector3.up * turnSpeed);
+            }
+            else if (command.Contains("jump"))
+            {
+                HandleLongJump();
+            }
+        }
+        VoiceProcessorDemo.isNewTranscription = false; // ✅ Reset flag after processing
+        // ✅ Keep running if the player said "run" until "stop" is spoken
+        if (isRunningFwd)
+        {
+            MoveForward();
+        }
+        if (isRunningBack)
+        {
+            MoveBackward();
+        }
+    }
+
+    void MoveForward()
+    {
+        Vector3 moveDirection = transform.forward;
+        transform.Translate(moveDirection * sprintSpeed * Time.deltaTime, Space.World);
+
+        // Trigger sprinting animation
+        animator.SetBool("isSprinting", true);
+    }
+
+    void MoveBackward()
+    {
+        Vector3 moveDirection = -transform.forward; // Move backward
+        transform.Translate(moveDirection * backwardSpeed * Time.deltaTime, Space.World);
+
+        // Stop sprinting animation for backward movement
+        animator.SetBool("isSprinting", false);
+    }
+
+    void HandleKeyboardControl()
     {
         // Handle forward and backward movement
         HandleMovement();
